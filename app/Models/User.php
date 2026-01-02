@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -26,6 +27,31 @@ class User extends Authenticatable
         'avatar_url',
         'phone',
     ];
+
+    public function diet(): BelongsTo
+    {
+        return $this->belongsTo(Diet::class, 'diet_id');
+    }
+
+    public function allergy(): BelongsTo
+    {
+        return $this->belongsTo(Allergy::class, 'allergy_id');
+    }
+
+    public function ownedHomes(): HasMany
+    {
+        return $this->hasMany(Home::class, 'owner_id');
+    }
+
+    public function chatThreads(): HasMany
+    {
+        return $this->hasMany(ChatThread::class, 'user_id');
+    }
+
+    public function pantryItems(): HasMany
+    {
+        return $this->hasMany(PantryItem::class, 'owner_user_id');
+    }
 
     
     /**
