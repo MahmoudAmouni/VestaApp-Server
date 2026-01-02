@@ -1,10 +1,12 @@
 <?php
+// app/Models/ShoppingListItem.php
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ShoppingListItem extends Model
 {
@@ -22,4 +24,19 @@ class ShoppingListItem extends Model
         'quantity' => 'integer',
         'is_checked' => 'boolean',
     ];
+
+    public function home(): BelongsTo
+    {
+        return $this->belongsTo(Home::class, 'home_id');
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class, 'unit_id');
+    }
+
+    public function ingredient(): BelongsTo
+    {
+        return $this->belongsTo(PantryItem::class, 'item_id');
+    }
 }
