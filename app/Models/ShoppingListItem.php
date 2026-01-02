@@ -12,7 +12,7 @@ class ShoppingListItem extends Model
 
     protected $fillable = [
         'home_id',
-        'ingredient_id',
+        'item_id',
         'unit_id',
         'quantity',
         'is_checked',
