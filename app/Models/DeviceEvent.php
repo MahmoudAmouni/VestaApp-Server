@@ -6,18 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ChatMessage extends Model
+class DeviceEvent extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'thread_id',
-        'role',
-        'content',
+        'device_id',
+        'action',
     ];
 
-    public function thread(): BelongsTo
+    public function device(): BelongsTo
     {
-        return $this->belongsTo(ChatThread::class, 'thread_id');
+        return $this->belongsTo(Device::class, 'device_id');
     }
 }
