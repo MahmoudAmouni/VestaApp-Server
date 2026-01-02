@@ -1,5 +1,4 @@
 <?php
-// app/Models/Diet.php
 
 namespace App\Models;
 
