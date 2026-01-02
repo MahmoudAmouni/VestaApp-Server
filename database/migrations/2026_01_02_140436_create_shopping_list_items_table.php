@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('saved_recipes', function (Blueprint $table) {
+        Schema::create('shopping_list_items', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('home_id')->nullable()->index();
+            $table->unsignedBigInteger('ingredient_id')->nullable()->index(); 
+            $table->unsignedBigInteger('unit_id')->nullable()->index(); 
 
-            $table->string('steps', 8192);
-            $table->string('ingredients', 255);
+            $table->integer('quantity')->default(1);
+            $table->integer('is_checked')->default(0);
 
             $table->timestamps();
             $table->softDeletes();
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('saved_recipes');
+        Schema::dropIfExists('shopping_list_items');
     }
 };
