@@ -12,9 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('diets', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->text('name')->unique();
-            $table->text('description')->nullable();
+            $table->bigIncrements('id');
+            $table->string('name', 120)->unique();
+            $table->string('description', 1024)->nullable();
+
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
