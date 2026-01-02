@@ -13,17 +13,14 @@ return new class extends Migration
     {
         Schema::create('pantry_items', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             $table->unsignedBigInteger('home_id')->index();
             $table->unsignedBigInteger('owner_user_id')->nullable()->index();
             $table->unsignedBigInteger('item_name_id')->index();
-
             $table->unsignedBigInteger('location_id')->index();
-
-            $table->integer('quantity')->default(0);
             $table->unsignedBigInteger('unit_id')->nullable()->index();
 
-            $table->unsignedBigInteger('expiry_date')->nullable();  // unix seconds
+            $table->integer('quantity')->default(0);
+            $table->unsignedBigInteger('expiry_date')->nullable(); 
 
             $table->timestamps();
             $table->softDeletes();

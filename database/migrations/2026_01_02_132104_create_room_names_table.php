@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('room_names', function (Blueprint $table) {
             $table->bigIncrements('id');
+            
             $table->string('name', 120)->unique();
 
             $table->timestamps();

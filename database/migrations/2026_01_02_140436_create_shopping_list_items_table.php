@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('shopping_list_items', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             $table->unsignedBigInteger('home_id')->nullable()->index();
             $table->unsignedBigInteger('ingredient_id')->nullable()->index(); 
             $table->unsignedBigInteger('unit_id')->nullable()->index(); 

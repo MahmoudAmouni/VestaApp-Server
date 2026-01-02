@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('pantry_item_names', function (Blueprint $table) {
             $table->bigIncrements('id');
+            
             $table->string('name', 160)->unique();
 
             $table->timestamps();

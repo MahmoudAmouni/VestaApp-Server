@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('chat_threads', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('home_id')->nullable()->index();
 

@@ -13,14 +13,12 @@ return new class extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             $table->unsignedBigInteger('home_id')->index();
             $table->unsignedBigInteger('room_id')->nullable()->index();
             $table->unsignedBigInteger('device_name_id')->index();
+            $table->string('external_id', 255)->nullable();
 
             $table->integer('is_on')->default(0);
-
-            $table->string('external_id', 255)->nullable();
 
             $table->timestamps();
             $table->softDeletes();

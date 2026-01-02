@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('device_events', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             $table->unsignedBigInteger('device_id')->index();
 
             $table->string('action', 10); 
-            $table->string('source', 20); 
 
             $table->timestamps();
             $table->softDeletes();

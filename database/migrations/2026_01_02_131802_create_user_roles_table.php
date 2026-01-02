@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('user_roles', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->string('role', 20); 
+            
             $table->timestamps();
             $table->softDeletes();
         });

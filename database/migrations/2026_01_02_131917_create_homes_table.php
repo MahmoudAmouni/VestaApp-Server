@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('homes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('owner_id')->index();
+
             $table->string('name', 255);
+            
             $table->timestamps();
             $table->softDeletes();
         });
