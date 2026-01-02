@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('unit_id')->nullable()->index();
 
             $table->integer('quantity')->default(0);
-            $table->unsignedBigInteger('expiry_date')->nullable(); 
+            $table->string('expiry_date')->nullable(); 
 
             $table->timestamps();
             $table->softDeletes();
