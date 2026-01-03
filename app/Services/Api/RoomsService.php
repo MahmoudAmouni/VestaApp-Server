@@ -52,14 +52,43 @@ class RoomsService
             $roomName = $this->findOrCreateByName(RoomName::class, $data['room_name']);
 
 
-            return Room::create([
-                'home_id' => $homeId,
-                'room_name_id' => $roomName->id,
-            ]);
+            $room = new Room();
+            $room->home_id = $homeId;
+            $room->room_name_id = $roomName->id;
+            $room->save();
+            return $room;
         });
 
         $room->load('roomName');
 
         return ['room' => $room];
+    }
+    public function delete(int $homeId, int $roomId): array
+    {
+        $home = Home::query()->find($homeId);
+        if (!$home) {
+            throw ApiException::notFound('Home not found.');
+        }
+
+        if (auth()->check() && $home->owner_id !== auth()->id()) {
+            throw ApiException::unauthorized('You are not allowed to modify this home.');
+        }
+
+        $room = Room::query()
+            ->where('id', $roomId)
+            ->where('home_id', $homeId)
+            ->first();
+
+        if (!$room) {
+            throw ApiException::notFound('Room not found for this home.');
+        }
+
+        DB::transaction(function () use ($room) {
+            $room->devices()->delete();
+
+            $room->delete();
+        });
+
+        return ['deleted' => true];
     }
 }

@@ -22,4 +22,11 @@ class DeviceController extends BaseApiController
             201
         );
     }
+    public function delete(int $home, int $room, int $device): JsonResponse
+    {
+        return $this->handle(
+            fn() => $this->deviceService->delete($home, $room, $device),
+            'Device deleted.'
+        );
+    }
 }

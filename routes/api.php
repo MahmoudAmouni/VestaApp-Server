@@ -12,3 +12,6 @@ Route::get('/rooms/{home_id}', [RoomsController::class, 'listRoomsWithDevices'])
 Route::post('/rooms/create/{home_id}', [RoomsController::class, 'create']);
 Route::post('/devices/create/{home_id}/{room_id}', [DeviceController::class, 'create']);
 
+Route::get('/rooms/delete/{home_id}/{room_id}', [RoomsController::class, 'delete']);
+Route::get('/devices/delete/{home_id}/{room_id}/{device_id}', [DeviceController::class, 'delete']);
+

@@ -4,12 +4,9 @@ namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 
-
 trait FindOrCreateByName
 {
-    /**
-     * @param class-string<Model> $modelClass
-     */
+
     protected function findOrCreateByName(string $modelClass, string $name): Model
     {
         $name = trim($name);
@@ -23,6 +20,10 @@ trait FindOrCreateByName
             return $row;
         }
 
-        return $modelClass::create(['name' => $name]);
+        $new = new $modelClass();
+        $new->name = $name;
+        $new->save();
+
+        return $new;
     }
 }

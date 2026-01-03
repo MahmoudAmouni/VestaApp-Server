@@ -28,4 +28,11 @@ class RoomsController extends BaseApiController
             201
         );
     }
+    public function delete(int $home, int $room): JsonResponse
+    {
+        return $this->handle(
+            fn() => $this->roomsService->delete($home, $room),
+            'Room deleted.'
+        );
+    }
 }
