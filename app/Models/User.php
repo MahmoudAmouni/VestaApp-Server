@@ -25,6 +25,7 @@ class User extends Authenticatable implements JWTSubject
         'allergy_id',
         'email',
         'name',
+        'password',
         'avatar_url',
         'phone',
     ];
