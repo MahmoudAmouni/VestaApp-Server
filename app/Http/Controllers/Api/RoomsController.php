@@ -3,20 +3,29 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Service\Api\RoomsService;
+use App\Http\Requests\Rooms\StoreRoomRequest;
+use App\Services\Api\RoomsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class RoomsController extends BaseApiController
 {
-    public function __construct(private readonly RoomsService $roomesService)
+    public function __construct(private readonly RoomsService $roomsService)
     {
     }
     public function listRoomsWithDevices(int $home_id): JsonResponse
     {
         return $this->handle(
-            fn() => $this->roomesService->listRoomsWithDevices($home_id),
+            fn() => $this->roomsService->listRoomsWithDevices($home_id),
             'Rooms loaded.'
+        );
+    }
+    public function create(int $home, StoreRoomRequest $request): JsonResponse
+    {
+        return $this->handle(
+            fn() => $this->roomsService->create($home, $request->validated()),
+            'Room created.',
+            201
         );
     }
 }

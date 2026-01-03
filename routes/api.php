@@ -8,4 +8,5 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/rooms/{home_id}', [RoomsController::class, 'listRoomsWithDevices']);
+Route::post('/rooms/create/{home_id}', [RoomsController::class, 'create']);
 
