@@ -20,8 +20,7 @@ class BaseApiController extends Controller
         } catch (ApiException $e) {
             return $this->fail($e->getMessage(), $e->status, $e->errors);
         } catch (Throwable $e) {
-            report($e);
-            return $this->fail('Something went wrong.', 500);
+            return $this->fail($e->getMessage() . 'Something went wrong.', 500);
         }
     }
 }
