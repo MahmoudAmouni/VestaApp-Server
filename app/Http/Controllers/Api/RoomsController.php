@@ -35,4 +35,13 @@ class RoomsController extends BaseApiController
             'Room deleted.'
         );
     }
+
+
+    public function update(int $home, int $room, StoreRoomRequest $request): JsonResponse
+    {
+        return $this->handle(
+            fn() => $this->roomsService->update($home, $room, $request->validated()),
+            'Room updated.'
+        );
+    }
 }

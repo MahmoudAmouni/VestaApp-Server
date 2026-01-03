@@ -90,4 +90,48 @@ class DeviceService
 
         return ['deleted' => true];
     }
+
+    public function update(int $homeId, int $roomId, int $deviceId, array $data): array
+    {
+        $home = Home::query()->find($homeId);
+        if (!$home) {
+            throw ApiException::notFound('Home not found.');
+        }
+
+        if (auth()->check() && $home->owner_id !== auth()->id()) {
+            throw ApiException::unauthorized('You are not allowed to modify this home.');
+        }
+
+        $roomExists = Room::query()
+            ->where('id', $roomId)
+            ->where('home_id', $homeId)
+            ->exists();
+
+        if (!$roomExists) {
+            throw ApiException::notFound('Room not found for this home.');
+        }
+
+        $device = Device::query()
+            ->where('id', $deviceId)
+            ->where('home_id', $homeId)
+            ->where('room_id', $roomId)
+            ->first();
+
+        if (!$device) {
+            throw ApiException::notFound('Device not found in this room.');
+        }
+
+        DB::transaction(function () use ($device, $data) {
+            $deviceName = $this->findOrCreateByName(DeviceName::class, $data['device_name']);
+
+            $device->device_name_id = $deviceName->id;
+            $device->is_on = (bool) $data['is_on'];
+            $device->external_id = $data['external_id'] ?? null;
+            $device->save();
+        });
+
+        $device->load('deviceName');
+
+        return ['device' => $device];
+    }
 }

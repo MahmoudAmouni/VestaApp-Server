@@ -15,3 +15,6 @@ Route::post('/devices/create/{home_id}/{room_id}', [DeviceController::class, 'cr
 Route::get('/rooms/delete/{home_id}/{room_id}', [RoomsController::class, 'delete']);
 Route::get('/devices/delete/{home_id}/{room_id}/{device_id}', [DeviceController::class, 'delete']);
 
+Route::post('/rooms/update/{home_id}/{room_id}', [RoomsController::class, 'update']);
+Route::post('/devices/update/{home_id}/{room_id}/{device_id}', [DeviceController::class, 'update']);
+
