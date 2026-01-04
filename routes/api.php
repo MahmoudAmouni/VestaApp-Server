@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DeviceController;
+use App\Http\Controllers\Api\PantryController;
 use App\Http\Controllers\Api\RoomsController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,3 +19,7 @@ Route::get('/devices/delete/{home_id}/{room_id}/{device_id}', [DeviceController:
 Route::post('/rooms/update/{home_id}/{room_id}', [RoomsController::class, 'update']);
 Route::post('/devices/update/{home_id}/{room_id}/{device_id}', [DeviceController::class, 'update']);
 
+    Route::get('/pantry/{home_id}', [PantryController::class, 'list']);
+    Route::post('/pantry/{home_id}', [PantryController::class, 'create']);
+    Route::post('/pantry/{home_id}/{pantryItem}', [PantryController::class, 'update']);
+    Route::get('/pantry/{home_id}/{pantryItem}', [PantryController::class, 'delete']);
