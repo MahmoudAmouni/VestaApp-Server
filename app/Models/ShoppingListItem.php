@@ -34,6 +34,10 @@ class ShoppingListItem extends Model
     {
         return $this->belongsTo(Unit::class, 'unit_id');
     }
+    public function itemName(): BelongsTo
+    {
+        return $this->belongsTo(PantryItemName::class, 'item_id');
+    }
 
     public function ingredient(): BelongsTo
     {

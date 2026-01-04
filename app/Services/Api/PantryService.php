@@ -23,9 +23,6 @@ class PantryService
             throw ApiException::notFound('Home not found.');
         }
 
-        if (auth()->check() && $home->owner_id !== auth()->id()) {
-            throw ApiException::unauthorized('You are not allowed to view this home.');
-        }
 
         $items = PantryItem::query()
             ->where('home_id', $homeId)
@@ -44,9 +41,6 @@ class PantryService
             throw ApiException::notFound('Home not found.');
         }
 
-        if (auth()->check() && $home->owner_id !== auth()->id()) {
-            throw ApiException::unauthorized('You are not allowed to modify this home.');
-        }
 
         $pantryItem = DB::transaction(function () use ($homeId, $data) {
             $itemName = $this->findOrCreateByName(PantryItemName::class, trim($data['item_name']));
@@ -63,11 +57,12 @@ class PantryService
             $pantryItem->expiry_date = $data['expiry_date'] ?? null;
             $pantryItem->save();
 
-            PantryEvent::query()->create([
-                'home_id' => $homeId,
-                'pantry_item_id' => $pantryItem->id,
-                'event_type' => 'created',
-            ]);
+            $event = new PantryEvent();
+            $event->home_id = $homeId;
+            $event->$homeId = $pantryItem->id;
+            $event->event_type = 'created (qty: ' . (int) $pantryItem->quantity . ')';
+            $event->save();
+
 
             return $pantryItem;
         });
@@ -84,9 +79,6 @@ class PantryService
             throw ApiException::notFound('Home not found.');
         }
 
-        if (auth()->check() && $home->owner_id !== auth()->id()) {
-            throw ApiException::unauthorized('You are not allowed to modify this home.');
-        }
 
         $pantryItem = PantryItem::query()
             ->where('id', $pantryItemId)
@@ -96,8 +88,8 @@ class PantryService
         if (!$pantryItem) {
             throw ApiException::notFound('Pantry item not found in this home.');
         }
-
-        DB::transaction(function () use ($homeId, $pantryItem, $data) {
+        $oldQty = (int) $pantryItem->quantity;
+        DB::transaction(function () use ($homeId, $pantryItem, $data, $oldQty) {
             $itemName = $this->findOrCreateByName(PantryItemName::class, trim($data['item_name']));
             $location = $this->findOrCreateByName(PantryLocation::class, trim($data['location']));
             $unit = $this->findOrCreateByName(Unit::class, trim($data['unit']));
@@ -109,11 +101,22 @@ class PantryService
             $pantryItem->expiry_date = $data['expiry_date'] ?? null;
             $pantryItem->save();
 
-            PantryEvent::query()->create([
-                'home_id' => $homeId,
-                'pantry_item_id' => $pantryItem->id,
-                'event_type' => 'updated',
-            ]);
+            $newQty = (int) $pantryItem->quantity;
+            $delta = $newQty - $oldQty;
+
+            if ($delta > 0) {
+                $eventType = 'qty_added: ' . $delta . ' (from ' . $oldQty . ' to ' . $newQty . ')';
+            } elseif ($delta < 0) {
+                $eventType = 'qty_removed: ' . abs($delta) . ' (from ' . $oldQty . ' to ' . $newQty . ')';
+            } else {
+                $eventType = 'updated (qty unchanged: ' . $oldQty . ')';
+            }
+
+            $event = new PantryEvent();
+            $event->home_id = $homeId;
+            $event->pantry_item_id = $pantryItem->id;
+            $event->event_type = $eventType;
+            $event->save();
         });
 
         $pantryItem->load(['itemName', 'location', 'unit']);
@@ -128,9 +131,6 @@ class PantryService
             throw ApiException::notFound('Home not found.');
         }
 
-        if (auth()->check() && $home->owner_id !== auth()->id()) {
-            throw ApiException::unauthorized('You are not allowed to modify this home.');
-        }
 
         $pantryItem = PantryItem::query()
             ->where('id', $pantryItemId)
@@ -142,15 +142,16 @@ class PantryService
         }
 
         DB::transaction(function () use ($homeId, $pantryItem) {
-            PantryEvent::query()->create([
-                'home_id' => $homeId,
-                'pantry_item_id' => $pantryItem->id,
-                'event_type' => 'deleted',
-            ]);
+            $event = new PantryEvent();
+            $event->home_id = $homeId;
+            $event->pantry_item_id = $pantryItem->id;
+            $event->event_type = 'deleted (qty: ' . (int) $pantryItem->quantity . ')';
+            $event->save();
 
             $pantryItem->delete(); 
         });
 
         return ['deleted' => true];
     }
+
 }

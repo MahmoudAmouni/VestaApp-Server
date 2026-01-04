@@ -22,9 +22,7 @@ class DeviceService
             throw ApiException::notFound('Home not found.');
         }
 
-        if (auth()->check() && $home->owner_id !== auth()->id()) {
-            throw ApiException::unauthorized('You are not allowed to modify this home.');
-        }
+
 
         $room = Room::query()
             ->where('id', $roomId)
@@ -61,9 +59,7 @@ class DeviceService
             throw ApiException::notFound('Home not found.');
         }
 
-        if (auth()->check() && $home->owner_id !== auth()->id()) {
-            throw ApiException::unauthorized('You are not allowed to modify this home.');
-        }
+
 
         $roomExists = Room::query()
             ->where('id', $roomId)
@@ -85,7 +81,7 @@ class DeviceService
         }
 
         DB::transaction(function () use ($device) {
-            $device->delete(); 
+            $device->delete();
         });
 
         return ['deleted' => true];
@@ -96,10 +92,6 @@ class DeviceService
         $home = Home::query()->find($homeId);
         if (!$home) {
             throw ApiException::notFound('Home not found.');
-        }
-
-        if (auth()->check() && $home->owner_id !== auth()->id()) {
-            throw ApiException::unauthorized('You are not allowed to modify this home.');
         }
 
         $roomExists = Room::query()

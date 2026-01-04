@@ -43,10 +43,6 @@ class RoomsService
             throw ApiException::notFound('Home not found.');
         }
 
-        if (auth()->check() && $home->owner_id !== auth()->id()) {
-            throw ApiException::unauthorized('You are not allowed to modify this home.');
-        }
-
         $room = DB::transaction(function () use ($homeId, $data) {
 
             $roomName = $this->findOrCreateByName(RoomName::class, $data['room_name']);
@@ -70,9 +66,6 @@ class RoomsService
             throw ApiException::notFound('Home not found.');
         }
 
-        if (auth()->check() && $home->owner_id !== auth()->id()) {
-            throw ApiException::unauthorized('You are not allowed to modify this home.');
-        }
 
         $room = Room::query()
             ->where('id', $roomId)
@@ -99,9 +92,6 @@ class RoomsService
             throw ApiException::notFound('Home not found.');
         }
 
-        if (auth()->check() && $home->owner_id !== auth()->id()) {
-            throw ApiException::unauthorized('You are not allowed to modify this home.');
-        }
 
         $room = Room::query()
             ->where('id', $roomId)
