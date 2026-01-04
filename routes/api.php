@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ChatController;
 use App\Http\Controllers\Api\DeviceController;
 use App\Http\Controllers\Api\PantryController;
 use App\Http\Controllers\Api\RoomsController;
@@ -29,3 +30,5 @@ Route::get('/shoppinglist/{home_id}', [ShoppingListController::class, 'list']);
 Route::post('/shoppinglist/{home_id}', [ShoppingListController::class, 'create']);
 Route::post('/shoppinglist/{home_id}/{item_id}', [ShoppingListController::class, 'update']);
 Route::get('/shoppinglist/{home_id}/{item_id}', [ShoppingListController::class, 'delete']);
+
+Route::get('/chat/{home_id}/{thread_id}', [ChatController::class, 'list']);
