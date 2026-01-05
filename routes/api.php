@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\DeviceController;
 use App\Http\Controllers\Api\PantryController;
 use App\Http\Controllers\Api\RoomsController;
 use App\Http\Controllers\Api\ShoppingListController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,3 +33,5 @@ Route::post('/shoppinglist/{home_id}/{item_id}', [ShoppingListController::class,
 Route::get('/shoppinglist/{home_id}/{item_id}', [ShoppingListController::class, 'delete']);
 
 Route::get('/chat/{home_id}/{thread_id}', [ChatController::class, 'list']);
+
+Route::post('/users/{user}', [UserController::class, 'update']);
