@@ -33,6 +33,7 @@
     29 => 'Termwind\\Laravel\\TermwindServiceProvider',
     30 => 'PHPOpenSourceSaver\\JWTAuth\\Providers\\LaravelServiceProvider',
     31 => 'App\\Providers\\AppServiceProvider',
+    32 => 'App\\Providers\\OpenAiServiceProvider',
   ),
   'eager' => 
   array (
@@ -53,6 +54,7 @@
     14 => 'Termwind\\Laravel\\TermwindServiceProvider',
     15 => 'PHPOpenSourceSaver\\JWTAuth\\Providers\\LaravelServiceProvider',
     16 => 'App\\Providers\\AppServiceProvider',
+    17 => 'App\\Providers\\OpenAiServiceProvider',
   ),
   'deferred' => 
   array (

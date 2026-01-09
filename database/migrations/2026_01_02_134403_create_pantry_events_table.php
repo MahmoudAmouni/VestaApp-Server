@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('home_id')->index();
             $table->unsignedBigInteger('pantry_item_id')->nullable()->index();
 
-            $table->string('event_type', 20);//make it removed quantity-unit 
+            $table->string('event_type', 255);//make it removed quantity-unit 
 
             $table->timestamps();
             $table->softDeletes();

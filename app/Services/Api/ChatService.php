@@ -43,7 +43,7 @@ class ChatService
         $messages = ChatMessage::query()
             ->where('thread_id', $threadId)
             ->orderByDesc('id') 
-            ->paginate(20);
+            ->paginate(10);
 
         return ['chat_messages' => $messages];
 

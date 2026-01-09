@@ -22,8 +22,6 @@ class DeviceService
             throw ApiException::notFound('Home not found.');
         }
 
-
-
         $room = Room::query()
             ->where('id', $roomId)
             ->where('home_id', $homeId)
@@ -58,8 +56,6 @@ class DeviceService
         if (!$home) {
             throw ApiException::notFound('Home not found.');
         }
-
-
 
         $roomExists = Room::query()
             ->where('id', $roomId)
