@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Auth\GoogleAuthRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Services\Api\AuthService;
@@ -30,4 +31,14 @@ class AuthController extends BaseApiController
             'Logged in successfully.'
         );
     }
+
+    public function google(GoogleAuthRequest $request): JsonResponse
+    {
+        return $this->handle(
+            fn() => $this->authService->google($request->validated()),
+            'Authenticated with Google.'
+        );
+    }
+
+    
 }

@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 //add versions to the routes 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/auth/google', [AuthController::class, 'google']);
+
 
 Route::group(["prefix" => "v1", "middleware" => "auth:api"], function () {
     Route::post('/home', [HomeController::class, 'create']);          
