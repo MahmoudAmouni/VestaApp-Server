@@ -3,6 +3,7 @@
 namespace App\Services\Api;
 
 use App\Exceptions\ApiException;
+use App\Models\Home;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -27,10 +28,16 @@ class AuthService
             $user->allergy_id = $data['allergy_id'] ?? null;
             $user->save();
 
+            $home = new Home();
+            $home->name = $data["home_name"];
+            $home->owner_id = $user->id;
+            $home->save();
+
             $token = JWTAuth::fromUser($user);
 
             return [
                 'user' => $user,
+                'home'=>$home,
                 'access_token' => $token,
                 'token_type' => 'bearer',
             ];
@@ -52,10 +59,14 @@ class AuthService
 
         $user = JWTAuth::user();
 
+        $homeId = $user->ownedHomes()->orderBy('id', 'asc')->value('id'); 
+
         return [
             'user' => $user,
+            'home_id' => $homeId,       
             'access_token' => $token,
             'token_type' => 'bearer',
         ];
     }
+
 }

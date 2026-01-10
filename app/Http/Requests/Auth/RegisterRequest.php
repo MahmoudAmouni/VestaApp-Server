@@ -14,13 +14,12 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email:rfc,dns', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
+            'home_name' => ['required', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:50'],
             'avatar_url' => ['nullable', 'string', 'max:1024'],
-            'diet_id' => ['nullable', 'integer'],
-            'allergy_id' => ['nullable', 'integer'],
         ];
     }
 }
