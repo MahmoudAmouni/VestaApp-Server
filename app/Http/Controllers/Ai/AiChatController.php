@@ -14,10 +14,10 @@ class AiChatController extends BaseApiController
     {
     }
 
-    public function sendMessage(int $home, int $thread, SendMessageRequest $request): JsonResponse
+    public function sendMessage(int $home, SendMessageRequest $request): JsonResponse
     {
         return $this->handle(
-            fn() => $this->chatService->sendMessage($home, $thread, $request->validated()),
+            fn() => $this->chatService->sendMessage($home, $request->validated()),
             'Message sent.'
         );
     }
