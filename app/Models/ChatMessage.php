@@ -11,13 +11,13 @@ class ChatMessage extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'thread_id',
+        'home_id',
         'role',
         'content',
     ];
 
     public function thread(): BelongsTo
     {
-        return $this->belongsTo(ChatThread::class, 'thread_id');
+        return $this->belongsTo(Home::class, 'home_id');
     }
 }

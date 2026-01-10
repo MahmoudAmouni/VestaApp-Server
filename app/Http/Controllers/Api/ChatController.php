@@ -12,10 +12,10 @@ class ChatController extends BaseApiController
     public function __construct(private readonly ChatService $chatService)
     {
     }
-    public function list(int $home, int $thread): JsonResponse
+    public function list(int $home): JsonResponse
     {
         return $this->handle(
-            fn() => $this->chatService->listMessages($home, $thread),
+            fn() => $this->chatService->listMessages($home),
             'Chat messages fetched.'
         );
     }
