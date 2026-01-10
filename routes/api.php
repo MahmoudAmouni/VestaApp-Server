@@ -42,9 +42,9 @@ Route::group(["prefix" => "v1", "middleware" => "auth:api"], function () {
     Route::post('/shoppinglist/{home_id}/{item_id}', [ShoppingListController::class, 'update']);
     Route::get('/shoppinglist/{home_id}/{item_id}', [ShoppingListController::class, 'delete']);
 
-    Route::get('/chat/{home_id}/{thread_id}', [ChatController::class, 'list']);
+    Route::get('/chat/{home_id}', [ChatController::class, 'list']);
 
-    Route::post('messages/{home}/{thread}', [AiChatController::class, 'sendMessage']);
+    Route::post('messages/{home}', [AiChatController::class, 'sendMessage']);
 
     Route::post('/users', [UserController::class, 'update']);
 });

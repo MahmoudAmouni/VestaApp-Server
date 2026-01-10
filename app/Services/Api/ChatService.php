@@ -16,7 +16,7 @@ class ChatService
     {
         
     }
-    public function listMessages(int $homeId, int $threadId): array
+    public function listMessages(int $homeId): array
     {
         $home = Home::query()->find($homeId);
         if (!$home) {
@@ -31,17 +31,11 @@ class ChatService
         //     throw ApiException::unauthorized('You are not allowed to view this home.');
         // }
 
-        $thread = ChatThread::query()
-            ->where('id', $threadId)
-            ->where('home_id', $homeId)
-            ->first();
 
-        if (!$thread) {
-            throw ApiException::notFound('Chat thread not found.');
-        }
+
 
         $messages = ChatMessage::query()
-            ->where('thread_id', $threadId)
+            ->where('home_id', $homeId)
             ->orderByDesc('id') 
             ->paginate(10);
 
