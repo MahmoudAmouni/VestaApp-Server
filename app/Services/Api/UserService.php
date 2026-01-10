@@ -18,15 +18,13 @@ class UserService
 {
     use FindOrCreateByName;
 
-    public function update(int $userId, array $data): array
+    public function update(array $data): array
     {
-        // if (!auth()->check()) {
-        //     throw ApiException::unauthorized('Unauthorized.');
-        // }
+        if (!auth()->check()) {
+            throw ApiException::unauthorized('Unauthorized.');
+        }
 
-        // if ((int) auth()->id() !== (int) $userId) {
-        //     throw ApiException::unauthorized('You are not allowed to update this user.');
-        // }
+        $userId = auth()->id();
 
         $user = User::query()->find($userId);
         if (!$user) {
@@ -46,7 +44,7 @@ class UserService
 
         $oldAvatarUrl = $user->avatar_url;
 
-        $storedAvatar = null; 
+        $storedAvatar = null;
         if (($data['avatar'] ?? null) instanceof UploadedFile) {
             $storedAvatar = $this->storeUserAvatar($user, $data['avatar']);
         }
@@ -63,7 +61,7 @@ class UserService
                     $dietName = $this->normalizeName($data['diet']);
 
                     if ($dietName === null) {
-                        $user->diet_id = null; 
+                        $user->diet_id = null;
                     } else {
                         $diet = $this->findOrCreateByName(Diet::class, $dietName);
                         $user->diet_id = $diet->id;
@@ -74,7 +72,7 @@ class UserService
                     $allergyName = $this->normalizeName($data['allergy']);
 
                     if ($allergyName === null) {
-                        $user->allergy_id = null; 
+                        $user->allergy_id = null;
                     } else {
                         $allergy = $this->findOrCreateByName(Allergy::class, $allergyName);
                         $user->allergy_id = $allergy->id;
@@ -104,7 +102,7 @@ class UserService
 
         $user->load(['diet', 'allergy']);
 
-        return ['user' => $user];
+        return ['user' => $user,"data"=>$data];
     }
 
     private function normalizeName(mixed $value): ?string
@@ -129,7 +127,7 @@ class UserService
 
         return [
             'path' => $path,
-            'url' => $disk->url($path), 
+            'url' => $disk->url($path),
         ];
     }
 

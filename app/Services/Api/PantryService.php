@@ -59,7 +59,7 @@ class PantryService
 
             $event = new PantryEvent();
             $event->home_id = $homeId;
-            $event->$homeId = $pantryItem->id;
+            $event->pantry_item_id = $pantryItem->id;
             $event->event_type = 'created (qty: ' . (int) $pantryItem->quantity . ')';
             $event->save();
 

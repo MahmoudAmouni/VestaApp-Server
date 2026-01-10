@@ -12,10 +12,10 @@ class UserController extends BaseApiController
     public function __construct(private readonly UserService $userService)
     {
     }
-    public function update(int $user, StoreUpdateUserRequest $request):JsonResponse
+    public function update(StoreUpdateUserRequest $request):JsonResponse
     {
         return $this->handle(
-            fn() => $this->userService->update($user, $request->validated()),
+            fn() => $this->userService->update( $request->validated()),
             'User updated.'
         );
     }
