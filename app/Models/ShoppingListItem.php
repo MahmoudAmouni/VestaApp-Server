@@ -1,6 +1,4 @@
 <?php
-// app/Models/ShoppingListItem.php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
