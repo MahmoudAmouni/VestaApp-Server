@@ -56,7 +56,7 @@ Route::group(["prefix" => "v1", "middleware" => "auth:api"], function () {
     });
 
 
-    Route::prefix('/pantry')->group(function () {
+    Route::prefix('/savedrecipe')->group(function () {
         Route::get('/', [SavedRecipeController::class, 'get']);
         Route::post('/', [SavedRecipeController::class, 'create']);
         Route::delete('/{savedRecipe}', [SavedRecipeController::class, 'delete']);
