@@ -17,6 +17,9 @@ return [
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],
+    'google' => [
+        'web_client_id' => env('GOOGLE_WEB_CLIENT_ID'),
+    ],
 
     'resend' => [
         'key' => env('RESEND_API_KEY'),

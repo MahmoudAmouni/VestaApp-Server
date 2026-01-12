@@ -5,8 +5,11 @@ namespace App\Services\Api;
 use App\Exceptions\ApiException;
 use App\Models\Home;
 use App\Models\User;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class AuthService
@@ -20,6 +23,7 @@ class AuthService
         return DB::transaction(function () use ($data) {
             $user = new User();
             $user->email = $data['email'];
+            $user->role_id = 1;
             $user->password = Hash::make($data['password']);
             $user->name = $data['name'];
             $user->phone = $data['phone'] ?? null;
@@ -68,5 +72,89 @@ class AuthService
             'token_type' => 'bearer',
         ];
     }
+
+    public function google(array $data): array
+    {
+        $resp = Http::get('https://oauth2.googleapis.com/tokeninfo', [
+            'id_token' => $data['id_token'],
+        ]);
+
+        if (!$resp->ok()) {
+            throw ValidationException::withMessages(['id_token' => 'Invalid Google token.']);
+        }
+
+        $p = $resp->json();
+
+        if (($p['aud'] ?? null) !== config('services.google.web_client_id')) {
+            throw ValidationException::withMessages(['id_token' => 'Wrong audience (aud).']);
+        }
+
+        $googleId = $p['sub'] ?? null;
+        $email = $p['email'] ?? null;
+        $verified = filter_var($p['email_verified'] ?? false, FILTER_VALIDATE_BOOLEAN);
+        $name = $p['name'] ?? ($email ? Str::before($email, '@') : 'User');
+        $avatar = $p['picture'] ?? null;
+
+        if (!$googleId || !$email || !$verified) {
+            throw ValidationException::withMessages(['id_token' => 'Token missing required claims.']);
+        }
+
+        return DB::transaction(function () use ($googleId, $email, $name, $avatar) {
+
+            $user = User::where('google_id', $googleId)->first();
+
+            if (!$user) {
+                $user = User::where('email', $email)->first();
+                if ($user && !$user->google_id) {
+                    $user->google_id = $googleId;
+                    $user->name = $user->name ?: $name;
+                    $user->avatar_url = $user->avatar_url ?: $avatar;
+                    $user->save();
+                }
+            }
+
+            $isNew = false;
+
+            if (!$user) {
+                $user = new User();
+                $user->email = $email;
+                $user->role_id = 1;
+                $user->google_id = $googleId;
+                $user->password = Hash::make(Str::random(32)); 
+                $user->name = $name;
+                $user->avatar_url = $avatar;
+                $user->save();
+
+                $home = new Home();
+                $home->name = $name . "'s Home"; 
+                $home->owner_id = $user->id;
+                $home->save();
+
+                $isNew = true;
+            } else {
+                $home = $user->ownedHomes()->orderBy('id', 'asc')->first();
+
+                if (!$home) {
+                    $home = new Home();
+                    $home->name = $user->name . "'s Home";
+                    $home->owner_id = $user->id;
+                    $home->save();
+                }
+            }
+
+            $token = JWTAuth::fromUser($user);
+
+            return [
+                'user' => $user,
+                'home' => $home,
+                'home_id' => $home->id,
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'is_new_user' => $isNew,
+            ];
+        });
+    }
+
+
 
 }
