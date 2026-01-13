@@ -24,10 +24,10 @@ class SavedRecipeService
             $savedRecipe = new SavedRecipe();
             $savedRecipe->home_id = $homeId;
             $savedRecipe->recipe_name = $data['recipe_name'];
-            $savedRecipe->ingredients = $data['ingredients'] ?? null;
-            $savedRecipe->directions = $data['directions'] ?? null;
-            $savedRecipe->ner = $data['ner'] ?? null;
-            $savedRecipe->link = $data['link'] ?? null;
+            $savedRecipe->ingredients = $data['ingredients'] ?? null;      // still "$$" string from frontend
+            $savedRecipe->directions = $data['directions'] ?? null;        // still "$$" string from frontend
+            $savedRecipe->cuisine_primary = $data['cuisine_primary'] ?? null;
+            $savedRecipe->description = $data['description'] ?? null;
             $savedRecipe->save();
 
             return $savedRecipe;
@@ -55,7 +55,8 @@ class SavedRecipeService
         return ['saved_recipes' => $savedRecipes];
     }
 
-    public function delete(int $homeId, int $savedRecipeId): array
+
+    public function deleteByName(int $homeId, string $recipeName): array
     {
         $home = Home::query()->find($homeId);
         if (!$home) {
@@ -66,9 +67,12 @@ class SavedRecipeService
             throw ApiException::unauthorized('You are not allowed to modify this home.');
         }
 
+        $recipeName = trim($recipeName);
+
         $savedRecipe = SavedRecipe::query()
-            ->where('id', $savedRecipeId)
             ->where('home_id', $homeId)
+            ->where('recipe_name', $recipeName)
+            ->latest()
             ->first();
 
         if (!$savedRecipe) {
