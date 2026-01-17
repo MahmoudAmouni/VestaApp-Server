@@ -1,5 +1,5 @@
 import * as SecureStore from "expo-secure-store";
-import type { AuthSession } from "./auth.types";
+import type { AuthSession } from "../auth.types";
 
 const AUTH_SESSION_KEY = "auth.session";
 
