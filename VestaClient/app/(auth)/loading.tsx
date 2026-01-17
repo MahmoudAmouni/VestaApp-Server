@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, Easing, Text, View } from "react-native";
 
-import Card from "@/components/Card";
+import Card from "@/components/ui/Card";
 
 import { loadingStyles as styles } from "./Loading.styles";
 import { theme } from "@/constants/theme";
