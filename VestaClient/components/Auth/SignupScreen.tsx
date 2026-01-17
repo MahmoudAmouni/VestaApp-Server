@@ -11,8 +11,8 @@ import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 
-import Card from "@/components/Card";
-import Button from "@/components/Button";
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
 import { signupStyles as styles } from "./Signup.styles";
 import LoginHeader from "@/components/Auth/LoginHeader";
 import TextField from "@/components/Auth/TextField";

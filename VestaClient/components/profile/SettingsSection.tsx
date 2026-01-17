@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import { Theme } from "@/type";
 
-import Card from "@/components/Card";
+import Card from "@/components/ui/Card";
 
 import { settingsSectionStyles as styles } from "./SettingsSection.styles";
 import SettingsRow from "./SettingsRow";

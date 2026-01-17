@@ -6,10 +6,10 @@ import {
 } from "react-native-safe-area-context";
 
 
-import BottomNav from "@/components/BottomNav";
-import Button from "@/components/Button";
-import Header from "@/components/Header";
-import HeroCard from "@/components/HeroCard";
+import BottomNav from "@/components/ui/BottomNav";
+import Button from "@/components/ui/Button";
+import Header from "@/components/ui/Header";
+import HeroCard from "@/components/ui/HeroCard";
 
 import RecipesSection, { Recipe } from "@/components/Recipe/RecipeSection";
 import { recipesScreenStyles as styles } from "./recipe.styles";

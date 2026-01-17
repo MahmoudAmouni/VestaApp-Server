@@ -7,7 +7,7 @@ import {
 
 import { router } from "expo-router";
 
-import BottomNav from "@/components/BottomNav";
+import BottomNav from "@/components/ui/BottomNav";
 import { recipeDetailStyles as styles } from "./RecipeDetailScreen.styles";
 import RecipeDetailHeader from "@/components/RecipeDetail/RecipeDetailHeader";
 import QuickStatsCard, { QuickStat } from "@/components/RecipeDetail/QuickStatsCard";

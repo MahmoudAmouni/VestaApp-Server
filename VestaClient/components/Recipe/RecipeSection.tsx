@@ -22,7 +22,6 @@ export default function RecipesSection(props: {
         {props.recipes.map((recipe) => (
           <RecipeCard
             key={recipe.id}
-            theme={theme}
             recipe={recipe}
             saved={props.isSaved(recipe.id)}
             onToggleSave={() => props.onToggleSave(recipe.id)}

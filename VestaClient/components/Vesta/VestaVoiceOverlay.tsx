@@ -8,7 +8,6 @@ import VestaVisualizer from './VestaVisualizer';
 export function VestaVoiceOverlay() {
   const {
     isExpanded,
-    isCallActive,
     currentState,
     startCall,
     stopCall,

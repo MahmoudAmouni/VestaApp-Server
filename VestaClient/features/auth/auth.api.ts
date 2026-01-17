@@ -9,7 +9,7 @@ import type {
   RegisterDto,
   UpdateUserDto,
   UpdateUserResponse,
-} from "../auth.types";
+} from "./auth.types";
 
 export function apiRegister(args: { body: RegisterDto; signal?: AbortSignal }) {
   return fetchJson<ApiEnvelope<RegisterData>>("/register", {

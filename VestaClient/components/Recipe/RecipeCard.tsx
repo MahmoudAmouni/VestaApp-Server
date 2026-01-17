@@ -2,8 +2,8 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
 
-import Button from "@/components/Button";
-import Card from "@/components/Card";
+import Button from "@/components/ui/Button";
+import Card from "@/components/ui/Card";
 
 import { RagRecipeResult } from "@/features/recipes/recipes.rag.types";
 import { recipeCardStyles as styles } from "./RecipeCard.styles";

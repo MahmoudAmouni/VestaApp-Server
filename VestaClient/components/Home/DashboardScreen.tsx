@@ -1,7 +1,7 @@
-import BottomNav from "@/components/BottomNav";
-import Card from "@/components/Card";
-import Header from "@/components/Header";
-import HeroCard from "@/components/HeroCard";
+import BottomNav from "@/components/ui/BottomNav";
+import Card from "@/components/ui/Card";
+import Header from "@/components/ui/Header";
+import HeroCard from "@/components/ui/HeroCard";
 import RoomCard from "@/components/Home/RoomCard";
 
 import SectionHeader from "@/components/Home/SectionHeader";

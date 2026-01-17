@@ -2,7 +2,7 @@ import { Theme } from "@/type";
 import React from "react";
 
 import { Pressable } from "react-native";
-import Pill from "../Pill";
+import Pill from "../ui/Pill";
 import { deviceStatePillStyles as styles } from "./DeviceStatePill.styles";
 
 export default function DeviceStatePill(props: {
