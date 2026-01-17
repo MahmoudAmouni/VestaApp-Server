@@ -59,7 +59,7 @@ Route::group(["prefix" => "v1", "middleware" => "auth:api"], function () {
     Route::prefix('/savedrecipe')->group(function () {
         Route::get('/{home_id}', [SavedRecipeController::class, 'get']);
         Route::post('/{home_id}', [SavedRecipeController::class, 'create']);
-        Route::delete('/{savedRecipe}', [SavedRecipeController::class, 'delete']);
+        Route::get('/{home_id}/{recipe_name}', [SavedRecipeController::class, 'deleteByName']);
     });
         
     Route::get('/chat/{home_id}', [ChatController::class, 'list']);
