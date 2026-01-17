@@ -3,9 +3,7 @@ import * as FileSystem from 'expo-file-system/legacy';
 import { Platform } from 'react-native';
 import type { TTSRequest, VestaApiResponse } from './vesta.types';
 
-/**
- * Send voice message to Vesta API
- */
+
 export async function apiSendVoiceMessage(params: {
   audioUri: string;
   homeId: number;
@@ -17,7 +15,6 @@ export async function apiSendVoiceMessage(params: {
   formData.append('home_id', String(homeId));
   formData.append('laravel_token', token);
 
-  // Platform-specific file handling
   if (Platform.OS === 'web') {
     const resp = await fetch(audioUri);
     const blob = await resp.blob();
@@ -45,13 +42,10 @@ export async function apiSendVoiceMessage(params: {
 
   const data: VestaApiResponse = await response.json();
   
-  // Extract text response from various possible fields
   return data.response || data.answer || data.message || data.text || JSON.stringify(data);
 }
 
-/**
- * Generate text-to-speech audio from OpenAI
- */
+
 export async function apiTextToSpeech(params: TTSRequest): Promise<Blob> {
   const { text, apiKey } = params;
 

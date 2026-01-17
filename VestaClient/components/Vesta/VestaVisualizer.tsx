@@ -68,7 +68,6 @@ export default function VestaVisualizer(props: VestaVisualizerProps) {
     transform: [{ translateY: dot3Y.value }],
   }));
 
-  // Determine which image to show
   const getStateImage = () => {
     switch (currentState) {
       case VoiceRecordingState.THINKING:
@@ -83,14 +82,9 @@ export default function VestaVisualizer(props: VestaVisualizerProps) {
 
   return (
     <View style={styles.container}>
-      {/* Ripple 3 (outermost) */}
       <Animated.View style={[styles.ripple, ripple3Style]} />
-      {/* Ripple 2 */}
       <Animated.View style={[styles.ripple, ripple2Style]} />
-      {/* Ripple 1 */}
       <Animated.View style={[styles.ripple, ripple1Style]} />
-      
-      {/* Main visualizer circle */}
       <Animated.View style={[styles.visualizer, circleStyle]}>
         <Image source={getStateImage()} style={styles.stateImage} />
       </Animated.View>

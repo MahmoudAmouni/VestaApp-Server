@@ -10,15 +10,11 @@ import {
     withTiming,
 } from 'react-native-reanimated';
 
-/**
- * Manages visualizer animations (circle and ripples)
- */
+
 export function useVisualizerAnimations() {
-  // Main circle animations
   const scale = useSharedValue(1);
   const opacity = useSharedValue(0.6);
 
-  // Ripple animations (3 layers)
   const ripple1Scale = useSharedValue(1);
   const ripple1Opacity = useSharedValue(0);
   const ripple2Scale = useSharedValue(1);
@@ -27,11 +23,9 @@ export function useVisualizerAnimations() {
   const ripple3Opacity = useSharedValue(0);
 
   const startPulse = () => {
-    // Main circle - keep it static
     scale.value = 1;
     opacity.value = 0.9;
 
-    // Ripple 1
     ripple1Scale.value = withRepeat(
       withTiming(1.8, { duration: VESTA_CONFIG.RIPPLE_DURATION, easing: Easing.out(Easing.ease) }),
       -1,
@@ -46,7 +40,6 @@ export function useVisualizerAnimations() {
       false
     );
 
-    // Ripple 2 (delayed)
     ripple2Scale.value = withRepeat(
       withSequence(
         withTiming(1, { duration: 667 }),
@@ -65,7 +58,6 @@ export function useVisualizerAnimations() {
       false
     );
 
-    // Ripple 3 (more delayed)
     ripple3Scale.value = withRepeat(
       withSequence(
         withTiming(1, { duration: 1334 }),
@@ -116,9 +108,6 @@ export function useVisualizerAnimations() {
   };
 }
 
-/**
- * Manages dot loading animations
- */
 export function useDotAnimations() {
   const dot1Y = useSharedValue(0);
   const dot2Y = useSharedValue(0);
@@ -175,9 +164,7 @@ export function useDotAnimations() {
   };
 }
 
-/**
- * Web Audio API silence detection hook
- */
+
 export function useSilenceDetection(params: {
   isActive: boolean;
   isRecording: boolean;

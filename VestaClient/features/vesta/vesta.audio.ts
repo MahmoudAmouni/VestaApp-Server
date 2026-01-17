@@ -11,9 +11,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Alert, Platform } from 'react-native';
 import { apiTextToSpeech, blobToFileUri } from './vesta.api';
 
-/**
- * Hook for managing audio recording
- */
+
 export function useAudioRecording() {
   const recorder = useAudioRecorder({
     ...RecordingPresets.HIGH_QUALITY,
@@ -24,7 +22,6 @@ export function useAudioRecording() {
   const startRecording = useCallback(async () => {
     try {
       if (recorderState.isRecording) {
-         // Already recording
          return;
       }
       await recorder.prepareToRecordAsync();
@@ -57,15 +54,12 @@ export function useAudioRecording() {
   };
 }
 
-/**
- * Hook for managing audio playback (TTS)
- */
+
 export function useAudioPlayback() {
   const [audioUri, setAudioUri] = useState<string | null>(null);
   const player = useAudioPlayer(audioUri);
   const playerStatus = useAudioPlayerStatus(player);
 
-  // Auto-play when audio is ready
   useEffect(() => {
     if (audioUri && player && !player.playing) {
       console.log('[Vesta] Auto-playing audio...');
@@ -117,9 +111,7 @@ export function useAudioPlayback() {
   };
 }
 
-/**
- * Hook for requesting microphone permissions
- */
+
 export function useAudioPermissions() {
   const [micPermission, setMicPermission] = useState(false);
 

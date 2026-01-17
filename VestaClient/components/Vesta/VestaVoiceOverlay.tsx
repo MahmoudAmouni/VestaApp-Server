@@ -5,20 +5,6 @@ import VestaBackdrop from './VestaBackdrop';
 import VestaFAB from './VestaFAB';
 import VestaVisualizer from './VestaVisualizer';
 
-/**
- * Vesta Voice Assistant Overlay
- * 
- * Global voice assistant component that provides:
- * - Voice recording with automatic silence detection
- * - Real-time visual feedback (listening/thinking/speaking)
- * - Text-to-speech responses
- * - Continuous conversation loop
- * 
- * Architecture:
- * - Uses useVesta() hook for all business logic
- * - Renders sub-components for visualization and controls
- * - Fully accessible with proper ARIA labels
- */
 export function VestaVoiceOverlay() {
   const {
     isExpanded,
@@ -40,7 +26,6 @@ export function VestaVoiceOverlay() {
 
   return (
     <View style={styles.container}>
-      {/* Backdrop overlay shown when call is active */}
       {isExpanded && (
         <VestaBackdrop onPress={stopCall}>
           <VestaVisualizer
@@ -60,7 +45,6 @@ export function VestaVoiceOverlay() {
         </VestaBackdrop>
       )}
 
-      {/* Floating Action Button */}
       <VestaFAB isExpanded={isExpanded} onPress={handleToggle} />
     </View>
   );
@@ -73,6 +57,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     padding: 20,
-    pointerEvents: 'box-none', // Allow touches to pass through container
+    pointerEvents: 'box-none', 
   },
 });

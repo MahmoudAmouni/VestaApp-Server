@@ -1,5 +1,3 @@
-// Vesta Voice Assistant Type Definitions
-
 export enum VoiceRecordingState {
   IDLE = 'idle',
   LISTENING = 'listening',
@@ -25,7 +23,6 @@ export interface VestaSessionState {
   currentState: VoiceRecordingState;
 }
 
-// API Types
 export interface VestaApiRequest {
   audio: File | Blob;
   homeId: number;

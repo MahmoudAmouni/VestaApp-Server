@@ -36,8 +36,8 @@ export type SavedRecipeListResponseRaw = ApiResponse<{
 
 export type SavedRecipeWriteDto = {
   recipe_name: string;
-  ingredients: string | null; // "$$" string
-  directions: string | null; // "$$" string
+  ingredients: string | null;
+  directions: string | null;
   cuisine_primary: string | null;
   description: string | null;
 };
