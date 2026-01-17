@@ -4,9 +4,9 @@ import { Theme } from "@/type";
 
 
 import { roomCardStyles as styles } from "./RoomCard.styles";
-import Card from "../Card";
-import Pill from "../Pill";
-import Button from "../Button";
+import Card from "../ui/Card";
+import Pill from "../ui/Pill";
+import Button from "../ui/Button";
 import DeviceRow from "./DeviceRow";
 import { Room } from "@/features/rooms/rooms.types";
 
@@ -52,7 +52,6 @@ export default function RoomCard(props: {
           </Text>
 
           <Button
-            theme={theme}
             variant="secondary"
             label="Open room"
             onPress={props.onPressOpen}
@@ -65,7 +64,6 @@ export default function RoomCard(props: {
             
           </Text>
           <Button
-            theme={theme}
             variant="secondary"
             label="Open room"
             onPress={props.onPressOpen}

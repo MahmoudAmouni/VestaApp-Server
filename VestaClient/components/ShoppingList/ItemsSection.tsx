@@ -1,8 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 
-import Button from "@/components/Button";
-import Card from "@/components/Card";
+import Button from "@/components/ui/Button";
+import Card from "@/components/ui/Card";
 import { theme } from "@/constants/theme";
 import { type ShoppingListItem } from "@/features/shoppingList/shoppingList.types";
 import { itemsSectionStyles as styles } from "./ItemsSection.styles";
@@ -15,7 +15,6 @@ function ClearCheckedButton(props: {
 
   return (
     <Button
-      theme={theme}
       variant="primary"
       label="Clear Checked"
       onPress={props.onPress}

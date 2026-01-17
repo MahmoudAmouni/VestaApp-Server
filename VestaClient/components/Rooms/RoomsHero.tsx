@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import { Theme } from "@/type";
 
-import Card from "../Card";
+import Card from "../ui/Card";
 import HeroStat from "./RoomsHeroStat";
 import { roomsHeroStyles as styles } from "./RoomsHero.styles";
 

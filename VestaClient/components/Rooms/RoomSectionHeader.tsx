@@ -4,7 +4,7 @@ import { Theme } from "@/type";
 
 
 import { roomsSectionHeaderStyles as styles } from "./RoomSectionHeader.styles";
-import Button from "../Button";
+import Button from "../ui/Button";
 
 export default function RoomsSectionHeader(props: {
   theme: Theme;
@@ -28,7 +28,6 @@ export default function RoomsSectionHeader(props: {
         {props.title}
       </Text>
       <Button
-        theme={theme}
         variant="primary"
         label={props.actionLabel}
         onPress={props.onPressAction}

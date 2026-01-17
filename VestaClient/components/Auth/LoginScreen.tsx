@@ -132,7 +132,6 @@ export default function LoginScreen() {
                 </Pressable>
 
                 <Pressable
-                  // onPress={() => router.push("/forgot-password")}
                   style={({ pressed }) => [{ opacity: pressed ? 0.85 : 1 }]}
                   accessibilityRole="button"
                   accessibilityLabel="Forgot password"

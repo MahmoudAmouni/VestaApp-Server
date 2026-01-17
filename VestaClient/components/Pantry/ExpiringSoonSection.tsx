@@ -2,8 +2,8 @@ import { Theme } from "@/type";
 import React from "react";
 import { Text, View } from "react-native";
 
-import Card from "@/components/Card";
-import Pill from "@/components/Pill";
+import Card from "@/components/ui/Card";
+import Pill from "@/components/ui//Pill";
 
 import { expiringSoonSectionStyles as styles } from "./ExpiringSoonSection.styles";
 import { PantryItem } from "@/features/pantry/pantry.types";

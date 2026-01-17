@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
-import Button from "../Button";
-import Card from "../Card";
-import Pill from "../Pill";
+import Button from "../ui/Button";
+import Card from "../ui/Card";
+import Pill from "../ui/Pill";
 import { roomStyles as styles } from "./RoomCard.styles";
 import { Room } from "@/features/rooms/rooms.types";
 import { theme } from "@/constants/theme";

@@ -3,8 +3,8 @@ import { Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { Theme } from "@/type";
-import Card from "@/components/Card";
-import Button from "@/components/Button";
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
 
 import { profileSummaryStyles as styles } from "./ProfileSummaryCard.styles";
 

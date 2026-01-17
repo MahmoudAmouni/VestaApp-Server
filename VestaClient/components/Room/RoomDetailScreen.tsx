@@ -3,9 +3,9 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 
 import { roomDetailsStyles as styles } from "./RoomDetailsScreen.styles";
 
-import BottomNav from "@/components/BottomNav";
-import Card from "@/components/Card";
-import HeroCard from "@/components/HeroCard";
+import BottomNav from "@/components/ui/BottomNav";
+import Card from "@/components/ui/Card";
+import HeroCard from "@/components/ui/HeroCard";
 import QuickActionTile from "@/components/Room/QuickActionTile";
 import RoomActions from "@/components/Room/RoomActions";
 import RoomHeader from "@/components/Room/RoomHeader";

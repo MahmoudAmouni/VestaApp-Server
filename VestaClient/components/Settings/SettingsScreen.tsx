@@ -13,7 +13,7 @@ import {
 import { router } from "expo-router";
 
 import { Theme } from "@/type";
-import BottomNav from "@/components/BottomNav";
+import BottomNav from "@/components/ui/BottomNav";
 import { settingsStyles as styles } from "./SettingsScreen.styles";
 import ThemeToggle, { ThemeMode } from "@/components/Settings/ThemeToggle";
 import SettingsHeader from "@/components/Settings/SettingsHeader";

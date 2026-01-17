@@ -3,17 +3,13 @@ import { ScrollView, Text, View } from "react-native";
 import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import Card from "@/components/Card";
-import Button from "@/components/Button";
-
-
-
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
 import { welcomeStyles as styles } from "./Welcome.styles";
 import BrandRow from "@/components/Welcome/BrandRow";
 import FeatureRow from "@/components/Welcome/FeatureRow";
 import SocialButton from "@/components/Welcome/SocialButton";
 import { theme } from "@/constants/theme";
-
 
 export default function WelcomeScreen() {
   const insets = useSafeAreaInsets();

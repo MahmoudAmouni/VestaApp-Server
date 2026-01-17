@@ -7,7 +7,7 @@ import {
 import { router } from "expo-router";
 
 
-import BottomNav from "@/components/BottomNav";
+import BottomNav from "@/components/ui/BottomNav";
 import { profileStyles as styles } from "./ProfileScreen.styles";
 import SettingsSection, { SettingsItem } from "@/components/profile/SettingsSection";
 import ProfileHeader from "@/components/profile/ProfileHeader";

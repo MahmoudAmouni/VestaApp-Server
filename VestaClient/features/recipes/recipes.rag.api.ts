@@ -68,8 +68,6 @@ function encodeList(
 ): string {
   if (!Array.isArray(list) || list.length === 0) return "";
 
-  // If an item itself can contain "$$", splitting later will break.
-  // If that's possible, store JSON.stringify(list) instead of delimiter-joining.
   return list
     .map((x) => (x ?? "").toString().trim())
     .filter(Boolean)

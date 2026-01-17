@@ -1,6 +1,6 @@
 import React from "react";
 import { Theme } from "@/type";
-import Card from "@/components/Card";
+import Card from "@/components/ui/Card";
 
 import SettingsNavRow from "./SettingsNavRow";
 import { notificationsCardStyles as styles } from "./NotificationsCard.styles";

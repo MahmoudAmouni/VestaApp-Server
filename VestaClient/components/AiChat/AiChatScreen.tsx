@@ -7,8 +7,8 @@ import {
   View,
 } from "react-native";
 
-import Header from "@/components/Header";
-import BottomNav from "@/components/BottomNav";
+import Header from "@/components/ui/Header";
+import BottomNav from "@/components/ui/BottomNav";
 import { aiChatStyles as styles } from "./ai.styles";
 import ChatThread from "@/components/AiChat/ChatThread";
 import ChatComposer from "@/components/AiChat/ChatComposer";

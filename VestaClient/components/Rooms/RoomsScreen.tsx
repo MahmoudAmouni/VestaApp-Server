@@ -4,12 +4,12 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Theme } from "@/type";
 
-import BottomNav from "@/components/BottomNav";
+import BottomNav from "@/components/ui/BottomNav";
 import RoomCard from "@/components/Rooms/RoomCard";
 import RoomsSectionHeader from "@/components/Rooms/RoomSectionHeader";
 import RoomsHero from "@/components/Rooms/RoomsHero";
 
-import Header from "@/components/Header";
+import Header from "@/components/ui/Header";
 import { useRouter } from "expo-router";
 import { roomsStyles as styles } from "./rooms.styles";
 import RoomSheet from "./RoomSheet";

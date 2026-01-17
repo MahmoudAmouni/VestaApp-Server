@@ -6,7 +6,6 @@ export type RagSearchRequest = {
   must_not_contain?: string[];
 };
 
-/** Backend shape (arrays) */
 export type RagRecipeResultRaw = {
   id: string;
   recipe_name: string;
@@ -24,13 +23,12 @@ export type RagSearchResponseRaw = {
   results: RagRecipeResultRaw[];
 };
 
-/** Frontend shape (strings joined by "$$") */
 export type RagRecipeResult = Omit<
   RagRecipeResultRaw,
   "ingredients" | "directions"
 > & {
-  ingredients: string; // "$$" joined
-  directions: string; // "$$" joined
+  ingredients: string; 
+  directions: string; 
 };
 
 export type RagSearchResponse = Omit<RagSearchResponseRaw, "results"> & {

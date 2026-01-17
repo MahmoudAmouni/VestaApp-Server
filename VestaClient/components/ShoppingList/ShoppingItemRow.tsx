@@ -1,8 +1,7 @@
-import React, { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { Theme } from "@/type";
 
-import Pill from "@/components/Pill";
+import Pill from "@/components/ui/Pill";
 
 import { shoppingItemRowStyles as styles } from "./ShoppingItemRow.styles";
 import { ShoppingListItem } from "@/features/shoppingList/shoppingList.types";

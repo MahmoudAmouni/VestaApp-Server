@@ -1,5 +1,3 @@
-// app/vesta-test.tsx
-
 import { useAuth } from "@/contexts/auth/AuthContext";
 import {
   AudioModule,
@@ -14,7 +12,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Alert, Button, Platform, Text, View } from "react-native";
 
 function RecordingPlayback({ uri }: { uri: string }) {
-  // useAudioPlayer accepts a local asset (require), remote URL, or null :contentReference[oaicite:7]{index=7}
   const player = useAudioPlayer(uri);
 
   return (
@@ -46,7 +43,7 @@ export default function VestaTestScreen() {
 
   useEffect(() => {
     (async () => {
-      const status = await AudioModule.requestRecordingPermissionsAsync(); // :contentReference[oaicite:8]{index=8}
+      const status = await AudioModule.requestRecordingPermissionsAsync(); 
       if (!status.granted) {
         Alert.alert(
           "Microphone permission denied",
@@ -56,7 +53,6 @@ export default function VestaTestScreen() {
         return;
       }
 
-      // Make recording work properly; playsInSilentMode:true is important on iOS :contentReference[oaicite:9]{index=9}
       await setAudioModeAsync({
         playsInSilentMode: true,
         allowsRecording: true,
@@ -80,15 +76,14 @@ export default function VestaTestScreen() {
   const startRecording = async () => {
     if (!micReady) return;
 
-    // stop any ongoing TTS
     Speech.stop();
 
     setLastRecordingUri(null);
     setLastHeardPlaceholder("");
 
     try {
-        await recorder.prepareToRecordAsync(); // :contentReference[oaicite:10]{index=10}
-        recorder.record(); // :contentReference[oaicite:11]{index=11}
+        await recorder.prepareToRecordAsync(); 
+        recorder.record(); 
     } catch (e) {
         console.error("Failed to start recording:", e);
     }
@@ -104,7 +99,6 @@ export default function VestaTestScreen() {
     formData.append("home_id", String(homeId));
     formData.append("laravel_token", token);
     
-    // Append audio file
     if (Platform.OS === "web") {
       const resp = await fetch(uri);
       const blob = await resp.blob();
@@ -118,9 +112,6 @@ export default function VestaTestScreen() {
     }
 
     try {
-        // NOTE: Use 10.0.2.2 for Android Emulator to reach host localhost.
-        // Use your machine's LAN IP (e.g., 192.168.x.x) for physical devices.
-        // 'http://127.0.0.1:8001' only works on iOS Simulator or with reverse forwarding.
         const payload = JSON.stringify({
           home_id: String(homeId),
           laravel_token: token, 
@@ -137,7 +128,6 @@ export default function VestaTestScreen() {
             method: "POST",
             body: formData,
             headers: {
-                // Content-Type is handled automatically by FormData
                 "Accept": "application/json",
             }
         });
@@ -160,7 +150,6 @@ export default function VestaTestScreen() {
   };
 
   const stopAndRespond = async () => {
-    // recording uri is available after stop on recorder.uri :contentReference[oaicite:12]{index=12}
     try {
         await recorder.stop();
     } catch (e) {
@@ -170,24 +159,19 @@ export default function VestaTestScreen() {
 
     if (uri) {
         setLastRecordingUri(uri);
-        // Automatically upload after stopping
         await uploadAudio(uri);
     }
 
-    // We can't transcribe without backend/STT, so fake it for now.
     setLastHeardPlaceholder(
       "📝 Uploading audio..."
     );
 
     const answer = `You have in your fridge: ${fridgeItems.join(", ")}.`;
 
-    // Speak dummy answer (this is your “Vesta talks back” test)
     Speech.stop();
     Speech.speak(answer, { 
         rate: 0.95,
         onDone: () => {
-            // Restart wake word listening after TTS finishes
-
         }
     });
   };

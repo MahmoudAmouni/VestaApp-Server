@@ -3,8 +3,8 @@ import { Pressable, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Theme } from "@/type";
 
-import Card from "@/components/Card";
-import Pill from "@/components/Pill";
+import Card from "@/components/ui/Card";
+import Pill from "@/components/ui/Pill";
 
 import { pantryItemCardStyles as styles } from "./PantryItemCard.styles";
 import { PantryItem } from "@/features/pantry/pantry.types";
