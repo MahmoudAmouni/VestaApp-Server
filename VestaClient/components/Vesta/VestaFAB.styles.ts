@@ -19,7 +19,7 @@ export const vestaFABStyles = StyleSheet.create({
     elevation: 5,
   },
   fabExpanded: {
-    backgroundColor: '#FF4444', // Red for stop
+    backgroundColor: '#FF4444', 
     transform: [{ scale: 1.1 }],
   },
 });
