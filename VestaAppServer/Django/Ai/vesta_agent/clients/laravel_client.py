@@ -10,7 +10,6 @@ from django.conf import settings
 
 @dataclass(frozen=True)
 class LaravelClient:
-    """Thin HTTP client for the Laravel API."""
 
     base_url: str
     token: str
