@@ -1,5 +1,5 @@
 export const VESTA_CONFIG = {
-  API_URL: 'http://127.0.0.1:8001/api/agent/chat',
+  API_URL: 'http://127.0.0.1:8002/api/agent/chat',
   
   SILENCE_THRESHOLD: -60,
   SILENCE_DURATION: 1750, 

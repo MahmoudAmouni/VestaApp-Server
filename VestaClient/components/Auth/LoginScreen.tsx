@@ -11,8 +11,8 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import Button from "@/components/Button";
-import Card from "@/components/Card";
+import Button from "@/components/ui/Button";
+import Card from "@/components/ui/Card";
 import LoginHeader from "@/components/Auth/LoginHeader";
 import TextField from "@/components/Auth/TextField";
 import SocialButton from "@/components/Welcome/SocialButton";
