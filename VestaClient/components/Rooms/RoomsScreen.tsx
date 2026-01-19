@@ -13,9 +13,9 @@ import Header from "@/components/ui/Header";
 import { useRouter } from "expo-router";
 import { roomsStyles as styles } from "./rooms.styles";
 import RoomSheet from "./RoomSheet";
-import { useRoomsQuery } from "@/features/rooms/rooms.query";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
 
 export default function RoomsScreen() {
   const { session } = useAuth();

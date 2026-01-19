@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../lib/reactQuery";
-import type { Room } from "../rooms.types";
-import { apiCreateRoom } from "../rooms.api";
-import { roomsKey } from "../rooms.query";
+import type { Room } from "../../../features/rooms/rooms.types";
+import { apiCreateRoom } from "../../../features/rooms/rooms.api";
+import { roomsKey } from "../useRoomsQuery";
 
 export function useCreateRoom(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;

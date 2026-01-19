@@ -1,11 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../lib/reactQuery";
-import type { Room } from "../rooms.types";
-import { apiUpdateRoom } from "../rooms.api";
-import type { RoomUpdatePatch } from "../rooms.write.types";
-import { buildRoomUpdateDto } from "../rooms.write.types";
-import { roomsKey } from "../rooms.query";
-import { getRoomFromCache } from "../rooms.cache";
+import type { Room } from "../../../features/rooms/rooms.types";
+import { apiUpdateRoom } from "../../../features/rooms/rooms.api";
+
+import { roomsKey } from "../useRoomsQuery";
+import { getRoomFromCache } from "../../../features/rooms/rooms.cache";
+import { buildRoomUpdateDto, RoomUpdatePatch } from "@/features/rooms/rooms.write.types";
 
 export function useUpdateRoom(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;
