@@ -1,4 +1,3 @@
-import { router } from "expo-router";
 import React, { useMemo, useState } from "react";
 import { ScrollView, View } from "react-native";
 import {
@@ -15,6 +14,10 @@ import SavedRecipesSection, {
 } from "@/components/savedRecipes/SavedRecipesSection";
 import { savedRecipesStyles as styles } from "./SavedRecipes.styles";
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useSavedRecipesQuery } from "@/features/savedRecipes/savedRecipes.query";
+import { useSavedRecipesMutations } from "@/features/savedRecipes/savedRecipes.mutations";
+import { router } from "expo-router";
 
 export default function SavedRecipesScreen() {
   const { theme } = useTheme();
@@ -22,32 +25,15 @@ export default function SavedRecipesScreen() {
 
   const [query, setQuery] = useState("");
 
-  const saved: SavedRecipe[] = useMemo(
-    () => [
-      {
-        id: "2",
-        title: "Yogurt Herb Dip + Toast",
-        subtitle: "Matches: yogurt • spices • bread",
-        badge: "From Pantry",
-        tags: ["Quick", "Vegetarian"],
-      },
-      {
-        id: "3",
-        title: "Spaghetti Aglio e Olio",
-        subtitle: "Garlic, olive oil, chili",
-        badge: "Italy",
-        tags: ["High protein", "Healthy", "Spicy"],
-      },
-      {
-        id: "4",
-        title: "Tacos de Pollo",
-        subtitle: "Crisp, juicy, bright toppings.",
-        badge: "Mexico",
-        tags: ["High protein", "Healthy", "Spicy"],
-      },
-    ],
-    []
-  );
+  const { session } = useAuth();
+  const { data: saved = [], isLoading } = useSavedRecipesQuery({
+    homeId: session?.homeId ?? 0,
+    token: session?.token,
+  });
+  const { deleteByNameMutation } = useSavedRecipesMutations({
+    homeId: session?.homeId ?? 0,
+    token: session?.token,
+  });
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -89,14 +75,14 @@ export default function SavedRecipesScreen() {
             onChangeText={setQuery}
           />
 
-          <SavedRecipesSection
-            theme={theme}
-            recipes={filtered}
+            {/* recipes={filtered}
             onPressCook={(id) => {
               router.push("/recipes/recipeDetail");
             }}
-            onToggleSave={(id) => {}}
-          />
+            onToggleSave={(name) => {
+               deleteByNameMutation.mutate({ name });
+            }} */}
+          {/* /> */}
         </ScrollView>
 
         <BottomNav theme={theme} />
