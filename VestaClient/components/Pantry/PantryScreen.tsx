@@ -13,7 +13,7 @@ import PantryFilterRow, {
   PantryFilterKey,
 } from "@/components/Pantry/PantryFilterRow";
 import PantrySearchBar from "@/components/Pantry/PantrySearchBar";
-import { usePantry } from "@/features/pantry/usePantry";
+import { usePantryQuery } from "@/features/pantry/pantry.query";
 import { pantryScreenStyles as styles } from "./pantry.styles";
 import PantryItemSheet from "./PantryItemSheet";
 import { useAuth } from "@/contexts/auth/AuthContext";
@@ -22,7 +22,7 @@ import { useTheme } from "@/contexts/theme/ThemeContext";
 export default function PantryScreen() {
   const { theme } = useTheme();
   const {homeId} = useAuth()
-  const { pantryItems, isLoading, error } = usePantry(homeId);
+  const { data: pantryItems = [], isLoading, error } = usePantryQuery({ homeId });
   const insets = useSafeAreaInsets();
 
   const [query, setQuery] = useState("");

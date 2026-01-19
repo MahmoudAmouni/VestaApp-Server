@@ -16,7 +16,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import type { Theme } from "@/type";
 import { makePantryItemSheetStyles } from "./PantryItemSheet.styles";
 import { usePantryModal } from "@/contexts/PantryModalContext";
-import { usePantry } from "@/features/pantry/usePantry";
+import { usePantryMutations } from "@/features/pantry/pantry.mutations";
 import { useAuth } from "@/contexts/auth/AuthContext";
 
 
@@ -50,7 +50,7 @@ let {homeId }= useAuth();
     [theme, insets.bottom]
   );
 
-  const {updatePantryItem,createPantryItem} = usePantry(homeId);
+  const { updateMutation, createMutation } = usePantryMutations({ homeId });
   useEffect(()=>{
     setName(pantryItem?.item_name?.name || "")
     setDate(pantryItem?.expiry_date || "")
@@ -78,9 +78,9 @@ let {homeId }= useAuth();
     if (!Number.isFinite(dto.quantity)) return;
 
     if (pantryItem) {
-      updatePantryItem({ pantryItemId: pantryItem.id, patch: dto });
+      updateMutation.mutate({ pantryItemId: pantryItem.id, patch: dto });
     } else {
-      createPantryItem({ dto });
+      createMutation.mutate({ dto });
     }
   }
 
