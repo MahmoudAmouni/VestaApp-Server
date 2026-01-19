@@ -1,8 +1,8 @@
 import { useMutation, type InfiniteData } from "@tanstack/react-query";
 import { queryClient } from "../../../lib/reactQuery";
-import type { ChatMessage, ChatPage } from "../aiChat.types";
-import { apiSendChatMessage } from "../aiChat.api";
-import { aiChatKey } from "../aiChat.query";
+import type { ChatMessage, ChatPage } from "../../../features/aiChat/aiChat.types";
+import { apiSendChatMessage } from "../../../features/aiChat/aiChat.api";
+import { aiChatKey } from "../useAiChatQuery";
 
 function sortNewestFirst(a: ChatMessage, b: ChatMessage) {
   const ta = Date.parse(a.created_at || "") || 0;

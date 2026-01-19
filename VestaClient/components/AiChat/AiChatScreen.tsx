@@ -12,8 +12,8 @@ import BottomNav from "@/components/ui/BottomNav";
 import { aiChatStyles as styles } from "./ai.styles";
 import ChatThread from "@/components/AiChat/ChatThread";
 import ChatComposer from "@/components/AiChat/ChatComposer";
-import { useAiChatQuery } from "@/features/aiChat/aiChat.query";
-import { useAiChatMutations } from "@/features/aiChat/aiChat.mutations";
+import { useAiChatQuery } from "@/hooks/aiChat/useAiChatQuery";
+import { useAiChatMutations } from "@/hooks/aiChat/useAiChatMutations";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 

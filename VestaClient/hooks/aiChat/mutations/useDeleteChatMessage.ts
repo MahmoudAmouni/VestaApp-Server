@@ -1,8 +1,8 @@
 import { useMutation, type InfiniteData } from "@tanstack/react-query";
 import { queryClient } from "../../../lib/reactQuery";
-import type { ChatPage } from "../aiChat.types";
-import { apiDeleteChatMessage } from "../aiChat.api";
-import { aiChatKey } from "../aiChat.query";
+import type { ChatPage } from "../../../features/aiChat/aiChat.types";
+import { apiDeleteChatMessage } from "../../../features/aiChat/aiChat.api";
+import { aiChatKey } from "../useAiChatQuery";
 
 export function useDeleteChatMessage(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;
