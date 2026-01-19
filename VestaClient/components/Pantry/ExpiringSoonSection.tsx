@@ -8,12 +8,13 @@ import Pill from "@/components/ui//Pill";
 import { expiringSoonSectionStyles as styles } from "./ExpiringSoonSection.styles";
 import { PantryItem } from "@/features/pantry/pantry.types";
 import { daysFromToday } from "@/utils/dateHelpers";
-import { theme } from "@/constants/theme";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 
 export default function ExpiringSoonSection(props: {
   items: PantryItem[];
 }) {
+  const { theme } = useTheme();
   const { items } = props;
 
   

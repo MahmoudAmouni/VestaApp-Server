@@ -13,23 +13,18 @@ import Header from "@/components/ui/Header";
 import { useRouter } from "expo-router";
 import { roomsStyles as styles } from "./rooms.styles";
 import RoomSheet from "./RoomSheet";
-import { useRooms } from "@/contexts/rooms/RoomsContext";
+import { useRoomsQuery } from "@/features/rooms/rooms.query";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function RoomsScreen() {
-  const { rooms, isLoading, error } = useRooms();
+  const { session } = useAuth();
+  const homeId = session?.homeId ?? 0;
+  const token = session?.token;
+
+  const { data: rooms = [], isLoading, error } = useRoomsQuery({ homeId, token });
   const [showRoomSheet, setShowRoomSheet] = useState(false);
-  const theme: Theme = (globalThis as any).theme ?? {
-    bg: "#0f0f12",
-    surface: "#15151b",
-    surface2: "#1b1b23",
-    text: "#f3f3f6",
-    textMuted: "rgba(243, 243, 246, 0.68)",
-    border: "rgba(255,255,255,0.10)",
-    borderStrong: "rgba(255,255,255,0.16)",
-    primary: "#c45b3d",
-    navBg: "rgba(15, 15, 18, 0.82)",
-    shadow1: "rgba(0,0,0,0.35)",
-  };
+  const { theme } = useTheme();
   const router = useRouter();
   const insets = useSafeAreaInsets();
 

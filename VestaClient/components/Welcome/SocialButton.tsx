@@ -2,13 +2,14 @@ import React from "react";
 import { Pressable, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { socialButtonStyles as styles } from "./SocialButton.styles";
-import { theme } from "@/constants/theme";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function SocialButton(props: {
   label: string;
   icon: React.ComponentProps<typeof Ionicons>["name"];
   onPress: () => void;
 }) {
+  const { theme } = useTheme();
 
   return (
     <Pressable

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import type { ShoppingListItem } from "./shoppingList.types";
-import { apiGetShoppingList } from "./shoppingList.api";
+import type { ShoppingListItem } from "../../features/shoppingList/shoppingList.types";
+import { apiGetShoppingList } from "../../features/shoppingList/shoppingList.api";
 
 export const shoppingListKey = (homeId: number) =>
   ["shoppinglist", "home", homeId] as const;

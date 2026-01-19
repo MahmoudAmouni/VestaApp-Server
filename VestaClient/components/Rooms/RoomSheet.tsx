@@ -11,10 +11,11 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useRooms } from "@/contexts/rooms/RoomsContext";
+import { useRoomsMutations } from "@/features/rooms/rooms.mutations";
 import { Room } from "@/features/rooms/rooms.types";
 import { makeRoomSheetStyles } from "./RoomSheet.styles";
-import { theme } from "@/constants/theme";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 type Props = {
   visible: boolean;
@@ -27,7 +28,9 @@ export default function RoomSheet({
   onClose,
   room,
 }: Props) {
-  const { updateRoom, createRoom } = useRooms();
+  const { theme } = useTheme();
+  const { session } = useAuth();
+  const { updateRoomMutation, createRoomMutation } = useRoomsMutations({ homeId: session?.homeId ?? 0, token: session?.token });
   const insets = useSafeAreaInsets();
   const [query, setQuery] = useState("");
   const styles = useMemo(
@@ -40,8 +43,8 @@ export default function RoomSheet({
 
   function onPressSave() {
     onClose();
-    if(room)updateRoom(room.id,{name:query})
-    else createRoom({ room_name: query });
+    if(room) updateRoomMutation.mutate({ roomId: room.id, patch: {name:query} })
+    else createRoomMutation.mutate({ dto: { room_name: query } });
     
   }
   

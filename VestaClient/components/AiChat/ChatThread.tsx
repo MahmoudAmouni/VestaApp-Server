@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 
-import { theme } from "@/constants/theme";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 import type { ChatMessage } from "@/features/aiChat/aiChat.types";
 import ChatMessageBubble from "./ChatMessageBubble";
 import { chatThreadStyles as styles } from "./ChatThread.styles";
@@ -32,6 +32,7 @@ export default function ChatThread({
     onAtBottomChange,
     onLoadOlder
   }: Props) {
+  const { theme } = useTheme();
 
   const listRef = useRef<FlatList<ChatMessage>>(null);
   const endReachedLock = useRef(false);

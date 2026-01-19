@@ -11,10 +11,11 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { theme } from "@/constants/theme";
-import { useRooms } from "@/contexts/rooms/RoomsContext";
+import { useRoomsMutations } from "@/features/rooms/rooms.mutations";
 import { Device } from "@/features/rooms/rooms.types";
 import { makeRoomSheetStyles } from "../Rooms/RoomSheet.styles";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 type Props = {
   visible: boolean;
@@ -29,6 +30,7 @@ export default function DeviceSheet({
   onClose,
   roomId,
 }: Props) {
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const styles = useMemo(
     () => makeRoomSheetStyles(theme, insets.bottom),
@@ -36,7 +38,9 @@ export default function DeviceSheet({
   );
   const [name, setName] = useState("");
   const [ipAdress, setIpAdress] = useState("");
-  const { createDevice,updateDevice } = useRooms();
+  
+  const { session } = useAuth();
+  const { createDeviceMutation, updateDeviceMutation } = useRoomsMutations({ homeId: session?.homeId ?? 0, token: session?.token });
 
   useEffect(() => {
     if (device) {
@@ -49,8 +53,8 @@ export default function DeviceSheet({
 
   function onPressSave() {
     onClose();
-    if(device) updateDevice(roomId,device.id,{name,external_id:ipAdress})
-    else createDevice(roomId, { device_name: name, external_id: ipAdress });
+    if(device) updateDeviceMutation.mutate({ roomId, deviceId: device.id, patch: {name,external_id:ipAdress} })
+    else createDeviceMutation.mutate({ roomId, dto: { device_name: name, external_id: ipAdress } });
   }
 
   const translateY = useRef(new Animated.Value(520)).current;

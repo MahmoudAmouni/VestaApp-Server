@@ -11,7 +11,8 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { theme } from "@/constants/theme";
+import { useTheme } from "@/contexts/theme/ThemeContext";
+import { useShoppingListMutations } from "@/hooks/shoppingList/useShoppingListMutations";
 import { makeShoppingItemSheetStyles } from "./ShoppingItemSheet.styles";
 
 
@@ -35,6 +36,7 @@ export default function ShoppingItemSheet({
   visible,
   onClose,
 }: Props) {
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
 
   const styles = useMemo(

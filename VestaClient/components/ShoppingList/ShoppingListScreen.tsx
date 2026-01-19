@@ -11,29 +11,31 @@ import AddItemRow from "@/components/ShoppingList/AddItemRow";
 import ItemsSection from "@/components/ShoppingList/ItemsSection";
 import ShoppingHeader from "@/components/ShoppingList/ShoppingHeader";
 import ShoppingHero from "@/components/ShoppingList/ShoppingHero";
-import { theme } from "@/constants/theme";
 import { ShoppingListItem } from "@/features/shoppingList/shoppingList.types";
-import { useShoppingList } from "@/features/shoppingList/useShoppingList";
+import { useShoppingListQuery } from "@/hooks/shoppingList/useShoppingListQuery";
+import { useShoppingListMutations } from "@/hooks/shoppingList/useShoppingListMutations";
 import { shoppingStyles as styles } from "./ShoppingListScreen.styles";
 import ShoppingItemSheet from "./shoppingListSheet";
 import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function ShoppingListScreen() {
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
-  const {homeId} = useAuth()
-  const {
-    shoppingListItems,
-    isLoading,
-    updateShoppingListItem,
-    createShoppingListItem,
-  } = useShoppingList(homeId); 
+  const {homeId,session} = useAuth()
+  const token = session?.token;
+  const { data: shoppingListItems = [], isLoading } = useShoppingListQuery({ homeId, token });
+  const { updateMutation, createMutation } = useShoppingListMutations({ homeId, token }); 
 
   function onToggle(id: number, item: ShoppingListItem) {
-    updateShoppingListItem(id, {
-      is_checked: !item.is_checked,
-      item_name: item.item_name.name,
-      quantity: item.quantity,
-      unit: item.unit.name,
+    updateMutation.mutate({
+      shoppingListItemId: id,
+      patch: {
+        is_checked: !item.is_checked,
+        item_name: item.item_name.name,
+        quantity: item.quantity,
+        unit: item.unit.name,
+      }
     });
   }
   function onCreate({
@@ -45,11 +47,13 @@ export default function ShoppingListScreen() {
     unit: string;
     quantity: string;
   }) {
-    createShoppingListItem({
-      item_name: name,
-      unit: unit,
-      quantity: Number(quantity),
-      is_checked: false,
+    createMutation.mutate({
+      dto: {
+        item_name: name,
+        unit: unit,
+        quantity: Number(quantity),
+        is_checked: false,
+      }
     });
   }
   const [openModal, setOpenModal] = useState(false);

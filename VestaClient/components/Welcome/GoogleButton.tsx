@@ -2,14 +2,15 @@ import { useEffect } from "react";
 import { Pressable, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { socialButtonStyles as styles } from "./SocialButton.styles";
-import { theme } from "@/constants/theme";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export function GoogleButton() {
+  const { theme } = useTheme();
   const { googleLogin } = useAuth();
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({

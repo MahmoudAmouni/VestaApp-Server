@@ -9,9 +9,10 @@ import { welcomeStyles as styles } from "./Welcome.styles";
 import BrandRow from "@/components/Welcome/BrandRow";
 import FeatureRow from "@/components/Welcome/FeatureRow";
 import SocialButton from "@/components/Welcome/SocialButton";
-import { theme } from "@/constants/theme";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function WelcomeScreen() {
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
 
   return (

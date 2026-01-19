@@ -11,13 +11,14 @@ import Button from "@/components/ui/Button";
 import Header from "@/components/ui/Header";
 import HeroCard from "@/components/ui/HeroCard";
 
-import RecipesSection, { Recipe } from "@/components/Recipe/RecipeSection";
+import RecipesSection from "@/components/Recipe/RecipeSection";
 import { recipesScreenStyles as styles } from "./recipe.styles";
-import { theme } from "@/constants/theme";
 import { useRecipesRag } from "@/features/recipes/useRecipesRag";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 
 export default function RecipesScreen() {
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const {isLoading,primaryResults} = useRecipesRag({mustContain:[],mustNotContain:[]})
 

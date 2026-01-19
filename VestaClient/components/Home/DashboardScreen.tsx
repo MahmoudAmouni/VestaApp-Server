@@ -5,9 +5,9 @@ import HeroCard from "@/components/ui/HeroCard";
 import RoomCard from "@/components/Home/RoomCard";
 
 import SectionHeader from "@/components/Home/SectionHeader";
-import { theme } from "@/constants/theme";
-import { useRooms } from "@/contexts/rooms/RoomsContext";
-import { usePantry } from "@/features/pantry/usePantry";
+
+import { useRoomsQuery } from "@/features/rooms/rooms.query";
+import { usePantryQuery } from "@/hooks/pantry/usePantryQuery";
 import { getExpiringSoon } from "@/utils/dateHelpers";
 import React, { useState } from "react";
 import {
@@ -19,16 +19,20 @@ import {
 import ExpiringSoonSection from "../Pantry/ExpiringSoonSection";
 import { indexStyles as styles } from "./Dashboard.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 type NavKey = "Home" | "Rooms" | "Pantry" | "Recipes" | "AI";
 
 export default function DashboardScreen() {
+  const { theme } = useTheme();
   
   const [activeTab, setActiveTab] = useState<NavKey>("Home");
-  const {homeId} = useAuth() 
+  const { session } = useAuth();
+  const homeId = session?.homeId ?? 0;
+  const token = session?.token;
 
-  const { pantryItems, isLoading } = usePantry(homeId);
-  const { rooms, isLoading: isGettingRooms } = useRooms();
+  const { data: pantryItems = [], isLoading } = usePantryQuery({ homeId, token });
+  const { data: rooms = [], isLoading: isGettingRooms } = useRoomsQuery({ homeId, token });
   const isWorking = isLoading || isGettingRooms;
 
   if (isWorking) return;

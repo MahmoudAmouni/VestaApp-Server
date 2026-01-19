@@ -4,7 +4,7 @@ import { Theme } from "@/type";
 
 import { themeToggleStyles as styles } from "./ThemeToggle.styles";
 
-export type ThemeMode = "Dark" | "Light";
+export type ThemeMode = "dark" | "light";
 
 export default function ThemeToggle(props: {
   theme: Theme;
@@ -21,7 +21,7 @@ export default function ThemeToggle(props: {
           { backgroundColor: theme.surface2, borderColor: theme.border },
         ]}
       >
-        {(["Dark", "Light"] as ThemeMode[]).map((opt) => {
+        {(["dark", "light"] as ThemeMode[]).map((opt) => {
           const active = props.value === opt;
 
           return (
@@ -46,7 +46,7 @@ export default function ThemeToggle(props: {
                   { color: active ? theme.text : theme.textMuted },
                 ]}
               >
-                {opt}
+                {opt.charAt(0).toUpperCase() + opt.slice(1)}
               </Text>
             </Pressable>
           );

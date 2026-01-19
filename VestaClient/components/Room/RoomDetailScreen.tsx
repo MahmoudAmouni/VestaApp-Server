@@ -9,23 +9,32 @@ import HeroCard from "@/components/ui/HeroCard";
 import QuickActionTile from "@/components/Room/QuickActionTile";
 import RoomActions from "@/components/Room/RoomActions";
 import RoomHeader from "@/components/Room/RoomHeader";
-import { theme } from "@/constants/theme";
-import { useRooms } from "@/contexts/rooms/RoomsContext";
+import { useRoomsQuery } from "@/features/rooms/rooms.query";
+import { useRoomsMutations } from "@/features/rooms/rooms.mutations";
 import { Device } from "@/features/rooms/rooms.types";
 import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import RoomSheet from "../Rooms/RoomSheet";
 import DeviceRow from "./DeviceRow";
 import DeviceSheet from "./DeviceSheet";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function RoomDetailsScreen() {
+  const { theme } = useTheme();
   const [openModal, setOpenModal] = useState(false);
   const [openDeviceModal, setOpenDeviceModal] = useState(false);
   const [device, setDevice] = useState<Device | null>();
 
   const { id } = useLocalSearchParams<{ id: string }>();
   const roomId = Number(id);
-  const { rooms, isLoading, deleteRoom,deleteDevice } = useRooms()
+
+  const { session } = useAuth();
+  const homeId = session?.homeId ?? 0;
+  const token = session?.token;
+  
+  const { data: rooms = [], isLoading } = useRoomsQuery({ homeId, token });
+  const { deleteRoomMutation, deleteDeviceMutation } = useRoomsMutations({ homeId, token });
 
   if (isLoading) return <Text>Loading...</Text>;
   let room = rooms.find((room) => room.id === roomId);
@@ -141,7 +150,7 @@ export default function RoomDetailsScreen() {
                 onEdit={() => {
                   setShowDeviceModal(true, device);
                 }}
-                onDelete={() => deleteDevice(device.id,roomId)}
+                onDelete={() => deleteDeviceMutation.mutate({ deviceId: device.id, roomId })}
               />
             ))}
           </View>
@@ -153,7 +162,7 @@ export default function RoomDetailsScreen() {
                 setOpenModal(true);
               }}
               onDeleteRoom={() => {
-                deleteRoom(roomId);
+                deleteRoomMutation.mutate({ roomId });
                 router.back();
               }}
             />

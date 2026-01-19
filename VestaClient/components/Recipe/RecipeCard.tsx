@@ -7,7 +7,7 @@ import Card from "@/components/ui/Card";
 
 import { RagRecipeResult } from "@/features/recipes/recipes.rag.types";
 import { recipeCardStyles as styles } from "./RecipeCard.styles";
-import { theme } from "@/constants/theme";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function RecipeCard(props: {
   recipe: RagRecipeResult;
@@ -15,6 +15,7 @@ export default function RecipeCard(props: {
   onToggleSave: () => void;
   onPressCook: () => void;
 }) {
+  const { theme } = useTheme();
   const { recipe } = props;
   const ingredients = recipe.ingredients.split("$$")
 

@@ -1,4 +1,4 @@
-import { theme } from "@/constants/theme";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 import { Pressable, StyleSheet, Text, ViewStyle } from "react-native";
 
 type ButtonVariant = "primary" | "secondary";
@@ -10,6 +10,7 @@ export default function Button(props: {
   disabled?:boolean
   style?: ViewStyle; 
 }) {
+  const { theme } = useTheme();
   const { disabled } = props;
 
   const bg = props.variant === "primary" ? theme.primary : theme.surface2;

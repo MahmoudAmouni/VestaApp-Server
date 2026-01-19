@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Room } from "../../features/rooms/rooms.types";
-import { apiGetRooms } from "../../features/rooms/rooms.api";
+import type { Room } from "./rooms.types";
+import { apiGetRooms } from "./rooms.api";
 
 export const roomsKey = (homeId: number) => ["rooms", "home", homeId] as const;
 

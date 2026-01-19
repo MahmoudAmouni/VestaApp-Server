@@ -12,37 +12,16 @@ import {
 } from "react-native-safe-area-context";
 import { router } from "expo-router";
 
-import { Theme } from "@/type";
-import BottomNav from "@/components/ui/BottomNav";
-import { settingsStyles as styles } from "./SettingsScreen.styles";
-import ThemeToggle, { ThemeMode } from "@/components/Settings/ThemeToggle";
-import SettingsHeader from "@/components/Settings/SettingsHeader";
-import InlineInputActionRow from "@/components/Settings/InlineInputActionRow";
-import NotificationsCard from "@/components/Settings/NotificationsCard";
-import TagsManagerSection from "@/components/Settings/TagsManagerSection";
-
-const darkTheme: Theme = {
-  bg: "#0F0F12",
-  surface: "#15151B",
-  surface2: "#1B1B23",
-  text: "#f3f3f6",
-  textMuted: "rgba(243, 243, 246, 0.68)",
-  border: "rgba(255,255,255,0.10)",
-  borderStrong: "rgba(255,255,255,0.16)",
-  primary: "#c45b3d",
-  primaryGlow: "rgba(196, 91, 61, 0.20)",
-  navBg: "rgba(15, 15, 18, 0.82)",
-  shadow1: "rgba(0,0,0,0.35)",
-};
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function SettingsScreen() {
-  const theme = darkTheme;
+  const { theme, mode, setMode } = useTheme();
   const insets = useSafeAreaInsets();
 
   const [homeName, setHomeName] = useState("My Home");
   const [diet, setDiet] = useState("High Protein");
 
-  const [mode, setMode] = useState<ThemeMode>("Dark");
+  // const [mode, setMode] = useState<ThemeMode>("Dark");
 
   const [allergyDraft, setAllergyDraft] = useState("");
   const [allergies, setAllergies] = useState<string[]>([

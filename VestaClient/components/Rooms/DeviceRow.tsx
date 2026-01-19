@@ -6,7 +6,8 @@ import { Pressable, Text, View } from "react-native";
 import { Device } from "@/features/rooms/rooms.types";
 import { deviceRowStyles as styles } from "./DeviceRow.styles";
 import DeviceStatePill from "./DeviceStatePill";
-import { useRooms } from "@/contexts/rooms/RoomsContext";
+import { useRoomsMutations } from "@/features/rooms/rooms.mutations";
+import { useAuth } from "@/contexts/auth/AuthContext";
 
 export default function DeviceRow(props: {
   theme: Theme;
@@ -15,12 +16,17 @@ export default function DeviceRow(props: {
   onEdit?: (id: number) => void;
   onDelete?: (id: number) => void;
 }) {
-  const { toggleDevice } = useRooms();
+  const { session } = useAuth();
+  const { updateDeviceMutation } = useRoomsMutations({ homeId: session?.homeId ?? 0, token: session?.token });
 
   const { theme, device, roomId } = props;
 
   function handleToggle() {
-    toggleDevice(device.id, roomId);
+    updateDeviceMutation.mutate({
+      roomId: props.roomId,
+      deviceId: device.id,
+      patch: { is_on: !device.is_on },
+    });
   }
 
   return (

@@ -12,8 +12,8 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { makeAuthSheetStyles } from "./AuthSheet.styles";
-import { theme } from "@/constants/theme";
 import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 
 
@@ -26,6 +26,7 @@ export default function ProfileSheet({
   visible,
   onClose,
 }: Props) {
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const styles = useMemo(
     () => makeAuthSheetStyles(theme, insets.bottom),

@@ -1,18 +1,21 @@
-import { theme } from "@/constants/theme";
 import { Device } from "@/features/rooms/rooms.types";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { DeviceToggle } from "./DeviceToggle";
 import { roomDetailsStyles as styles } from "./RoomDetailsScreen.styles";
-import { useRooms } from "@/contexts/rooms/RoomsContext";
+import { useRoomsMutations } from "@/features/rooms/rooms.mutations";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function DeviceRow(p: {
   device: Device;
   onEdit: () => void;
   onDelete: () => void;
 }) {
-  const { toggleDevice } = useRooms();
+  const { theme } = useTheme();
+  const { session } = useAuth();
+  const { updateDeviceMutation } = useRoomsMutations({ homeId: session?.homeId ?? 0, token: session?.token });
   const { device, onEdit, onDelete } = p;
   return (
     <View
@@ -34,7 +37,11 @@ export default function DeviceRow(p: {
           theme={theme}
           on={device.is_on}
           onPress={() => {
-            toggleDevice(device.id);
+            updateDeviceMutation.mutate({
+              roomId: device.room_id,
+              deviceId: device.id,
+              patch: { is_on: !device.is_on }
+            });
           }}
         />
 

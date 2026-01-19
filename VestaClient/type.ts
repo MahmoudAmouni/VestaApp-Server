@@ -7,7 +7,6 @@ export type Theme = {
   border: string;
   borderStrong: string;
   primary: string;
-  primaryGlow: string;
   navBg: string;
   shadow1: string;
 };

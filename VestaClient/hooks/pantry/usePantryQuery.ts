@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import type { PantryItem } from "./pantry.types";
-import { apiGetPantry } from "./pantry.api";
+import type { PantryItem } from "../../features/pantry/pantry.types";
+import { apiGetPantry } from "../../features/pantry/pantry.api";
 
 export const pantryKey = (homeId: number) =>
   ["pantry", "home", homeId] as const;

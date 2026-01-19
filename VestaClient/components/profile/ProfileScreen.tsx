@@ -13,12 +13,13 @@ import SettingsSection, { SettingsItem } from "@/components/profile/SettingsSect
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import ProfileSummaryCard from "@/components/profile/ProfileSummaryCard";
 import DangerZoneActions from "@/components/profile/DangerZoneActions";
-import { theme } from "@/constants/theme";
 import ProfileSheet from "./ProfileSheet";
 import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 
 export default function ProfileScreen() {
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
 
   const [showModal,setShowModal] = useState(false)
