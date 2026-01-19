@@ -4,10 +4,11 @@ import { Animated, Easing, Text, View } from "react-native";
 import Card from "@/components/ui/Card";
 
 import { loadingStyles as styles } from "./Loading.styles";
-import { theme } from "@/constants/theme";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 
 export default function LoadingScreen() {
+  const { theme } = useTheme();
 
   const [trackW, setTrackW] = useState(0);
   const innerW = useMemo(() => Math.max(0, trackW - 4), [trackW]); 
@@ -95,14 +96,14 @@ export default function LoadingScreen() {
         pointerEvents="none"
         style={[
           styles.glowA,
-          { backgroundColor: theme.primaryGlow, borderColor: theme.border },
+          {  borderColor: theme.border },
         ]}
       />
       <View
         pointerEvents="none"
         style={[
           styles.glowB,
-          { backgroundColor: theme.primaryGlow, borderColor: theme.border },
+          {  borderColor: theme.border },
         ]}
       />
 
@@ -119,7 +120,7 @@ export default function LoadingScreen() {
               style={[
                 styles.logoDotGlow,
                 {
-                  backgroundColor: theme.primaryGlow,
+                  
                   transform: [{ scale: glowScale }],
                   opacity: glowOpacity,
                 },

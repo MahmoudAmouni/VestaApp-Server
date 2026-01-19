@@ -14,10 +14,10 @@ import SavedRecipesSection, {
   SavedRecipe,
 } from "@/components/savedRecipes/SavedRecipesSection";
 import { savedRecipesStyles as styles } from "./SavedRecipes.styles";
-import { theme } from "@/constants/theme";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function SavedRecipesScreen() {
-
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
 
   const [query, setQuery] = useState("");

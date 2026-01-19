@@ -11,11 +11,11 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { theme } from "@/constants/theme";
 import { useRooms } from "@/features/rooms/useRooms";
 import { Device } from "@/features/rooms/rooms.types";
 import { makeRoomSheetStyles } from "../Rooms/RoomSheet.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 type Props = {
   visible: boolean;
@@ -30,6 +30,7 @@ export default function DeviceSheet({
   onClose,
   roomId,
 }: Props) {
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const styles = useMemo(
     () => makeRoomSheetStyles(theme, insets.bottom),

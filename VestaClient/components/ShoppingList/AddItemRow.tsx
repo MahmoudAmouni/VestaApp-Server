@@ -3,10 +3,11 @@ import { View } from "react-native";
 
 import Button from "@/components/ui/Button";
 
-import { theme } from "@/constants/theme";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 import { addItemRowStyles as styles } from "./AddItemRow.styles";
 
 export default function AddItemRow(props: { onPress: () => void }) {
+  const { theme } = useTheme();
   const {onPress} = props
   return (
     <View style={styles.row}>

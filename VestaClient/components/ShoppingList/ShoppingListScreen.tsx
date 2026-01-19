@@ -11,14 +11,15 @@ import AddItemRow from "@/components/ShoppingList/AddItemRow";
 import ItemsSection from "@/components/ShoppingList/ItemsSection";
 import ShoppingHeader from "@/components/ShoppingList/ShoppingHeader";
 import ShoppingHero from "@/components/ShoppingList/ShoppingHero";
-import { theme } from "@/constants/theme";
 import { ShoppingListItem } from "@/features/shoppingList/shoppingList.types";
 import { useShoppingList } from "@/features/shoppingList/useShoppingList";
 import { shoppingStyles as styles } from "./ShoppingListScreen.styles";
 import ShoppingItemSheet from "./shoppingListSheet";
 import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function ShoppingListScreen() {
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const {homeId} = useAuth()
   const {

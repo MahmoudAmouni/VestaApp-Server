@@ -3,12 +3,13 @@ import { Text, View } from "react-native";
 
 import Card from "@/components/ui/Card";
 import { stepCardStyles as styles } from "./StepCard.styles";
-import { theme } from "@/constants/theme";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function StepCard(props: {
   index: number;
   title: string;
 }) {
+  const { theme } = useTheme();
   const { title } = props;
 
   return (

@@ -14,8 +14,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRooms } from "@/features/rooms/useRooms";
 import { Room } from "@/features/rooms/rooms.types";
 import { makeRoomSheetStyles } from "./RoomSheet.styles";
-import { theme } from "@/constants/theme";
 import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 type Props = {
   visible: boolean;
@@ -28,6 +28,7 @@ export default function RoomSheet({
   onClose,
   room,
 }: Props) {
+  const { theme } = useTheme();
   const { session } = useAuth();
   const { updateRoom, createRoom } = useRooms(session?.homeId ?? 0, session?.token);
   const insets = useSafeAreaInsets();

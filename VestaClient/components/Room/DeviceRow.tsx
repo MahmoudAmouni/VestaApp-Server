@@ -1,4 +1,3 @@
-import { theme } from "@/constants/theme";
 import { Device } from "@/features/rooms/rooms.types";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
@@ -7,12 +6,14 @@ import { DeviceToggle } from "./DeviceToggle";
 import { roomDetailsStyles as styles } from "./RoomDetailsScreen.styles";
 import { useRooms } from "@/features/rooms/useRooms";
 import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function DeviceRow(p: {
   device: Device;
   onEdit: () => void;
   onDelete: () => void;
 }) {
+  const { theme } = useTheme();
   const { session } = useAuth();
   const { toggleDevice } = useRooms(session?.homeId ?? 0, session?.token);
   const { device, onEdit, onDelete } = p;

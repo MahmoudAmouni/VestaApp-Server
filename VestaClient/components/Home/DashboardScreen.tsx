@@ -5,7 +5,7 @@ import HeroCard from "@/components/ui/HeroCard";
 import RoomCard from "@/components/Home/RoomCard";
 
 import SectionHeader from "@/components/Home/SectionHeader";
-import { theme } from "@/constants/theme";
+
 import { useRooms } from "@/features/rooms/useRooms";
 import { usePantry } from "@/features/pantry/usePantry";
 import { getExpiringSoon } from "@/utils/dateHelpers";
@@ -19,10 +19,12 @@ import {
 import ExpiringSoonSection from "../Pantry/ExpiringSoonSection";
 import { indexStyles as styles } from "./Dashboard.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 type NavKey = "Home" | "Rooms" | "Pantry" | "Recipes" | "AI";
 
 export default function DashboardScreen() {
+  const { theme } = useTheme();
   
   const [activeTab, setActiveTab] = useState<NavKey>("Home");
   const { session } = useAuth();

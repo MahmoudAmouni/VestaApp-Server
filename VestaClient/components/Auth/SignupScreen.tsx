@@ -17,13 +17,14 @@ import { signupStyles as styles } from "./Signup.styles";
 import LoginHeader from "@/components/Auth/LoginHeader";
 import TextField from "@/components/Auth/TextField";
 import SocialButton from "@/components/Welcome/SocialButton";
-import { theme } from "@/constants/theme";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { GoogleButton } from "../Welcome/GoogleButton";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 
 
 export default function SignupScreen() {
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const {register} = useAuth()
 

@@ -14,11 +14,12 @@ import QuickStatsCard, { QuickStat } from "@/components/RecipeDetail/QuickStatsC
 import DescriptionSection from "@/components/RecipeDetail/DescriptionSection";
 import IngredientsSection   from "@/components/RecipeDetail/IngredientSection";
 import StepsSection from "@/components/RecipeDetail/StepsSection";
-import { theme } from "@/constants/theme";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 import { RagRecipeResult } from "@/features/recipes/recipes.rag.types";
 
 
 export default function RecipeDetailScreen({recipe}:{recipe:RagRecipeResult}) {
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const ingredients = recipe.ingredients.split("$$")
 

@@ -4,7 +4,7 @@ import Card from "../ui/Card";
 import Pill from "../ui/Pill";
 import { roomStyles as styles } from "./RoomCard.styles";
 import { Room } from "@/features/rooms/rooms.types";
-import { theme } from "@/constants/theme";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function RoomCard(props: {
   room:Room
@@ -12,6 +12,7 @@ export default function RoomCard(props: {
   onPressAllOff: () => void;
   onPressCard: () => void;
 }) {
+  const { theme } = useTheme();
   const { room } = props;
   const counts = room.devices.reduce(
     (acc, device) => {

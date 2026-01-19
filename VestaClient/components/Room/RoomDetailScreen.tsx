@@ -9,7 +9,6 @@ import HeroCard from "@/components/ui/HeroCard";
 import QuickActionTile from "@/components/Room/QuickActionTile";
 import RoomActions from "@/components/Room/RoomActions";
 import RoomHeader from "@/components/Room/RoomHeader";
-import { theme } from "@/constants/theme";
 import { useRooms } from "@/features/rooms/useRooms";
 import { Device } from "@/features/rooms/rooms.types";
 import { router, useLocalSearchParams } from "expo-router";
@@ -18,8 +17,10 @@ import RoomSheet from "../Rooms/RoomSheet";
 import DeviceRow from "./DeviceRow";
 import DeviceSheet from "./DeviceSheet";
 import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function RoomDetailsScreen() {
+  const { theme } = useTheme();
   const [openModal, setOpenModal] = useState(false);
   const [openDeviceModal, setOpenDeviceModal] = useState(false);
   const [device, setDevice] = useState<Device | null>();

@@ -47,15 +47,31 @@ export const Fonts = Platform.select({
 });
 
 
- export const theme: Theme = (globalThis as any).theme ?? {
-    bg: "#0f0f12",
-    surface: "#15151b",
-    surface2: "#1b1b23",
-    text: "#f3f3f6",
-    textMuted: "rgba(243, 243, 246, 0.68)",
-    border: "rgba(255,255,255,0.10)",
-    borderStrong: "rgba(255,255,255,0.16)",
-    primary: "#c45b3d",
-    navBg: "rgba(15, 15, 18, 0.82)",
-    shadow1: "rgba(0,0,0,0.35)",
-  };
+export const lightTheme: Theme = {
+  bg: "#ffffff",
+  surface: "#f9f9fb",
+  surface2: "#f0f0f4",
+  text: "#11181C",
+  textMuted: "rgba(17, 24, 28, 0.68)",
+  border: "rgba(0,0,0,0.10)",
+  borderStrong: "rgba(0,0,0,0.16)",
+  primary: "#c45b3d",
+  navBg: "rgba(255, 255, 255, 0.82)",
+  shadow1: "rgba(0,0,0,0.15)",
+};
+
+export const darkTheme: Theme = {
+  bg: "#0f0f12",
+  surface: "#15151b",
+  surface2: "#1b1b23",
+  text: "#f3f3f6",
+  textMuted: "rgba(243, 243, 246, 0.68)",
+  border: "rgba(255,255,255,0.10)",
+  borderStrong: "rgba(255,255,255,0.16)",
+  primary: "#c45b3d",
+  navBg: "rgba(15, 15, 18, 0.82)",
+  shadow1: "rgba(0,0,0,0.35)",
+};
+
+// Default export for backward compatibility during refactor (Points to Dark for now)
+export const theme: Theme = darkTheme;

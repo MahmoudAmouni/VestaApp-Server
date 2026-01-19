@@ -8,6 +8,7 @@ import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { QueryClientProvider } from "@tanstack/react-query";
 
 import { AuthProvider } from "@/contexts/auth/AuthProvider";
+import { ThemeProvider as AppThemeProvider } from "@/contexts/theme/ThemeProvider";
 
 import { queryClient, setupReactQueryFocus } from "@/lib/reactQuery";
 
@@ -80,23 +81,25 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <RouteGuard>
-            <ThemeProvider value={NavTheme}>
-              <StatusBar style="light" backgroundColor={BG} />
-              <Stack
-                screenOptions={{
-                  headerShown: false,
-                  contentStyle: { backgroundColor: BG },
-                }}
-              >
-                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              </Stack>
-            </ThemeProvider>
-            <AuthenticatedOverlay />
-        </RouteGuard>
-      </AuthProvider>
+      <AppThemeProvider>
+        <AuthProvider>
+          <RouteGuard>
+              <ThemeProvider value={NavTheme}>
+                <StatusBar style="light" backgroundColor={BG} />
+                <Stack
+                  screenOptions={{
+                    headerShown: false,
+                    contentStyle: { backgroundColor: BG },
+                  }}
+                >
+                  <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                </Stack>
+              </ThemeProvider>
+              <AuthenticatedOverlay />
+          </RouteGuard>
+        </AuthProvider>
+      </AppThemeProvider>
     </QueryClientProvider>
   );
 }

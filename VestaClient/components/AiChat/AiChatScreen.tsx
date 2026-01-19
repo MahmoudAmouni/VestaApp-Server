@@ -13,10 +13,11 @@ import { aiChatStyles as styles } from "./ai.styles";
 import ChatThread from "@/components/AiChat/ChatThread";
 import ChatComposer from "@/components/AiChat/ChatComposer";
 import { useAiChat } from "@/features/aiChat/useAiChat";
-import { theme } from "@/constants/theme";
 import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function AiChatScreen() {
+  const { theme } = useTheme();
 
   const {homeId} = useAuth();
 
