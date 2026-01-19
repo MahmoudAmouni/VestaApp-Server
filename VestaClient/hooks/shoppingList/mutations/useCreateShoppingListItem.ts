@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../lib/reactQuery";
-import type { ShoppingListItem, ShoppingListItemWriteDto } from "../shoppingList.types";
-import { apiCreateShoppingListItem } from "../shoppingList.api";
-import { shoppingListKey } from "../shoppingList.query";
+import type { ShoppingListItem, ShoppingListItemWriteDto } from "../../../features/shoppingList/shoppingList.types";
+import { apiCreateShoppingListItem } from "../../../features/shoppingList/shoppingList.api";
+import { shoppingListKey } from "../useShoppingListQuery";
 
 export function useCreateShoppingListItem(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;

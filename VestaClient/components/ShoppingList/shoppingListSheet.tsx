@@ -12,6 +12,7 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import { useShoppingListMutations } from "@/hooks/shoppingList/useShoppingListMutations";
 import { makeShoppingItemSheetStyles } from "./ShoppingItemSheet.styles";
 
 

@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../lib/reactQuery";
-import type { ShoppingListItem } from "../shoppingList.types";
-import { apiDeleteShoppingListItem } from "../shoppingList.api";
-import { shoppingListKey } from "../shoppingList.query";
+import type { ShoppingListItem } from "../../../features/shoppingList/shoppingList.types";
+import { apiDeleteShoppingListItem } from "../../../features/shoppingList/shoppingList.api";
+import { shoppingListKey } from "../useShoppingListQuery";
 
 export function useDeleteShoppingListItem(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;

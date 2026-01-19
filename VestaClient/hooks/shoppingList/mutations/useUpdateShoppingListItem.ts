@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../lib/reactQuery";
-import type { ShoppingListItem, ShoppingListItemPatch } from "../shoppingList.types";
-import { buildShoppingListItemWriteDto } from "../shoppingList.write.types";
-import { apiUpdateShoppingListItem } from "../shoppingList.api";
-import { shoppingListKey } from "../shoppingList.query";
-import { getShoppingListItemFromCache } from "../shoppingList.cache";
+import type { ShoppingListItem, ShoppingListItemPatch } from "../../../features/shoppingList/shoppingList.types";
+import { buildShoppingListItemWriteDto } from "../../../features/shoppingList/shoppingList.write.types";
+import { apiUpdateShoppingListItem } from "../../../features/shoppingList/shoppingList.api";
+import { shoppingListKey } from "../useShoppingListQuery";
+import { getShoppingListItemFromCache } from "../../../features/shoppingList/shoppingList.cache";
 
 export function useUpdateShoppingListItem(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;

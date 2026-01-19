@@ -4,9 +4,9 @@ import React from "react";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import { useTheme } from "@/contexts/theme/ThemeContext";
-import { type ShoppingListItem } from "@/features/shoppingList/shoppingList.types";
 import { itemsSectionStyles as styles } from "./ItemsSection.styles";
 import ShoppingItemRow from "./ShoppingItemRow";
+import { ShoppingListItem } from "@/features/shoppingList/shoppingList.types";
 
 function ClearCheckedButton(props: {
   disabled?: boolean;
