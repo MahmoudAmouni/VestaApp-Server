@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useRooms } from "@/features/rooms/useRooms";
+import { useRoomsMutations } from "@/features/rooms/rooms.mutations";
 import { Room } from "@/features/rooms/rooms.types";
 import { makeRoomSheetStyles } from "./RoomSheet.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";
@@ -30,7 +30,7 @@ export default function RoomSheet({
 }: Props) {
   const { theme } = useTheme();
   const { session } = useAuth();
-  const { updateRoom, createRoom } = useRooms(session?.homeId ?? 0, session?.token);
+  const { updateRoomMutation, createRoomMutation } = useRoomsMutations({ homeId: session?.homeId ?? 0, token: session?.token });
   const insets = useSafeAreaInsets();
   const [query, setQuery] = useState("");
   const styles = useMemo(
@@ -43,8 +43,8 @@ export default function RoomSheet({
 
   function onPressSave() {
     onClose();
-    if(room)updateRoom(room.id,{name:query})
-    else createRoom({ room_name: query });
+    if(room) updateRoomMutation.mutate({ roomId: room.id, patch: {name:query} })
+    else createRoomMutation.mutate({ dto: { room_name: query } });
     
   }
   

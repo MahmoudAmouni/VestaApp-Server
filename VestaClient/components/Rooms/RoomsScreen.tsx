@@ -13,7 +13,7 @@ import Header from "@/components/ui/Header";
 import { useRouter } from "expo-router";
 import { roomsStyles as styles } from "./rooms.styles";
 import RoomSheet from "./RoomSheet";
-import { useRooms } from "@/features/rooms/useRooms";
+import { useRoomsQuery } from "@/features/rooms/rooms.query";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 
@@ -22,7 +22,7 @@ export default function RoomsScreen() {
   const homeId = session?.homeId ?? 0;
   const token = session?.token;
 
-  const { rooms, isLoading, error } = useRooms(homeId, token);
+  const { data: rooms = [], isLoading, error } = useRoomsQuery({ homeId, token });
   const [showRoomSheet, setShowRoomSheet] = useState(false);
   const { theme } = useTheme();
   const router = useRouter();

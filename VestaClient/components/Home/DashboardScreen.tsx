@@ -6,7 +6,7 @@ import RoomCard from "@/components/Home/RoomCard";
 
 import SectionHeader from "@/components/Home/SectionHeader";
 
-import { useRooms } from "@/features/rooms/useRooms";
+import { useRoomsQuery } from "@/features/rooms/rooms.query";
 import { usePantryQuery } from "@/features/pantry/pantry.query";
 import { getExpiringSoon } from "@/utils/dateHelpers";
 import React, { useState } from "react";
@@ -32,7 +32,7 @@ export default function DashboardScreen() {
   const token = session?.token;
 
   const { data: pantryItems = [], isLoading } = usePantryQuery({ homeId, token });
-  const { rooms, isLoading: isGettingRooms } = useRooms(homeId, token);
+  const { data: rooms = [], isLoading: isGettingRooms } = useRoomsQuery({ homeId, token });
   const isWorking = isLoading || isGettingRooms;
 
   if (isWorking) return;

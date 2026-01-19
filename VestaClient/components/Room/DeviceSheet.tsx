@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useRooms } from "@/features/rooms/useRooms";
+import { useRoomsMutations } from "@/features/rooms/rooms.mutations";
 import { Device } from "@/features/rooms/rooms.types";
 import { makeRoomSheetStyles } from "../Rooms/RoomSheet.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";
@@ -40,7 +40,7 @@ export default function DeviceSheet({
   const [ipAdress, setIpAdress] = useState("");
   
   const { session } = useAuth();
-  const { createDevice, updateDevice } = useRooms(session?.homeId ?? 0, session?.token);
+  const { createDeviceMutation, updateDeviceMutation } = useRoomsMutations({ homeId: session?.homeId ?? 0, token: session?.token });
 
   useEffect(() => {
     if (device) {
@@ -53,8 +53,8 @@ export default function DeviceSheet({
 
   function onPressSave() {
     onClose();
-    if(device) updateDevice(roomId,device.id,{name,external_id:ipAdress})
-    else createDevice(roomId, { device_name: name, external_id: ipAdress });
+    if(device) updateDeviceMutation.mutate({ roomId, deviceId: device.id, patch: {name,external_id:ipAdress} })
+    else createDeviceMutation.mutate({ roomId, dto: { device_name: name, external_id: ipAdress } });
   }
 
   const translateY = useRef(new Animated.Value(520)).current;
