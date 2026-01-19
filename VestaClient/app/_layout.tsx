@@ -8,7 +8,7 @@ import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { QueryClientProvider } from "@tanstack/react-query";
 
 import { AuthProvider } from "@/contexts/auth/AuthProvider";
-import { RoomsProvider } from "@/contexts/rooms/RoomsProvider";
+
 import { queryClient, setupReactQueryFocus } from "@/lib/reactQuery";
 
 import { VestaVoiceOverlay } from "@/components/Vesta/VestaVoiceOverlay";
@@ -55,20 +55,12 @@ function RouteGuard({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-function RoomsGate({ children }: { children: React.ReactNode }) {
+
+
+function AuthenticatedOverlay() {
   const { session } = useAuth();
-
-  const token = session?.token;
-  const homeId = session?.homeId; 
-
-
-  if (!token || !homeId) return <>{children}</>;
-
-  return (
-    <RoomsProvider homeId={homeId} token={token}>
-      {children}
-    </RoomsProvider>
-  );
+  if (!session?.token) return null;
+  return <VestaVoiceOverlay />;
 }
 
 export default function RootLayout() {
@@ -90,7 +82,6 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <RouteGuard>
-          <RoomsGate>
             <ThemeProvider value={NavTheme}>
               <StatusBar style="light" backgroundColor={BG} />
               <Stack
@@ -103,8 +94,7 @@ export default function RootLayout() {
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
               </Stack>
             </ThemeProvider>
-            <VestaVoiceOverlay />
-          </RoomsGate>
+            <AuthenticatedOverlay />
         </RouteGuard>
       </AuthProvider>
     </QueryClientProvider>

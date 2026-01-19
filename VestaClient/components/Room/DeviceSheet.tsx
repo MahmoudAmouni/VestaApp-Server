@@ -12,9 +12,10 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { theme } from "@/constants/theme";
-import { useRooms } from "@/contexts/rooms/RoomsContext";
+import { useRooms } from "@/features/rooms/useRooms";
 import { Device } from "@/features/rooms/rooms.types";
 import { makeRoomSheetStyles } from "../Rooms/RoomSheet.styles";
+import { useAuth } from "@/contexts/auth/AuthContext";
 
 type Props = {
   visible: boolean;
@@ -36,7 +37,9 @@ export default function DeviceSheet({
   );
   const [name, setName] = useState("");
   const [ipAdress, setIpAdress] = useState("");
-  const { createDevice,updateDevice } = useRooms();
+  
+  const { session } = useAuth();
+  const { createDevice, updateDevice } = useRooms(session?.homeId ?? 0, session?.token);
 
   useEffect(() => {
     if (device) {

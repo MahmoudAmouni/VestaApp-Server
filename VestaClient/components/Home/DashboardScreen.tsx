@@ -6,7 +6,7 @@ import RoomCard from "@/components/Home/RoomCard";
 
 import SectionHeader from "@/components/Home/SectionHeader";
 import { theme } from "@/constants/theme";
-import { useRooms } from "@/contexts/rooms/RoomsContext";
+import { useRooms } from "@/features/rooms/useRooms";
 import { usePantry } from "@/features/pantry/usePantry";
 import { getExpiringSoon } from "@/utils/dateHelpers";
 import React, { useState } from "react";
@@ -25,10 +25,12 @@ type NavKey = "Home" | "Rooms" | "Pantry" | "Recipes" | "AI";
 export default function DashboardScreen() {
   
   const [activeTab, setActiveTab] = useState<NavKey>("Home");
-  const {homeId} = useAuth() 
+  const { session } = useAuth();
+  const homeId = session?.homeId ?? 0;
+  const token = session?.token;
 
-  const { pantryItems, isLoading } = usePantry(homeId);
-  const { rooms, isLoading: isGettingRooms } = useRooms();
+  const { pantryItems, isLoading } = usePantry(homeId, token);
+  const { rooms, isLoading: isGettingRooms } = useRooms(homeId, token);
   const isWorking = isLoading || isGettingRooms;
 
   if (isWorking) return;

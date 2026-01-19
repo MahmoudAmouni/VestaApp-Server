@@ -5,14 +5,16 @@ import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { DeviceToggle } from "./DeviceToggle";
 import { roomDetailsStyles as styles } from "./RoomDetailsScreen.styles";
-import { useRooms } from "@/contexts/rooms/RoomsContext";
+import { useRooms } from "@/features/rooms/useRooms";
+import { useAuth } from "@/contexts/auth/AuthContext";
 
 export default function DeviceRow(p: {
   device: Device;
   onEdit: () => void;
   onDelete: () => void;
 }) {
-  const { toggleDevice } = useRooms();
+  const { session } = useAuth();
+  const { toggleDevice } = useRooms(session?.homeId ?? 0, session?.token);
   const { device, onEdit, onDelete } = p;
   return (
     <View

@@ -6,7 +6,8 @@ import { Pressable, Text, View } from "react-native";
 import { Device } from "@/features/rooms/rooms.types";
 import { deviceRowStyles as styles } from "./DeviceRow.styles";
 import DeviceStatePill from "./DeviceStatePill";
-import { useRooms } from "@/contexts/rooms/RoomsContext";
+import { useRooms } from "@/features/rooms/useRooms";
+import { useAuth } from "@/contexts/auth/AuthContext";
 
 export default function DeviceRow(props: {
   theme: Theme;
@@ -15,7 +16,8 @@ export default function DeviceRow(props: {
   onEdit?: (id: number) => void;
   onDelete?: (id: number) => void;
 }) {
-  const { toggleDevice } = useRooms();
+  const { session } = useAuth();
+  const { toggleDevice } = useRooms(session?.homeId ?? 0, session?.token);
 
   const { theme, device, roomId } = props;
 

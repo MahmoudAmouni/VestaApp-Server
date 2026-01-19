@@ -10,13 +10,14 @@ import QuickActionTile from "@/components/Room/QuickActionTile";
 import RoomActions from "@/components/Room/RoomActions";
 import RoomHeader from "@/components/Room/RoomHeader";
 import { theme } from "@/constants/theme";
-import { useRooms } from "@/contexts/rooms/RoomsContext";
+import { useRooms } from "@/features/rooms/useRooms";
 import { Device } from "@/features/rooms/rooms.types";
 import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import RoomSheet from "../Rooms/RoomSheet";
 import DeviceRow from "./DeviceRow";
 import DeviceSheet from "./DeviceSheet";
+import { useAuth } from "@/contexts/auth/AuthContext";
 
 export default function RoomDetailsScreen() {
   const [openModal, setOpenModal] = useState(false);
@@ -25,7 +26,12 @@ export default function RoomDetailsScreen() {
 
   const { id } = useLocalSearchParams<{ id: string }>();
   const roomId = Number(id);
-  const { rooms, isLoading, deleteRoom,deleteDevice } = useRooms()
+
+  const { session } = useAuth();
+  const homeId = session?.homeId ?? 0;
+  const token = session?.token;
+  
+  const { rooms, isLoading, deleteRoom, deleteDevice } = useRooms(homeId, token);
 
   if (isLoading) return <Text>Loading...</Text>;
   let room = rooms.find((room) => room.id === roomId);

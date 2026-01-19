@@ -13,10 +13,15 @@ import Header from "@/components/ui/Header";
 import { useRouter } from "expo-router";
 import { roomsStyles as styles } from "./rooms.styles";
 import RoomSheet from "./RoomSheet";
-import { useRooms } from "@/contexts/rooms/RoomsContext";
+import { useRooms } from "@/features/rooms/useRooms";
+import { useAuth } from "@/contexts/auth/AuthContext";
 
 export default function RoomsScreen() {
-  const { rooms, isLoading, error } = useRooms();
+  const { session } = useAuth();
+  const homeId = session?.homeId ?? 0;
+  const token = session?.token;
+
+  const { rooms, isLoading, error } = useRooms(homeId, token);
   const [showRoomSheet, setShowRoomSheet] = useState(false);
   const theme: Theme = (globalThis as any).theme ?? {
     bg: "#0f0f12",
