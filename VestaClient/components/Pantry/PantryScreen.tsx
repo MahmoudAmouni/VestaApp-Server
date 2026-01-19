@@ -13,7 +13,7 @@ import PantryFilterRow, {
   PantryFilterKey,
 } from "@/components/Pantry/PantryFilterRow";
 import PantrySearchBar from "@/components/Pantry/PantrySearchBar";
-import { usePantryQuery } from "@/features/pantry/pantry.query";
+import { usePantryQuery } from "@/hooks/pantry/usePantryQuery";
 import { pantryScreenStyles as styles } from "./pantry.styles";
 import PantryItemSheet from "./PantryItemSheet";
 import { useAuth } from "@/contexts/auth/AuthContext";

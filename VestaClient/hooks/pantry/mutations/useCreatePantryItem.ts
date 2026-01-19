@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../lib/reactQuery";
-import type { PantryItem, PantryItemWriteDto } from "../pantry.types";
-import { apiCreatePantryItem } from "../pantry.api";
-import { pantryKey } from "../pantry.query";
+import type { PantryItem, PantryItemWriteDto } from "../../../features/pantry/pantry.types";
+import { apiCreatePantryItem } from "../../../features/pantry/pantry.api";
+import { pantryKey } from "../usePantryQuery";
 
 export function useCreatePantryItem(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;

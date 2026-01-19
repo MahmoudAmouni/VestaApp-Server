@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../lib/reactQuery";
-import type { PantryItem, PantryItemPatch } from "../pantry.types";
-import { buildPantryItemWriteDto } from "../pantry.write.types";
-import { apiUpdatePantryItem } from "../pantry.api";
-import { pantryKey } from "../pantry.query";
-import { getPantryItemFromCache } from "../pantry.cache";
+import type { PantryItem, PantryItemPatch } from "../../../features/pantry/pantry.types";
+import { buildPantryItemWriteDto } from "../../../features/pantry/pantry.write.types";
+import { apiUpdatePantryItem } from "../../../features/pantry/pantry.api";
+import { pantryKey } from "../usePantryQuery";
+import { getPantryItemFromCache } from "../../../features/pantry/pantry.cache";
 
 export function useUpdatePantryItem(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;

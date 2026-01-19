@@ -9,7 +9,7 @@ import Pill from "@/components/ui/Pill";
 import { pantryItemCardStyles as styles } from "./PantryItemCard.styles";
 import { PantryItem } from "@/features/pantry/pantry.types";
 import { daysFromToday } from "@/utils/dateHelpers";
-import { usePantryMutations } from "@/features/pantry/pantry.mutations";
+import { usePantryMutations } from "@/hooks/pantry/usePantryMutations";
 import { usePantryModal } from "@/contexts/PantryModalContext";
 import { useAuth } from "@/contexts/auth/AuthContext";
 

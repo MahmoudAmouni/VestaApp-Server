@@ -16,7 +16,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import type { Theme } from "@/type";
 import { makePantryItemSheetStyles } from "./PantryItemSheet.styles";
 import { usePantryModal } from "@/contexts/PantryModalContext";
-import { usePantryMutations } from "@/features/pantry/pantry.mutations";
+import { usePantryMutations } from "@/hooks/pantry/usePantryMutations";
 import { useAuth } from "@/contexts/auth/AuthContext";
 
 

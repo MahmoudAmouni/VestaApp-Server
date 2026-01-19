@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../lib/reactQuery";
-import type { PantryItem } from "../pantry.types";
-import { apiDeletePantryItem } from "../pantry.api";
-import { pantryKey } from "../pantry.query";
+import type { PantryItem } from "../../../features/pantry/pantry.types";
+import { apiDeletePantryItem } from "../../../features/pantry/pantry.api";
+import { pantryKey } from "../usePantryQuery";
 
 export function useDeletePantryItem(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;
