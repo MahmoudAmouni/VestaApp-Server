@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     padding: 20,
+    paddingBottom: 100,
     pointerEvents: 'box-none', 
   },
 });

@@ -1,6 +1,7 @@
 import { Theme } from "@/type";
 import { Pressable, Text, View } from "react-native";
 import { sectionHeaderStyles as styles } from "./SectionHeader.styles";
+import SmallButton from "../ui/SmallButton";
 
 export default function SectionHeader(props: {
   theme: Theme;
@@ -14,14 +15,10 @@ export default function SectionHeader(props: {
       <Text style={[styles.sectionTitle, { color: theme.text }]}>
         {props.title}
       </Text>
-      <Pressable
+      <SmallButton
+        label={props.actionLabel}
         onPress={props.onPressAction}
-        style={({ pressed }) => [{ opacity: pressed ? 0.85 : 1 }]}
-      >
-        <Text style={[styles.sectionAction, { color: theme.primary }]}>
-          {props.actionLabel}
-        </Text>
-      </Pressable>
+      />
     </View>
   );
 }

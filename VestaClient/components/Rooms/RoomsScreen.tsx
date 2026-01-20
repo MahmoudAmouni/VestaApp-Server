@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { SafeAreaView, ScrollView, StatusBar, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Theme } from "@/type";
-
 import BottomNav from "@/components/ui/BottomNav";
 import RoomCard from "@/components/Rooms/RoomCard";
 import RoomsSectionHeader from "@/components/Rooms/RoomSectionHeader";
