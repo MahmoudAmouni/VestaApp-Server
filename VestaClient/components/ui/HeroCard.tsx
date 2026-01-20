@@ -9,6 +9,7 @@ type HeroKpi = {
   label: string;
   value: string;
   hint?: string;
+  smallValue?: boolean;
 };
 
 export default function HeroCard(props: {
@@ -54,10 +55,6 @@ export default function HeroCard(props: {
         {props.badge ? <View>{props.badge}</View> : null}
       </View>
 
-      {props.children ? (
-        <View style={{ marginTop: 12 }}>{props.children}</View>
-      ) : null}
-
       {props.kpis?.length ? (
         <View style={styles.kpis}>
           {props.kpis.map((k) => (
@@ -67,9 +64,14 @@ export default function HeroCard(props: {
               label={k.label}
               value={k.value}
               hint={k.hint}
+              smallValue={k.smallValue}
             />
           ))}
         </View>
+      ) : null}
+
+      {props.children ? (
+        <View style={{ marginTop: 12 }}>{props.children}</View>
       ) : null}
     </Card>
   );

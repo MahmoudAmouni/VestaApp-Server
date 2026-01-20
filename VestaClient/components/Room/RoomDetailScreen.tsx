@@ -6,8 +6,8 @@ import { roomDetailsStyles as styles } from "./RoomDetailsScreen.styles";
 import BottomNav from "@/components/ui/BottomNav";
 import Card from "@/components/ui/Card";
 import HeroCard from "@/components/ui/HeroCard";
-import QuickActionTile from "@/components/Room/QuickActionTile";
 import RoomActions from "@/components/Room/RoomActions";
+import BulkActionButton from "@/components/Room/BulkActionButton";
 import RoomHeader from "@/components/Room/RoomHeader";
 import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
 import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
@@ -49,6 +49,9 @@ export default function RoomDetailsScreen() {
     }
   }
 
+  const devicesOn = room?.devices?.filter((d) => d.is_on).length ?? 0;
+  const devicesOff = room?.devices?.filter((d) => !d.is_on).length ?? 0;
+
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={[styles.screen, { backgroundColor: theme.bg }]}>
@@ -69,70 +72,26 @@ export default function RoomDetailsScreen() {
         >
           <HeroCard
             theme={theme}
-            title="Kitchen control"
-            sub="Toggle devices instantly. Control all kitchen devices"
+            title={`${room?.room_name.name} control`}
+            sub={`Toggle devices instantly. Control all ${room?.room_name.name.toLowerCase()} devices`}
+            kpis={[
+              { label: "Devices ON", value: devicesOn.toString() },
+              { label: "Devices OFF", value: devicesOff.toString() },
+              { label: "Quick Action", value: "All ON", smallValue: true },
+              { label: "Quick Action", value: "All OFF", smallValue: true },
+            ]}
           >
-            <View style={styles.tiles}>
-              <QuickActionTile
-                theme={theme}
-                label="Devices ON"
-                value={`${2}`}
-              />
-              <QuickActionTile
-                theme={theme}
-                label="Devices OFF"
-                value={`${2}`}
-              />
-              <QuickActionTile
-                theme={theme}
-                label="Quick Action"
-                value="All OFF"
-                onPress={() => {}}
-              />
-              <QuickActionTile
-                theme={theme}
-                label="Quick Action"
-                value="All ON"
-                onPress={() => {}}
-              />
-            </View>
-
             <View style={styles.bulkRow}>
-              <Pressable
+              <BulkActionButton
+                theme={theme}
+                label="All ON"
                 onPress={() => {}}
-                style={({ pressed }) => [
-                  styles.bulkBtn,
-                  {
-                    backgroundColor: theme.bg,
-                    borderColor: theme.border,
-                    opacity: pressed ? 0.9 : 1,
-                  },
-                ]}
-                accessibilityRole="button"
-                accessibilityLabel="All ON"
-              >
-                <Text style={[styles.bulkText, { color: theme.text }]}>
-                  All ON
-                </Text>
-              </Pressable>
-
-              <Pressable
+              />
+              <BulkActionButton
+                theme={theme}
+                label="All OFF"
                 onPress={() => {}}
-                style={({ pressed }) => [
-                  styles.bulkBtn,
-                  {
-                    backgroundColor: theme.bg,
-                    borderColor: theme.border,
-                    opacity: pressed ? 0.9 : 1,
-                  },
-                ]}
-                accessibilityRole="button"
-                accessibilityLabel="All OFF"
-              >
-                <Text style={[styles.bulkText, { color: theme.text }]}>
-                  All OFF
-                </Text>
-              </Pressable>
+              />
             </View>
           </HeroCard>
 
@@ -143,19 +102,47 @@ export default function RoomDetailsScreen() {
           </View>
 
           <View style={styles.list}>
-            {room?.devices?.map((device) => (
-              <DeviceRow
-                device={device}
-                key={device.id}
-                onEdit={() => {
-                  setShowDeviceModal(true, device);
+            {!room?.devices || room.devices.length === 0 ? (
+              <View
+                style={{
+                  padding: 24,
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-                onDelete={() => deleteDeviceMutation.mutate({ deviceId: device.id, roomId })}
-              />
-            ))}
+              >
+                <Text
+                  style={{
+                    color: theme.textMuted,
+                    fontSize: 14,
+                    fontWeight: "600",
+                  }}
+                >
+                  No devices added yet
+                </Text>
+              </View>
+            ) : (
+              room.devices.map((device) => (
+                <DeviceRow
+                  device={device}
+                  key={device.id}
+                  onEdit={() => {
+                    setShowDeviceModal(true, device);
+                  }}
+                  onDelete={() =>
+                    deleteDeviceMutation.mutate({ deviceId: device.id, roomId })
+                  }
+                />
+              ))
+            )}
           </View>
 
-          <Card theme={theme} padding={12} radius={16} noShadow>
+          <Card
+            theme={theme}
+            padding={12}
+            radius={16}
+            noShadow
+            style={{ marginTop: "auto" }}
+          >
             <RoomActions
               theme={theme}
               onEditRoom={() => {
