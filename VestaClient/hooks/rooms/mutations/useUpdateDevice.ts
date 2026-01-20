@@ -1,11 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../lib/reactQuery";
-import type { Room } from "../rooms.types";
-import { apiUpdateDevice } from "../rooms.api";
-import type { DeviceUpdatePatch } from "../rooms.write.types";
-import { buildDeviceUpdateDto } from "../rooms.write.types";
-import { roomsKey } from "../rooms.query";
-import { getDeviceFromCache } from "../rooms.cache";
+import type { Room } from "../../../features/rooms/rooms.types";
+import { apiUpdateDevice } from "../../../features/rooms/rooms.api";
+import {  buildDeviceUpdateDto, DeviceUpdatePatch } from "../../../features/rooms/rooms.write.types";
+import { roomsKey } from "../useRoomsQuery";
+import { getDeviceFromCache } from "../../../features/rooms/rooms.cache";
 
 export function useUpdateDevice(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;

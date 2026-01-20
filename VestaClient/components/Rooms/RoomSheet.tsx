@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useRoomsMutations } from "@/features/rooms/rooms.mutations";
+import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
 import { Room } from "@/features/rooms/rooms.types";
 import { makeRoomSheetStyles } from "./RoomSheet.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";

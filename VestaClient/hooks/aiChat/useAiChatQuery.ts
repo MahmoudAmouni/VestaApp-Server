@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { apiGetChatPage } from "./aiChat.api";
-import type { ChatPage } from "./aiChat.types";
+import { apiGetChatPage } from "../../features/aiChat/aiChat.api";
+import type { ChatPage } from "../../features/aiChat/aiChat.types";
 
 export const aiChatKey = (homeId: number) =>
   ["aiChat", "home", homeId, "thread"] as const;

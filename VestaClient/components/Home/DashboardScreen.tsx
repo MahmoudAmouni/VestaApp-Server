@@ -6,7 +6,7 @@ import RoomCard from "@/components/Home/RoomCard";
 
 import SectionHeader from "@/components/Home/SectionHeader";
 
-import { useRoomsQuery } from "@/features/rooms/rooms.query";
+import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
 import { usePantryQuery } from "@/hooks/pantry/usePantryQuery";
 import { getExpiringSoon } from "@/utils/dateHelpers";
 import React, { useState } from "react";

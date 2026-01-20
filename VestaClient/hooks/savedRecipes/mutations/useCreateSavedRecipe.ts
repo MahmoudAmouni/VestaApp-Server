@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../lib/reactQuery";
-import type { SavedRecipe, SavedRecipeWriteDto } from "../savedRecipes.types";
-import { apiCreateSavedRecipe } from "../savedRecipes.api";
-import { savedRecipesKey } from "../savedRecipes.query";
+import type { SavedRecipe, SavedRecipeWriteDto } from "../../../features/savedRecipes/savedRecipes.types";
+import { apiCreateSavedRecipe } from "../../../features/savedRecipes/savedRecipes.api";
+import { savedRecipesKey } from "../useSavedRecipesQuery";
 
 export function useCreateSavedRecipe(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;

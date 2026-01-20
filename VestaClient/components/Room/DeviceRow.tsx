@@ -4,7 +4,7 @@ import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { DeviceToggle } from "./DeviceToggle";
 import { roomDetailsStyles as styles } from "./RoomDetailsScreen.styles";
-import { useRoomsMutations } from "@/features/rooms/rooms.mutations";
+import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 

@@ -15,8 +15,8 @@ import SavedRecipesSection, {
 import { savedRecipesStyles as styles } from "./SavedRecipes.styles";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 import { useAuth } from "@/contexts/auth/AuthContext";
-import { useSavedRecipesQuery } from "@/features/savedRecipes/savedRecipes.query";
-import { useSavedRecipesMutations } from "@/features/savedRecipes/savedRecipes.mutations";
+import { useSavedRecipesQuery } from "@/hooks/savedRecipes/useSavedRecipesQuery";
+import { useSavedRecipesMutations } from "@/hooks/savedRecipes/useSavedRecipesMutations";
 import { router } from "expo-router";
 
 export default function SavedRecipesScreen() {

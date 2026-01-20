@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import type { SavedRecipe } from "./savedRecipes.types";
-import { apiGetSavedRecipes } from "./savedRecipes.api";
+import type { SavedRecipe } from "../../features/savedRecipes/savedRecipes.types";
+import { apiGetSavedRecipes } from "../../features/savedRecipes/savedRecipes.api";
 
 export const savedRecipesKey = (homeId: number) =>
   ["savedrecipes", "home", homeId] as const;

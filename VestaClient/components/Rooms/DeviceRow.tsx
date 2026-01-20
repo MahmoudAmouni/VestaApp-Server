@@ -6,7 +6,7 @@ import { Pressable, Text, View } from "react-native";
 import { Device } from "@/features/rooms/rooms.types";
 import { deviceRowStyles as styles } from "./DeviceRow.styles";
 import DeviceStatePill from "./DeviceStatePill";
-import { useRoomsMutations } from "@/features/rooms/rooms.mutations";
+import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
 import { useAuth } from "@/contexts/auth/AuthContext";
 
 export default function DeviceRow(props: {
