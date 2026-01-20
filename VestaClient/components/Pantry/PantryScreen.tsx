@@ -18,6 +18,7 @@ import { pantryScreenStyles as styles } from "./pantry.styles";
 import PantryItemSheet from "./PantryItemSheet";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import { getExpiringSoon } from "@/utils/dateHelpers";
 
 export default function PantryScreen() {
   const { theme } = useTheme();
@@ -79,7 +80,7 @@ export default function PantryScreen() {
 
           <PantrySearchBar theme={theme} value={query} onChange={setQuery} />
           <PantryFilterRow theme={theme} value={filter} onChange={setFilter} />
-          <ExpiringSoonSection theme={theme} items={expiringSoon} />
+          <ExpiringSoonSection items={expiringSoon} />
 
           <AllItemsSection
             theme={theme}

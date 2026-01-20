@@ -22,7 +22,8 @@ class GoogleAuthRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_token' => ['required', 'string'],
+            'id_token' => ['nullable', 'string', 'required_without:access_token'],
+            'access_token' => ['nullable', 'string', 'required_without:id_token'],
         ];
     }
 }
