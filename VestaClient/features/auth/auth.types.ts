@@ -80,7 +80,8 @@ export type UpdateUserResponse = {
 
 
 export type GoogleAuthDto = {
-  id_token: string;
+  id_token?: string;
+  access_token?: string;
 };
 
 export type GoogleAuthData = {

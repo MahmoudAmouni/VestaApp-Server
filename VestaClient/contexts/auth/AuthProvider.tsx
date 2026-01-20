@@ -14,7 +14,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     isLoggingOut,
     error,
     updateUser,
-    isUpdatingUser
+    isUpdatingUser,
+    googleLogin,
+    isGoogleLoggingIn,
   } = useAuthMutations();
 
   const value = useMemo<AuthContextValue>(() => {
@@ -34,11 +36,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       isRegistering,
       isLoggingOut,
       isUpdatingUser,
+      isGoogleLoggingIn,
 
       login,
       register,
       logout,
-      updateUser
+      updateUser,
+      googleLogin,
     };
   }, [
     sessionQuery.data,
@@ -49,10 +53,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     isRegistering,
     isLoggingOut,
     isUpdatingUser,
+    isGoogleLoggingIn,
     login,
     register,
     logout,
     updateUser,
+    googleLogin,
     error,
   ]);
 

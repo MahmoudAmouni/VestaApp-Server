@@ -19,6 +19,7 @@ import SocialButton from "@/components/Welcome/SocialButton";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { GoogleButton } from "../Welcome/GoogleButton";
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import { loginStyles as styles} from "./Login.styles";
 
 export default function LoginScreen() {
   const { theme } = useTheme();
@@ -46,7 +47,7 @@ export default function LoginScreen() {
         pointerEvents="none"
         style={[
           styles.glow,
-          { backgroundColor: theme.primaryGlow, borderColor: theme.border },
+          {  borderColor: theme.border },
         ]}
       />
 
@@ -143,7 +144,7 @@ export default function LoginScreen() {
               </View>
 
               <Button
-                theme={theme}
+                
                 variant="primary"
                 label="Login"
                 onPress={onLogin}

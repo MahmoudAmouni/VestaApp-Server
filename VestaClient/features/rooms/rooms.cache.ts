@@ -1,12 +1,12 @@
+import { roomsKey } from "@/hooks/rooms/useRoomsQuery";
 import { queryClient } from "../../lib/reactQuery";
-import { roomsKey } from "./rooms.query";
 import type { Room, Device } from "./rooms.types";
 
 export function getRoomFromCache(
   homeId: number,
   roomId: number
 ): Room | undefined {
-  const rooms = queryClient.getQueryData<Room[]>(roomsKey(homeId));
+  const rooms = queryClient.getQueryData<Room[]>(roomsKey(homeId));//redirect urls missing scope
   return rooms?.find((r) => r.id === roomId);
 }
 

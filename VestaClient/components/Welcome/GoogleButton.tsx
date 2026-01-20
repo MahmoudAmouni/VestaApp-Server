@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { socialButtonStyles as styles } from "./SocialButton.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import * as Google from "expo-auth-session/providers/google";
+import { makeRedirectUri } from "expo-auth-session";
 import * as WebBrowser from "expo-web-browser";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 
@@ -13,21 +14,34 @@ export function GoogleButton() {
   const { theme } = useTheme();
   const { googleLogin } = useAuth();
 
-  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    clientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID, 
-    scopes: ["openid", "profile", "email"],
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    clientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
+    redirectUri: makeRedirectUri({
+      scheme: 'vestaclient',
+      path: 'auth'
+    }),
+    scopes: ['openid', 'profile', 'email'],
   });
 
   useEffect(() => {
     if (response?.type === "success") {
       const idToken =
         response.params?.id_token ??
-        // some SDK versions put it here:
         // @ts-ignore
         response.authentication?.idToken;
 
-      if (!idToken) throw new Error("No id_token returned from Google");
-      googleLogin(idToken);
+      const accessToken =
+        response.params?.access_token ??
+        response.authentication?.accessToken;
+
+      if (idToken) {
+        googleLogin(idToken);
+      } else if (accessToken) {
+        // Fallback: send access_token instead
+        googleLogin(accessToken, true);
+      } else {
+        console.error("No id_token or access_token returned from Google");
+      }
     }
   }, [response, googleLogin]);
 

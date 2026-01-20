@@ -24,7 +24,7 @@ export type AuthContextValue = {
   isGoogleLoggingIn: boolean;
   
   
-  googleLogin: (idToken: string) => void;
+  googleLogin: (token: string, isAccessToken?: boolean) => void;
   updateUser: (dto: UpdateUserDto) => void;
   login: (dto: LoginDto) => void;
   register: (dto: RegisterDto) => void;

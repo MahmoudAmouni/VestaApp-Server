@@ -14,7 +14,8 @@ export default function RoomCard(props: {
 }) {
   const { theme } = useTheme();
   const { room } = props;
-  const counts = room.devices.reduce(
+  const devices = room.devices ?? [];
+  const counts = devices.reduce(
     (acc, device) => {
       if (device.is_on)  acc.true++;
       else acc.false++;
@@ -28,14 +29,14 @@ export default function RoomCard(props: {
         <Text style={[styles.roomName, { color: theme.text }]}>
           {room.room_name.name}
         </Text>
-        <Pill theme={theme} text={`${room.devices.length} devices`} />
+        <Pill theme={theme} text={`${devices.length} devices`} />
       </View>
 
       <Text style={[styles.roomMeta, { color: theme.textMuted }]}>
         {counts.true} ON • {counts.false} OFF
       </Text>
 
-     {room.devices.length!==0  &&
+     {devices.length!==0  &&
      <View style={styles.roomActions}>
         <Button
           theme={theme}

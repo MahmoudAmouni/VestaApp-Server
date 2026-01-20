@@ -75,28 +75,54 @@ class AuthService
 
     public function google(array $data): array
     {
-        $resp = Http::get('https://oauth2.googleapis.com/tokeninfo', [
-            'id_token' => $data['id_token'],
-        ]);
+        $idToken = $data['id_token'] ?? null;
+        $accessToken = $data['access_token'] ?? null;
 
-        if (!$resp->ok()) {
-            throw ValidationException::withMessages(['id_token' => 'Invalid Google token.']);
+        if ($idToken) {
+            // Validate id_token via tokeninfo endpoint
+            $resp = Http::get('https://oauth2.googleapis.com/tokeninfo', [
+                'id_token' => $idToken,
+            ]);
+
+            if (!$resp->ok()) {
+                throw ValidationException::withMessages(['id_token' => 'Invalid Google token.']);
+            }
+
+            $p = $resp->json();
+
+            if (($p['aud'] ?? null) !== config('services.google.web_client_id')) {
+                throw ValidationException::withMessages(['id_token' => 'Wrong audience (aud).']);
+            }
+
+            $googleId = $p['sub'] ?? null;
+            $email = $p['email'] ?? null;
+            $verified = filter_var($p['email_verified'] ?? false, FILTER_VALIDATE_BOOLEAN);
+            $name = $p['name'] ?? ($email ? Str::before($email, '@') : 'User');
+            $avatar = $p['picture'] ?? null;
+
+        } elseif ($accessToken) {
+            // Fetch user info using access_token
+            $resp = Http::withToken($accessToken)
+                ->get('https://www.googleapis.com/oauth2/v2/userinfo');
+
+            if (!$resp->ok()) {
+                throw ValidationException::withMessages(['access_token' => 'Invalid Google access token.']);
+            }
+
+            $p = $resp->json();
+
+            $googleId = $p['id'] ?? null;
+            $email = $p['email'] ?? null;
+            $verified = filter_var($p['verified_email'] ?? false, FILTER_VALIDATE_BOOLEAN);
+            $name = $p['name'] ?? ($email ? Str::before($email, '@') : 'User');
+            $avatar = $p['picture'] ?? null;
+
+        } else {
+            throw ValidationException::withMessages(['token' => 'Either id_token or access_token is required.']);
         }
-
-        $p = $resp->json();
-
-        if (($p['aud'] ?? null) !== config('services.google.web_client_id')) {
-            throw ValidationException::withMessages(['id_token' => 'Wrong audience (aud).']);
-        }
-
-        $googleId = $p['sub'] ?? null;
-        $email = $p['email'] ?? null;
-        $verified = filter_var($p['email_verified'] ?? false, FILTER_VALIDATE_BOOLEAN);
-        $name = $p['name'] ?? ($email ? Str::before($email, '@') : 'User');
-        $avatar = $p['picture'] ?? null;
 
         if (!$googleId || !$email || !$verified) {
-            throw ValidationException::withMessages(['id_token' => 'Token missing required claims.']);
+            throw ValidationException::withMessages(['token' => 'Token missing required claims.']);
         }
 
         return DB::transaction(function () use ($googleId, $email, $name, $avatar) {

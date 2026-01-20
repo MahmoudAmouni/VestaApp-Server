@@ -132,8 +132,12 @@ export function useAuthMutations() {
   });
 
   const googleMutation = useMutation({
-    mutationFn: async (idToken: string) => {
-      const res = await apiGoogleAuth({ body: { id_token: idToken } });
+    mutationFn: async ({ token, isAccessToken }: { token: string; isAccessToken?: boolean }) => {
+      const body = isAccessToken 
+        ? { access_token: token } 
+        : { id_token: token };
+      
+      const res = await apiGoogleAuth({ body });
 
       const data = (res as any).data;
       if (!data)
@@ -162,25 +166,24 @@ export function useAuthMutations() {
     onError: (err) => console.error("[auth] google onError:", err),
   });
 
+  // Use stable mutate references directly from React Query
+  const login = loginMutation.mutate;
+  const googleLogin = useCallback(
+    (token: string, isAccessToken?: boolean) => googleMutation.mutate({ token, isAccessToken }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+  const register = registerMutation.mutate;
+  const logout = logoutMutation.mutate;
+  const updateUser = updateUserMutation.mutate;
+
   return {
-    login: useCallback(
-      (dto: LoginDto) => loginMutation.mutate(dto),
-      [loginMutation]
-    ),
-    googleLogin: useCallback(
-      (idToken: string) => googleMutation.mutate(idToken),
-      [googleMutation]
-    ),
+    login,
+    googleLogin,
     isGoogleLoggingIn: googleMutation.isPending,
-    register: useCallback(
-      (dto: RegisterDto) => registerMutation.mutate(dto),
-      [registerMutation]
-    ),
-    logout: useCallback(() => logoutMutation.mutate(), [logoutMutation]),
-    updateUser: useCallback(
-      (dto: UpdateUserDto) => updateUserMutation.mutate(dto),
-      [updateUserMutation]
-    ),
+    register,
+    logout,
+    updateUser,
 
     isLoggingIn: loginMutation.isPending,
     isRegistering: registerMutation.isPending,

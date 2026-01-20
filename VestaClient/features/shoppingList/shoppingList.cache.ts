@@ -1,6 +1,6 @@
+import { shoppingListKey } from "@/hooks/shoppingList/useShoppingListQuery";
 import { queryClient } from "../../lib/reactQuery";
 import type { ShoppingListItem } from "./shoppingList.types";
-import { shoppingListKey } from "./shoppingList.query";
 
 export function getShoppingListItemFromCache(
   homeId: number,
