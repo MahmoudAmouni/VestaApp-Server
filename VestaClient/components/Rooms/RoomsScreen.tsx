@@ -45,7 +45,7 @@ export default function RoomsScreen() {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={[
               styles.content,
-              { paddingBottom: insets.bottom + 96 },
+              { paddingBottom: insets.bottom + 150 },
             ]}
           >
             <RoomsHero

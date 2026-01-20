@@ -73,7 +73,7 @@ export default function ShoppingListScreen() {
           style={styles.scroll}
           contentContainerStyle={[
             styles.content,
-            { paddingBottom: 110 + insets.bottom },
+            { paddingBottom: 150 + insets.bottom },
           ]}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"

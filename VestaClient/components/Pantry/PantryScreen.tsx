@@ -64,7 +64,7 @@ export default function PantryScreen() {
           style={styles.scroll}
           contentContainerStyle={[
             styles.content,
-            { paddingBottom: 110 + insets.bottom },
+            { paddingBottom: 150 + insets.bottom },
           ]}
           showsVerticalScrollIndicator={false}
         >
@@ -80,6 +80,8 @@ export default function PantryScreen() {
 
           <PantrySearchBar theme={theme} value={query} onChange={setQuery} />
           <PantryFilterRow theme={theme} value={filter} onChange={setFilter} />
+          
+          <Text style={[styles.sectionTitle,{color:theme.text}]}>Expiring Soon</Text>
           <ExpiringSoonSection items={expiringSoon} />
 
           <AllItemsSection
