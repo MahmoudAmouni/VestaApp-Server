@@ -1,7 +1,9 @@
 import React from "react";
-import { Pressable, Text, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View } from "react-native";
 import { Theme } from "@/type";
+
+import Button from "../ui/Button";
+
 
 import { dangerZoneStyles as styles } from "./DangerZoneActions.styles";
 
@@ -14,41 +16,21 @@ export default function DangerZoneActions(props: {
 
   return (
     <View style={styles.row}>
-      <Pressable
+      <Button
+        variant="secondary"
+        label="Sign Out"
+        icon="log-out-outline"
         onPress={props.onSignOut}
-        style={({ pressed }) => [
-          styles.btn,
-          {
-            backgroundColor: theme.surface2,
-            borderColor: theme.border,
-            opacity: pressed ? 0.88 : 1,
-          },
-        ]}
-        accessibilityRole="button"
-        accessibilityLabel="Sign Out"
-      >
-        <Ionicons name="log-out-outline" size={16} color={theme.text} />
-        <Text style={[styles.btnText, { color: theme.text }]}>Sign Out</Text>
-      </Pressable>
+        flex
+      />
 
-      <Pressable
+      <Button
+        variant="primary"
+        label="Delete Account"
+        icon="trash-outline"
         onPress={props.onDeleteAccount}
-        style={({ pressed }) => [
-          styles.btn,
-          {
-            backgroundColor: theme.primary,
-            borderColor: theme.primary,
-            opacity: pressed ? 0.9 : 1,
-          },
-        ]}
-        accessibilityRole="button"
-        accessibilityLabel="Delete Account"
-      >
-        <Ionicons name="trash-outline" size={16} color={theme.bg} />
-        <Text style={[styles.btnText, { color: theme.bg }]}>
-          Delete Account
-        </Text>
-      </Pressable>
+        flex
+      />
     </View>
   );
 }

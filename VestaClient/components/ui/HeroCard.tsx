@@ -66,7 +66,7 @@ export default function HeroCard(props: {
               theme={theme}
               label={k.label}
               value={k.value}
-              hint={k.hint ?? ""}
+              hint={k.hint}
             />
           ))}
         </View>

@@ -6,7 +6,7 @@ export default function KPI(props: {
   theme: Theme;
   label: string;
   value: string;
-  hint: string;
+  hint?: string;
 }) {
   const { theme } = props;
   return (
@@ -22,9 +22,11 @@ export default function KPI(props: {
       <Text style={[styles.kpiValue, { color: theme.text }]}>
         {props.value}
       </Text>
-      <Text style={[styles.kpiHint, { color: theme.textMuted }]}>
-        {props.hint}
-      </Text>
+      {props.hint && (
+        <Text style={[styles.kpiHint, { color: theme.textMuted }]}>
+          {props.hint}
+        </Text>
+      )}
     </View>
   );
 }

@@ -60,10 +60,10 @@ export default function DashboardScreen() {
             title="Calm & ready."
             sub="A quick snapshot of your space — lights, pantry, and what’s coming up."
             kpis={[
-              { label: "Devices ON", value: "3", hint: "Kitchen + Living" },
-              { label: "Offline", value: "0", hint: "All online" },
-              { label: "Expiring soon", value: "2", hint: "Next 48hr" },
-              { label: "Saved Recipes", value: "12", hint: "Start Cooking!" },
+              { label: "Devices ON", value: "3" },
+              { label: "Offline", value: "0" },
+              { label: "Expiring soon", value: "2" },
+              { label: "Saved Recipes", value: "12" },
             ]}
           />
 
@@ -95,12 +95,7 @@ export default function DashboardScreen() {
                 onPressAction={() => setActiveTab("Pantry")}
               />
 
-              <Card
-                theme={theme}
-                style={{ paddingVertical: 0, overflow: "hidden" }}
-              >
                 <ExpiringSoonSection items={expiringSoon} />
-              </Card>
             </>
           <View style={{ height: 14 }} />
           

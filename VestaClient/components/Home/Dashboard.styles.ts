@@ -16,7 +16,6 @@ export const indexStyles = StyleSheet.create({
   },
 
   sectionGap: {
-    marginTop: 10,
     gap: 10,
   },
   sectionTitle: {

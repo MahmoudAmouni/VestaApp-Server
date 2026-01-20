@@ -6,6 +6,7 @@ export const sectionHeaderStyles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "baseline",
     justifyContent: "space-between",
+    marginBottom: 10,
   },
   sectionTitle: {
     fontSize: 16,
