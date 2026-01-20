@@ -8,6 +8,7 @@ import Card from "@/components/ui/Card";
 import HeroCard from "@/components/ui/HeroCard";
 import RoomActions from "@/components/Room/RoomActions";
 import BulkActionButton from "@/components/Room/BulkActionButton";
+import ConfirmDeleteModal from "@/components/Room/ConfirmDeleteModal";
 import RoomHeader from "@/components/Room/RoomHeader";
 import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
 import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
@@ -25,6 +26,8 @@ export default function RoomDetailsScreen() {
   const [openModal, setOpenModal] = useState(false);
   const [openDeviceModal, setOpenDeviceModal] = useState(false);
   const [device, setDevice] = useState<Device | null>();
+
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const { id } = useLocalSearchParams<{ id: string }>();
   const roomId = Number(id);
@@ -77,8 +80,8 @@ export default function RoomDetailsScreen() {
             kpis={[
               { label: "Devices ON", value: devicesOn.toString() },
               { label: "Devices OFF", value: devicesOff.toString() },
-              { label: "Quick Action", value: "All ON", smallValue: true },
               { label: "Quick Action", value: "All OFF", smallValue: true },
+              { label: "Quick Action", value: "All ON", smallValue: true },
             ]}
           >
             <View style={styles.bulkRow}>
@@ -149,12 +152,22 @@ export default function RoomDetailsScreen() {
                 setOpenModal(true);
               }}
               onDeleteRoom={() => {
-                deleteRoomMutation.mutate({ roomId });
-                router.back();
+                setIsDeleting(true);
               }}
             />
           </Card>
         </ScrollView>
+
+        <ConfirmDeleteModal
+          visible={isDeleting}
+          theme={theme}
+          onCancel={() => setIsDeleting(false)}
+          onConfirm={() => {
+            setIsDeleting(false);
+            deleteRoomMutation.mutate({ roomId });
+            router.back();
+          }}
+        />
 
         <RoomSheet
           visible={openModal}
