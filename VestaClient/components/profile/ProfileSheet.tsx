@@ -14,6 +14,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { makeAuthSheetStyles } from "./AuthSheet.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import Button from "../ui/Button";
 
 
 
@@ -146,13 +147,18 @@ export default function ProfileSheet({
           </View>
 
           <View style={styles.actionsRow}>
-            <Pressable style={styles.actionBtn} onPress={handleClose}>
-              <Text style={styles.actionText}>Close</Text>
-            </Pressable>
-
-            <Pressable style={styles.actionBtnPrimary} onPress={handleSubmit}>
-              <Text style={styles.actionTextPrimary}>Save</Text>
-            </Pressable>
+            <Button
+              variant="secondary"
+              label="Close"
+              onPress={handleClose}
+              flex
+            />
+            <Button
+              variant="primary"
+              label="Save"
+              onPress={handleSubmit}
+              flex
+            />
           </View>
         </Animated.View>
       </KeyboardAvoidingView>

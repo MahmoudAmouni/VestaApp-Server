@@ -14,6 +14,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 import { useShoppingListMutations } from "@/hooks/shoppingList/useShoppingListMutations";
 import { makeShoppingItemSheetStyles } from "./ShoppingItemSheet.styles";
+import Button from "../ui/Button";
 
 
 
@@ -132,13 +133,18 @@ export default function ShoppingItemSheet({
           </View>
 
           <View style={styles.actionsRow}>
-            <Pressable style={styles.actionBtn} onPress={onClose}>
-              <Text style={styles.actionText}>Close</Text>
-            </Pressable>
-
-            <Pressable style={styles.actionBtnPrimary} onPress={onPressSave}>
-              <Text style={styles.actionTextPrimary}>Save</Text>
-            </Pressable>
+            <Button
+              variant="secondary"
+              label="Close"
+              onPress={onClose}
+              flex
+            />
+            <Button
+              variant="primary"
+              label="Save"
+              onPress={onPressSave}
+              flex
+            />
           </View>
         </Animated.View>
       </KeyboardAvoidingView>

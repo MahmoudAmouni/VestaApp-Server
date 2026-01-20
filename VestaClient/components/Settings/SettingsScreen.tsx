@@ -13,6 +13,13 @@ import {
 import { router } from "expo-router";
 
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import { settingsStyles as styles} from "./SettingsScreen.styles";
+import SettingsHeader from "./SettingsHeader";
+import InlineInputActionRow from "./InlineInputActionRow";
+import NotificationsCard from "./NotificationsCard";
+import ThemeToggle from "./ThemeToggle";
+import TagsManagerSection from "./TagsManagerSection";
+import BottomNav from "../ui/BottomNav";
 
 export default function SettingsScreen() {
   const { theme, mode, setMode } = useTheme();
