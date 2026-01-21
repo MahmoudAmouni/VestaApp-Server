@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import BottomNav from "@/components/ui/BottomNav";
 import RoomCard from "@/components/Rooms/RoomCard";
+import EmptyRoomState from "@/components/Rooms/EmptyRoomState";
 import RoomsSectionHeader from "@/components/Rooms/RoomSectionHeader";
 import HeroCard from "@/components/ui/HeroCard";
 
@@ -81,6 +82,12 @@ export default function RoomsScreen() {
                    <Skeleton height={140} borderRadius={18} />
                 </View>
               ) : (
+              rooms.length === 0 ? (
+                <EmptyRoomState 
+                  theme={theme} 
+                  onAddRoom={() => setShowRoomSheet(true)} 
+                />
+              ) : (
                 rooms.map((room) => (
                   <RoomCard
                     key={room.id}
@@ -89,7 +96,8 @@ export default function RoomsScreen() {
                     onPressOpen={() => router.push(`/rooms/${room.id}`)}
                   />
                 ))
-              )}
+              )
+            )}
             </View>
           </ScrollView>
           <RoomSheet

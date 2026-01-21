@@ -24,7 +24,10 @@ export const roomDetailsStyles = StyleSheet.create({
   },
   sectionHead: {
     marginTop: 0,
-    marginBottom: 2,
+    marginBottom: 6,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   sectionTitle: {
     fontSize: 18,
@@ -83,5 +86,27 @@ export const roomDetailsStyles = StyleSheet.create({
     borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  
+  emptyState: {
+    padding: 32,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 12,
+    marginTop: 10,
+    borderWidth: 2,
+    borderStyle: "dashed",
+    borderRadius: 20,
+  },
+  emptyTitle: {
+    fontSize: 16,
+    fontWeight: "700",
+    letterSpacing: -0.3,
+  },
+  emptySub: {
+    fontSize: 14,
+    fontWeight: "500",
+    textAlign: "center",
+    maxWidth: 200,
   },
 });

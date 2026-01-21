@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import { roomDetailsStyles as styles } from "./RoomDetailsScreen.styles";
 
@@ -56,7 +57,7 @@ export default function RoomDetailsScreen() {
   const devicesOff = room?.devices?.filter((d) => !d.is_on).length ?? 0;
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
+    <View style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={[styles.screen, { backgroundColor: theme.bg }]}>
         <RoomHeader
           theme={theme}
@@ -64,13 +65,11 @@ export default function RoomDetailsScreen() {
           onBack={() => {
             router.back();
           }}
-          onAddDevice={() => {
-            setShowDeviceModal(true);
-          }}
+          onAddDevice={undefined}
         />
 
         <ScrollView
-          contentContainerStyle={[styles.scroll, { paddingBottom: 118 }]}
+          contentContainerStyle={[styles.scroll, { paddingBottom: 100 }]}
           showsVerticalScrollIndicator={false}
         >
           <HeroCard
@@ -102,26 +101,63 @@ export default function RoomDetailsScreen() {
             <Text style={[styles.sectionTitle, { color: theme.text }]}>
               Devices
             </Text>
+            <Pressable
+              onPress={() => setShowDeviceModal(true)}
+              style={({ pressed }) => ({
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 6,
+                paddingVertical: 6,
+                paddingHorizontal: 12,
+                backgroundColor: theme.surface2,
+                borderRadius: 999,
+                borderWidth: 1,
+                borderColor: theme.border,
+                opacity: pressed ? 0.8 : 1,
+              })}
+            >
+              <Ionicons name="add" size={16} color={theme.textMuted} />
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontWeight: "700",
+                  color: theme.textMuted,
+                }}
+              >
+                Add Device
+              </Text>
+            </Pressable>
           </View>
 
           <View style={styles.list}>
             {!room?.devices || room.devices.length === 0 ? (
               <View
-                style={{
-                  padding: 24,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+                style={[
+                  styles.emptyState,
+                  { borderColor: theme.border, backgroundColor: theme.surface },
+                ]}
               >
-                <Text
+                <View
                   style={{
-                    color: theme.textMuted,
-                    fontSize: 14,
-                    fontWeight: "600",
+                    width: 52,
+                    height: 52,
+                    borderRadius: 999,
+                    backgroundColor: theme.surface2,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: 4,
                   }}
                 >
-                  No devices added yet
-                </Text>
+                  <Ionicons name="cube-outline" size={24} color={theme.textMuted} />
+                </View>
+                <View style={{ alignItems: "center", gap: 4 }}>
+                  <Text style={[styles.emptyTitle, { color: theme.text }]}>
+                    No devices added
+                  </Text>
+                  <Text style={[styles.emptySub, { color: theme.textMuted }]}>
+                    This room is empty. Add a device to get started.
+                  </Text>
+                </View>
               </View>
             ) : (
               room.devices.map((device) => (
@@ -139,24 +175,20 @@ export default function RoomDetailsScreen() {
             )}
           </View>
 
-          <Card
-            theme={theme}
-            padding={12}
-            radius={16}
-            noShadow
-            style={{ marginTop: "auto" }}
-          >
-            <RoomActions
-              theme={theme}
-              onEditRoom={() => {
-                setOpenModal(true);
-              }}
-              onDeleteRoom={() => {
-                setIsDeleting(true);
-              }}
-            />
-          </Card>
+
         </ScrollView>
+
+        <View style={{ paddingHorizontal: 14, paddingBottom: 14 }}>
+            <RoomActions
+            theme={theme}
+            onEditRoom={() => {
+                setOpenModal(true);
+            }}
+            onDeleteRoom={() => {
+                setIsDeleting(true);
+            }}
+            />
+        </View>
 
         <ConfirmDeleteModal
           visible={isDeleting}
@@ -180,8 +212,7 @@ export default function RoomDetailsScreen() {
           onClose={() => setShowDeviceModal(false)}
           device={device}
         />
-        <BottomNav theme={theme} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

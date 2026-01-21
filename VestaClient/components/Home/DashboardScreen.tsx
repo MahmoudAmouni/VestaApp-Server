@@ -2,12 +2,14 @@ import BottomNav from "@/components/ui/BottomNav";
 import Header from "@/components/ui/Header";
 import HeroCard from "@/components/ui/HeroCard";
 import RoomCard from "@/components/Home/RoomCard";
+import EmptyRoomState from "@/components/Rooms/EmptyRoomState";
 
 import SectionHeader from "@/components/Home/SectionHeader";
 
 import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
 import { usePantryQuery } from "@/hooks/pantry/usePantryQuery";
 import { getExpiringSoon } from "@/utils/dateHelpers";
+import RoomSheet from "@/components/Rooms/RoomSheet";
 import React, { useState } from "react";
 import {
   SafeAreaView,
@@ -27,6 +29,7 @@ export default function DashboardScreen() {
   const { theme } = useTheme();
   
   const [activeTab, setActiveTab] = useState<NavKey>("Home");
+  const [showRoomSheet, setShowRoomSheet] = useState(false);
   const { session } = useAuth();
   const homeId = session?.homeId ?? 0;
   const token = session?.token;
@@ -80,15 +83,22 @@ export default function DashboardScreen() {
                   <Skeleton height={140} borderRadius={18} />
                </View>
             ) : (
-              rooms.map((room) => (
-                <RoomCard
-                  key={room.id}
-                  room={room}
-                  onPressAllOn={() => {}}
-                  onPressAllOff={() => {}}
-                  onPressCard={() => {}}
+              rooms.length === 0 ? (
+                <EmptyRoomState 
+                  theme={theme} 
+                  onAddRoom={() => setShowRoomSheet(true)} 
                 />
-              ))
+              ) : (
+                rooms.map((room) => (
+                  <RoomCard
+                    key={room.id}
+                    room={room}
+                    onPressAllOn={() => {}}
+                    onPressAllOff={() => {}}
+                    onPressCard={() => {}}
+                  />
+                ))
+              )
             )}
           </View>
 
@@ -110,8 +120,13 @@ export default function DashboardScreen() {
           <View style={{ height: 14 }} />
           
 
+
           <View style={{ height: 18 }} />
         </ScrollView>
+        <RoomSheet
+          visible={showRoomSheet}
+          onClose={() => setShowRoomSheet(false)}
+        />
       </View>
     </SafeAreaView>
   );
