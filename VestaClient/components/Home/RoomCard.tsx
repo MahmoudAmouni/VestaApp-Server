@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import Button from "../ui/Button";
+import BulkActionButton from "../Room/BulkActionButton";
 import Card from "../ui/Card";
 import Pill from "../ui/Pill";
 import { roomStyles as styles } from "./RoomCard.styles";
@@ -36,21 +36,20 @@ export default function RoomCard(props: {
         {counts.true} ON • {counts.false} OFF
       </Text>
 
-     {devices.length!==0  &&
-     <View style={styles.roomActions}>
-        <Button
-          theme={theme}
-          variant="secondary"
-          label="All ON"
-          onPress={props.onPressAllOn}
-        />
-        <Button
-          theme={theme}
-          variant="secondary"
-          label="All OFF"
-          onPress={props.onPressAllOff}
-        />
-      </View>}
+      {devices.length !== 0 && (
+        <View style={styles.roomActions}>
+          <BulkActionButton
+            theme={theme}
+            label="All ON"
+            onPress={props.onPressAllOn}
+          />
+          <BulkActionButton
+            theme={theme}
+            label="All OFF"
+            onPress={props.onPressAllOff}
+          />
+        </View>
+      )}
     </Card>
   );
 }

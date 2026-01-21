@@ -43,6 +43,7 @@ export function useAuthMutations() {
       return session;
     },
     onSuccess: async (session) => {
+      console.log("[auth] Login Success Session:", session);
       qc.setQueryData(authSessionKey, session);
       await saveAuthSession(session);
       setAuthToken(session.token);
@@ -157,6 +158,7 @@ export function useAuthMutations() {
     },
 
     onSuccess: async ({ session }) => {
+      console.log("[auth] Google Login Success Session:", session);
       qc.setQueryData(authSessionKey, session);
       await saveAuthSession(session);
       setAuthToken(session.token);

@@ -79,8 +79,8 @@ export default function RoomDetailsScreen() {
             kpis={[
               { label: "Devices ON", value: devicesOn.toString() },
               { label: "Devices OFF", value: devicesOff.toString() },
-              { label: "Quick Action", value: "All OFF", smallValue: true },
-              { label: "Quick Action", value: "All ON", smallValue: true },
+              { label: "Quick Action", value: "All OFF" },
+              { label: "Quick Action", value: "All ON" },
             ]}
           >
             <View style={styles.bulkRow}>

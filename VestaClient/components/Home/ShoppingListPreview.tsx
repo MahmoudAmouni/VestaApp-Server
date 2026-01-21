@@ -31,7 +31,7 @@ export default function ShoppingListPreview({ theme, items, onPressAction }: Sho
       style={[
         styles.container,
         {
-          backgroundColor: theme.surface,
+          backgroundColor: theme.surface2,
           borderColor: theme.border,
         },
       ]}
@@ -72,7 +72,7 @@ export default function ShoppingListPreview({ theme, items, onPressAction }: Sho
       <TouchableOpacity
         onPress={onPressAction}
         activeOpacity={0.8}
-        style={[styles.button, { backgroundColor: theme.surface2 }]}
+        style={[styles.button, { backgroundColor: theme.surface }]}
       >
         <Text style={[styles.buttonText, { color: theme.primary }]}>
           Go to Shopping List

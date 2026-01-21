@@ -18,7 +18,7 @@ export default function Button(props: {
   const { disabled, variant = "primary", icon, flex } = props;
 
   
-  const bg = variant === "primary" ? theme.primary : theme.surface2;
+  const bg = variant === "primary" ? theme.primary : theme.surface;
   const border = variant === "primary" ? theme.primary : theme.border;
   const textColor = variant === "primary" ? "#fff" : theme.textMuted;
 

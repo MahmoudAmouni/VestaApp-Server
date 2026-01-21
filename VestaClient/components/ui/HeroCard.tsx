@@ -32,7 +32,7 @@ export default function HeroCard(props: {
       style={[
         styles.heroCard,
         {
-          backgroundColor: theme.surface,
+          backgroundColor: theme.surface2,
         },
       ]}
     >
