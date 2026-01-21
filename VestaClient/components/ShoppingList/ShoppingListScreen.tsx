@@ -7,6 +7,7 @@ import {
 } from "react-native-safe-area-context";
 import AddItemRow from "@/components/ShoppingList/AddItemRow";
 import ItemsSection from "@/components/ShoppingList/ItemsSection";
+import EmptyShoppingListState from "@/components/ShoppingList/EmptyShoppingListState";
 import ShoppingHeader from "@/components/ShoppingList/ShoppingHeader";
 
 import HeroCard from "@/components/ui/HeroCard";
@@ -137,8 +138,16 @@ export default function ShoppingListScreen() {
                   <Skeleton height={50} borderRadius={12} />
                </View>
             ) : (
-               <ItemsSection items={shoppingListItems} onToggle={onToggle} />
-            )}
+                shoppingListItems.length > 0 ? (
+                  <ItemsSection items={shoppingListItems} onToggle={onToggle} />
+                ) : (
+                  <EmptyShoppingListState
+                    theme={theme}
+                    onPressAction={() => setOpenModal(true)}
+                    actionLabel="Add Item"
+                  />
+                )
+             )}
             <Button
               variant="secondary"
               label="Clear all checks"

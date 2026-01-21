@@ -22,12 +22,20 @@ import { getExpiringSoon } from "@/utils/dateHelpers";
 import Skeleton from "@/components/ui/Skeleton";
 
 
+import ConfirmDeleteModal from "@/components/Room/ConfirmDeleteModal";
+import { usePantryMutations } from "@/hooks/pantry/usePantryMutations";
+import EmptyPantryState from "@/components/Pantry/EmptyPantryState";
+import { usePantryModal } from "@/contexts/PantryModalContext";
+
 export default function PantryScreen() {
   const { theme } = useTheme();
   const {homeId} = useAuth()
   const { data: pantryItems = [], isLoading, error } = usePantryQuery({ homeId });
+  const { deleteMutation } = usePantryMutations({ homeId });
+  const { setShowModal } = usePantryModal();
   const insets = useSafeAreaInsets();
 
+  const [deleteId, setDeleteId] = useState<number | null>(null);
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<PantryFilterKey>("All");
   
@@ -99,14 +107,34 @@ export default function PantryScreen() {
                 <Skeleton height={60} borderRadius={12} />
              </View>
           ) : (
-            <AllItemsSection
-              theme={theme}
-              items={filteredItems}
-            />
+            pantryItems.length === 0 ? (
+              <EmptyPantryState
+                theme={theme}
+                onPressAction={() => setShowModal(true)}
+              />
+            ) : (
+              <AllItemsSection
+                theme={theme}
+                items={filteredItems}
+                onDelete={(id) => setDeleteId(id)}
+              />
+            )
           )}
         </ScrollView>
         <PantryItemSheet
           theme={theme}
+        />
+        <ConfirmDeleteModal
+          visible={!!deleteId}
+          theme={theme}
+          onCancel={() => setDeleteId(null)}
+          onConfirm={() => {
+             if (deleteId) {
+                deleteMutation.mutate({ pantryItemId: deleteId });
+                setDeleteId(null);
+             }
+          }}
+          message="Are you sure you want to delete this item from your pantry?"
         />
       </View>
     </SafeAreaView>

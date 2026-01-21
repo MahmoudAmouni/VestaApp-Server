@@ -59,7 +59,7 @@ export default function DashboardScreen() {
         />
 
         <ScrollView
-          contentContainerStyle={[styles.scrollContent, { paddingBottom: 150 }]}
+          contentContainerStyle={[styles.scrollContent, { paddingBottom: 80 }]}
           showsVerticalScrollIndicator={false}
         >
           <HeroCard

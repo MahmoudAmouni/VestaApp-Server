@@ -1,8 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
+import { shoppingListPreviewStyles as styles } from "./ShoppingListPreview.styles";
 import { Theme } from "@/type";
 import { ShoppingListItem } from "@/features/shoppingList/shoppingList.types";
 import { Ionicons } from "@expo/vector-icons";
+import EmptyShoppingListState from "@/components/ShoppingList/EmptyShoppingListState";
 
 interface ShoppingListPreviewProps {
   theme: Theme;
@@ -11,6 +13,16 @@ interface ShoppingListPreviewProps {
 }
 
 export default function ShoppingListPreview({ theme, items, onPressAction }: ShoppingListPreviewProps) {
+  if (items.length === 0) {
+    return (
+      <EmptyShoppingListState 
+        theme={theme} 
+        onPressAction={onPressAction} 
+        actionLabel="Go to Shopping List"
+      />
+    );
+  }
+
   const previewItems = items.slice(0, 2);
   const remainingCount = Math.max(0, items.length - 2);
 
@@ -25,36 +37,30 @@ export default function ShoppingListPreview({ theme, items, onPressAction }: Sho
       ]}
     >
       <View style={styles.listContainer}>
-        {items.length === 0 ? (
-          <Text style={[styles.emptyText, { color: theme.textMuted }]}>
-            Your shopping list is empty.
-          </Text>
-        ) : (
-          previewItems.map((item) => (
-            <View key={item.id} style={styles.itemRow}>
-              <Ionicons
-                name={item.is_checked ? "checkbox" : "square-outline"}
-                size={20}
-                color={item.is_checked ? theme.textMuted : theme.primary}
-              />
-              <Text
-                style={[
-                  styles.itemText,
-                  {
-                    color: item.is_checked ? theme.textMuted : theme.text,
-                    textDecorationLine: item.is_checked ? "line-through" : "none",
-                  },
-                ]}
-                numberOfLines={1}
-              >
-                {item.item_name.name}
-              </Text>
-              <Text style={[styles.quantityText, { color: theme.textMuted }]}>
-                {item.quantity} {item.unit.name}
-              </Text>
-            </View>
-          ))
-        )}
+        {previewItems.map((item) => (
+          <View key={item.id} style={styles.itemRow}>
+            <Ionicons
+              name={item.is_checked ? "checkbox" : "square-outline"}
+              size={20}
+              color={item.is_checked ? theme.textMuted : theme.primary}
+            />
+            <Text
+              style={[
+                styles.itemText,
+                {
+                  color: item.is_checked ? theme.textMuted : theme.text,
+                  textDecorationLine: item.is_checked ? "line-through" : "none",
+                },
+              ]}
+              numberOfLines={1}
+            >
+              {item.item_name.name}
+            </Text>
+            <Text style={[styles.quantityText, { color: theme.textMuted }]}>
+              {item.quantity} {item.unit.name}
+            </Text>
+          </View>
+        ))}
       </View>
 
       {remainingCount > 0 && (
@@ -77,52 +83,3 @@ export default function ShoppingListPreview({ theme, items, onPressAction }: Sho
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    borderRadius: 16,
-    borderWidth: 1,
-    gap: 12,
-  },
-  listContainer: {
-    gap: 12,
-  },
-  itemRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-  },
-  itemText: {
-    flex: 1,
-    fontSize: 15,
-    fontWeight: "500",
-  },
-  quantityText: {
-    fontSize: 13,
-    fontWeight: "500",
-  },
-  emptyText: {
-    fontSize: 14,
-    fontStyle: "italic",
-    textAlign: "center",
-    paddingVertical: 10,
-  },
-  moreText: {
-    fontSize: 13,
-    fontWeight: "600",
-    marginLeft: 30, 
-  },
-  button: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    borderRadius: 12,
-    gap: 6,
-    marginTop: 4,
-  },
-  buttonText: {
-    fontSize: 14,
-    fontWeight: "700",
-  },
-});

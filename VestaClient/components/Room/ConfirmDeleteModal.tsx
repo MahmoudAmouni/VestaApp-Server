@@ -8,8 +8,9 @@ export default function ConfirmDeleteModal(props: {
   theme: Theme;
   onConfirm: () => void;
   onCancel: () => void;
+  message?: string;
 }) {
-  const { theme, visible, onConfirm, onCancel } = props;
+  const { theme, visible, onConfirm, onCancel, message } = props;
 
   return (
     <Modal
@@ -31,6 +32,7 @@ export default function ConfirmDeleteModal(props: {
                 theme={theme}
                 onConfirm={onConfirm}
                 onCancel={onCancel}
+                message={message}
               />
             </View>
           </TouchableWithoutFeedback>
