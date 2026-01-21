@@ -113,4 +113,26 @@ class RoomsService
 
         return ['room' => $room];
     }
+    public function updateAllDevicesStatus(int $homeId, int $roomId, bool $status): array
+    {
+        $home = Home::query()->find($homeId);
+        if (!$home) {
+            throw ApiException::notFound('Home not found.');
+        }
+
+        $room = Room::query()
+            ->where('id', $roomId)
+            ->where('home_id', $homeId)
+            ->first();
+
+        if (!$room) {
+            throw ApiException::notFound('Room not found for this home.');
+        }
+
+        DB::transaction(function () use ($room, $status) {
+            $room->devices()->update(['is_on' => $status]);
+        });
+
+        return ['success' => true];
+    }
 }

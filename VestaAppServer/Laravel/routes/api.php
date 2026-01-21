@@ -39,6 +39,8 @@ Route::group(["prefix" => "v1", "middleware" => "auth:api"], function () {
         Route::post('/{home_id}', [RoomsController::class, 'create']);
         Route::post('/{home_id}/{room_id}', [RoomsController::class, 'update']);
         Route::get('/{home_id}/{room_id}', [RoomsController::class, 'delete']);
+        Route::post('/{home_id}/{room_id}/on', [RoomsController::class, 'turnAllOn']);
+        Route::post('/{home_id}/{room_id}/off', [RoomsController::class, 'turnAllOff']);
         });
         
         
@@ -52,7 +54,7 @@ Route::group(["prefix" => "v1", "middleware" => "auth:api"], function () {
         Route::get('/{home_id}', [ShoppingListController::class, 'list']);
         Route::post('/{home_id}', [ShoppingListController::class, 'create']);
         Route::post('/{home_id}/{item_id}', [ShoppingListController::class, 'update']);
-        Route::get('/{home_id}/{item_id}', [ShoppingListController::class, 'delete']);
+        Route::delete('/{home_id}/checked', [ShoppingListController::class, 'clearChecked']);
     });
 
 

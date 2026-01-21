@@ -44,4 +44,19 @@ class RoomsController extends BaseApiController
             'Room updated.'
         );
     }
+    public function turnAllOn(int $home, int $room): JsonResponse
+    {
+        return $this->handle(
+            fn() => $this->roomsService->updateAllDevicesStatus($home, $room, true),
+            'All devices turned on.'
+        );
+    }
+
+    public function turnAllOff(int $home, int $room): JsonResponse
+    {
+        return $this->handle(
+            fn() => $this->roomsService->updateAllDevicesStatus($home, $room, false),
+            'All devices turned off.'
+        );
+    }
 }

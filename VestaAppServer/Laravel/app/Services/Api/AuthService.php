@@ -39,6 +39,8 @@ class AuthService
 
             $token = JWTAuth::fromUser($user);
 
+            $user->load('allergy');
+
             return [
                 'user' => $user,
                 'home'=>$home,
@@ -62,6 +64,7 @@ class AuthService
         }
 
         $user = JWTAuth::user();
+        $user->load('allergy');
 
         $homeId = $user->ownedHomes()->orderBy('id', 'asc')->value('id'); 
 
@@ -79,7 +82,6 @@ class AuthService
         $accessToken = $data['access_token'] ?? null;
 
         if ($idToken) {
-            // Validate id_token via tokeninfo endpoint
             $resp = Http::get('https://oauth2.googleapis.com/tokeninfo', [
                 'id_token' => $idToken,
             ]);
@@ -101,7 +103,6 @@ class AuthService
             $avatar = $p['picture'] ?? null;
 
         } elseif ($accessToken) {
-            // Fetch user info using access_token
             $resp = Http::withToken($accessToken)
                 ->get('https://www.googleapis.com/oauth2/v2/userinfo');
 
@@ -169,6 +170,8 @@ class AuthService
             }
 
             $token = JWTAuth::fromUser($user);
+            
+            $user->load('allergy');
 
             return [
                 'user' => $user,

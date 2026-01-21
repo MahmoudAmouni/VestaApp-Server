@@ -20,12 +20,21 @@ class SavedRecipeService
             throw ApiException::unauthorized('You are not allowed to modify this home.');
         }
 
+        $existing = SavedRecipe::query()
+            ->where('home_id', $homeId)
+            ->where('recipe_name', $data['recipe_name'])
+            ->first();
+
+        if ($existing) {
+            return ['saved_recipe' => $existing];
+        }
+
         $savedRecipe = DB::transaction(function () use ($homeId, $data) {
             $savedRecipe = new SavedRecipe();
             $savedRecipe->home_id = $homeId;
             $savedRecipe->recipe_name = $data['recipe_name'];
-            $savedRecipe->ingredients = $data['ingredients'] ?? null;      // still "$$" string from frontend
-            $savedRecipe->directions = $data['directions'] ?? null;        // still "$$" string from frontend
+            $savedRecipe->ingredients = $data['ingredients'] ?? null;
+            $savedRecipe->directions = $data['directions'] ?? null;
             $savedRecipe->cuisine_primary = $data['cuisine_primary'] ?? null;
             $savedRecipe->description = $data['description'] ?? null;
             $savedRecipe->save();
