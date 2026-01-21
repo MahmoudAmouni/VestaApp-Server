@@ -1,6 +1,7 @@
 import { router } from "expo-router";
 import React, { useState } from "react";
-import { SafeAreaView, ScrollView, StatusBar, Text, View } from "react-native";
+import { Pressable, SafeAreaView, ScrollView, StatusBar, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
@@ -23,7 +24,7 @@ export default function RecipesScreen() {
   const insets = useSafeAreaInsets();
   const { session } = useAuth();
   const token = session?.token;
-  const { isLoading, primaryResults } = useRecipesRag({
+  const { isLoading, primaryResults, refetch } = useRecipesRag({
     token,
     mustContain: [],
     mustNotContain: [],
@@ -78,6 +79,19 @@ export default function RecipesScreen() {
               style={styles.heroBtn}
             />
           </HeroCard>
+
+          <View style={styles.sectionHeader}>
+            <Text style={[styles.sectionTitle, { color: theme.text }]}>
+              Recipes
+            </Text>
+            <Pressable
+              onPress={refetch}
+              hitSlop={10}
+              style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
+            >
+              <Ionicons name="refresh" size={20} color={theme.text} />
+            </Pressable>
+          </View>
 
           {isLoading ? (
              <View style={{ gap: 16, marginTop: 16 }}>

@@ -4,7 +4,7 @@ import type {
   RagSearchResponseRaw,
 } from "./recipes.rag.types";
 
-const RAG_API_BASE_URL = "http://127.0.0.1:8001";
+const RAG_API_BASE_URL = "http://192.168.0.107:8001";
 
 export const RAG_LIST_SEP = "$$";
 

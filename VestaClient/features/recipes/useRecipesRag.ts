@@ -92,5 +92,11 @@ export function useRecipesRag(args: {
     isLoading: primary.isLoading || secondary.isLoading,
     isFetching: primary.isFetching || secondary.isFetching,
     error: primary.error ?? secondary.error ?? null,
+    refetch: async () => {
+      console.log("Refreshing recipes data...");
+      const [p, s] = await Promise.all([primary.refetch(), secondary.refetch()]);
+      console.log("Primary Result:", { status: p.status, data: p.data, error: p.error });
+      console.log("Secondary Result:", { status: s.status, data: s.data, error: s.error });
+    }
   };
 }

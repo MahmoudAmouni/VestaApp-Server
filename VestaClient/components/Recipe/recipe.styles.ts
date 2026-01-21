@@ -16,9 +16,19 @@ export const recipesScreenStyles = StyleSheet.create({
   },
 
   heroBtn: {
-    alignSelf: "flex-start",
+    width: "100%",
     paddingVertical: 10,
     paddingHorizontal: 14,
     borderRadius: 14,
+  },
+  sectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 2,
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: "900",
   },
 });
