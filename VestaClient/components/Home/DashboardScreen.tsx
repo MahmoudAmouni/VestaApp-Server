@@ -9,6 +9,9 @@ import SectionHeader from "@/components/Home/SectionHeader";
 import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
 import { usePantryQuery } from "@/hooks/pantry/usePantryQuery";
 import { getExpiringSoon } from "@/utils/dateHelpers";
+import { useRouter } from "expo-router";
+import ShoppingListPreview from "@/components/Home/ShoppingListPreview";
+import { useShoppingListQuery } from "@/hooks/shoppingList/useShoppingListQuery";
 import RoomSheet from "@/components/Rooms/RoomSheet";
 import React, { useState } from "react";
 import {
@@ -36,8 +39,11 @@ export default function DashboardScreen() {
 
   const { data: pantryItems = [], isLoading } = usePantryQuery({ homeId, token });
   const { data: rooms = [], isLoading: isGettingRooms } = useRoomsQuery({ homeId, token });
-  const isWorking = isLoading || isGettingRooms;
+  const { data: shoppingList = [], isLoading: isGettingList } = useShoppingListQuery({ homeId, token });
+  
+  const isWorking = isLoading || isGettingRooms || isGettingList;
   const expiringSoon = getExpiringSoon(pantryItems);
+  const router = useRouter();
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
@@ -102,7 +108,26 @@ export default function DashboardScreen() {
             )}
           </View>
 
-          
+          <View style={styles.sectionGap}>
+            <SectionHeader
+              theme={theme}
+              title="Shopping List"
+              actionLabel="View All"
+              onPressAction={() => router.push("/shoppingList")}
+            />
+            {isWorking ? (
+              <Skeleton height={120} borderRadius={16} />
+            ) : (
+              <ShoppingListPreview
+                theme={theme}
+                items={shoppingList}
+                onPressAction={() => router.push("/shoppingList")}
+              />
+            )}
+          </View>
+
+          <View style={{ height: 24 }} />
+
             <>
               <SectionHeader
                 theme={theme}
