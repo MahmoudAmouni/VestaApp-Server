@@ -16,7 +16,7 @@ export default function ProfileHeader(props: {
     <View
       style={[
         styles.wrap,
-        { backgroundColor: theme.bg, borderColor: theme.border },
+        { backgroundColor: theme.navBg, borderColor: theme.border },
       ]}
     >
       <Pressable
@@ -24,7 +24,7 @@ export default function ProfileHeader(props: {
         style={({ pressed }) => [
           styles.backBtn,
           {
-            backgroundColor: theme.surface2,
+            backgroundColor: theme.surface,
             borderColor: theme.border,
             opacity: pressed ? 0.85 : 1,
           },

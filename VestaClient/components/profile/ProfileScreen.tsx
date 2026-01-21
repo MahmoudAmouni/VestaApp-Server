@@ -16,70 +16,30 @@ import DangerZoneActions from "@/components/profile/DangerZoneActions";
 import ProfileSheet from "./ProfileSheet";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import InlineInputActionRow from "../Settings/InlineInputActionRow";
+import ThemeToggle from "../Settings/ThemeToggle";
 
 
 export default function ProfileScreen() {
-  const { theme } = useTheme();
+  const { theme, mode, setMode } = useTheme();
   const insets = useSafeAreaInsets();
-
+  const [homeName, setHomeName] = useState("My Home");
   const [showModal,setShowModal] = useState(false)
 
   const {user,isLoading,logout} = useAuth()
   
-
-  const homeSettings: SettingsItem[] = useMemo(
-    () => [
-      {
-        title: "Edit Home",
-        sub: "Name, default rooms, and basics",
-        onPress: () => {router.push("/settings")},
-      },
-      {
-        title: "Notifications",
-        sub: "Expiry reminders and device alerts",
-        onPress: () => {router.push("/settings");},
-      },
-      {
-        title: "Theme",
-        sub: "Dark (default). Switch to light",
-        onPress: () => {router.push("/settings");},
-      },
-    ],
-    []
-  );
-
-  const foodPrefs: SettingsItem[] = useMemo(
-    () => [
-      {
-        title: "Diet",
-        sub: "Name, default rooms, and basics",
-        onPress: () => {},
-      },
-      {
-        title: "Allergies",
-        sub: "Expiry reminders and device alerts",
-        onPress: () => {},
-      },
-      {
-        title: "Disliked",
-        sub: "Dark (default). Switch to light",
-        onPress: () => {},
-      },
-    ],
-    []
-  );
 
   const support: SettingsItem[] = useMemo(
     () => [
       {
         title: "Privacy",
         sub: "Data, permissions, and controls",
-        onPress: () => {},
+        onPress: () => { router.push("/privacy"); },
       },
       {
         title: "About Vesta",
         sub: "Version, credits, and updates",
-        onPress: () => {},
+        onPress: () => { router.push("/about"); },
       },
     ],
     []
@@ -111,17 +71,26 @@ export default function ProfileScreen() {
             onPressEdit={() => {setShowModal(true)}}
           />
 
-          <SettingsSection
-            theme={theme}
-            title="Home Settings"
-            items={homeSettings}
-          />
+          <View style={{ marginBottom: 24 }}>
+            <Text style={[styles.sectionTitle, { color: theme.text, marginBottom: 12 }]}>
+              Home Settings
+            </Text>
+            <InlineInputActionRow
+              theme={theme}
+              value={homeName}
+              onChangeText={setHomeName}
+              placeholder="Home name..."
+              actionLabel="Save"
+              onPressAction={() => {}}
+            />
+          </View>
 
-          <SettingsSection
-            theme={theme}
-            title="Food preferences"
-            items={foodPrefs}
-          />
+          <View style={{ marginBottom: 24 }}>
+            <Text style={[styles.sectionTitle, { color: theme.text, marginBottom: 12 }]}>
+              Theme
+            </Text>
+            <ThemeToggle theme={theme} value={mode} onChange={setMode} />
+          </View>
 
           <SettingsSection theme={theme} title="Support" items={support} />
 
@@ -138,7 +107,6 @@ export default function ProfileScreen() {
         </ScrollView>
         <ProfileSheet visible={showModal} onClose={()=>setShowModal(false)}/>
 
-        <BottomNav theme={theme} />
       </View>
     </SafeAreaView>
   );

@@ -64,9 +64,14 @@ function AuthenticatedOverlay() {
   const { session } = useAuth();
   const segments = useSegments();
   
-  const isAiPage = segments.some(seg => seg === 'ai');
+  const hideMic = segments.some(seg => 
+    seg === 'ai' || 
+    seg === 'profile' || 
+    seg === 'privacy' || 
+    seg === 'about'
+  );
   
-  if (!session?.token || isAiPage) return null;
+  if (!session?.token || hideMic) return null;
   return <VestaVoiceOverlay />;
 }
 

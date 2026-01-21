@@ -16,6 +16,7 @@ import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
 import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
+import Skeleton from "../ui/Skeleton";
 
 export default function RoomsScreen() {
   const { session } = useAuth();

@@ -18,6 +18,9 @@ import { recipesScreenStyles as styles } from "./recipe.styles";
 import { useRecipesRag } from "@/features/recipes/useRecipesRag";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import { useSavedRecipesQuery } from "@/hooks/savedRecipes/useSavedRecipesQuery";
+import { useCreateSavedRecipe } from "@/hooks/savedRecipes/mutations/useCreateSavedRecipe";
+import { useDeleteSavedRecipe } from "@/hooks/savedRecipes/mutations/useDeleteSavedRecipe";
 
 export default function RecipesScreen() {
   const { theme } = useTheme();
@@ -30,15 +33,34 @@ export default function RecipesScreen() {
     mustNotContain: [],
   });
 
-  const [savedIds, setSavedIds] = useState<Record<string, boolean>>({
-    "4": true,
-  });
 
+  const { data: savedRecipes = [] } = useSavedRecipesQuery({ homeId: session?.homeId ?? 0, token });
+  const { mutate: saveRecipe } = useCreateSavedRecipe({ homeId: session?.homeId ?? 0, token });
+  const { mutate: deleteRecipe } = useDeleteSavedRecipe({ homeId: session?.homeId ?? 0, token });
 
-  function toggleSave(id: string) {
-    setSavedIds((prev) => ({ ...prev, [id]: !prev[id] }));
+  function isRecipeSaved(name: string) {
+    return savedRecipes.some((r) => r.recipe_name === name);
   }
 
+  function toggleSave(id: string) {
+    const recipe = primaryResults.find((r) => r.id === id);
+    if (!recipe) return;
+
+    if (isRecipeSaved(recipe.recipe_name)) {
+      deleteRecipe({ recipeName: recipe.recipe_name });
+    } else {
+      saveRecipe({
+        dto: {
+          recipe_name: recipe.recipe_name,
+          ingredients: recipe.ingredients,
+          directions: recipe.directions,
+          cuisine_primary: recipe.cuisine_primary ?? null,
+          description: recipe.description,
+        },
+      });
+    }
+  }
+  
   if(isLoading && !primaryResults.length) {
        // logic handled below
   }
@@ -68,7 +90,7 @@ export default function RecipesScreen() {
             loading={isLoading}
             sub="Vesta pulls ideas from your pantry + world recipes."
             kpis={[
-              { label: "Saved Recipes", value: "5" },
+              { label: "Saved Recipes", value: savedRecipes.length.toString() },
               { label: "More Recipes ?", value: "Ask Ai" },
             ]}
           >
@@ -101,7 +123,10 @@ export default function RecipesScreen() {
           ) : (
             <RecipesSection
               recipes={primaryResults}
-              isSaved={(id) => savedIds[id]}
+              isSaved={(id) => {
+                 const r = primaryResults.find(x => x.id === id);
+                 return r ? isRecipeSaved(r.recipe_name) : false;
+              }}
               onToggleSave={toggleSave}
               onPressCook={(id) => {
                 router.push(`/recipes/${id}`);

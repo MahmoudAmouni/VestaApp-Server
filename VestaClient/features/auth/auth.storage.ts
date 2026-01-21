@@ -2,6 +2,7 @@ import * as SecureStore from "expo-secure-store";
 import type { AuthSession } from "./auth.types";
 
 const AUTH_SESSION_KEY = "auth.session";
+const USER_ALLERGIES_KEY = "user.allergies";
 
 export async function saveAuthSession(session: AuthSession) {
   const available = await SecureStore.isAvailableAsync();
@@ -13,6 +14,13 @@ export async function saveAuthSession(session: AuthSession) {
   }
 
   await SecureStore.setItemAsync(AUTH_SESSION_KEY, JSON.stringify(session));
+
+  if (session.user.allergies && session.user.allergies.length > 0) {
+    await SecureStore.setItemAsync(
+      USER_ALLERGIES_KEY,
+      JSON.stringify(session.user.allergies)
+    );
+  }
 }
 
 export async function loadAuthSession(): Promise<AuthSession | null> {
@@ -38,4 +46,5 @@ export async function clearAuthSession() {
   if (!available) return;
 
   await SecureStore.deleteItemAsync(AUTH_SESSION_KEY);
+  await SecureStore.deleteItemAsync(USER_ALLERGIES_KEY);
 }

@@ -74,7 +74,6 @@ export default function RecipeDetailScreen({recipe}:{recipe:RagRecipeResult}) {
           <StepsSection theme={theme} steps={steps} />
         </ScrollView>
 
-        <BottomNav theme={theme} />
       </View>
     </SafeAreaView>
   );
