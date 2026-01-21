@@ -54,7 +54,7 @@ Route::group(["prefix" => "v1", "middleware" => "auth:api"], function () {
         Route::get('/{home_id}', [ShoppingListController::class, 'list']);
         Route::post('/{home_id}', [ShoppingListController::class, 'create']);
         Route::post('/{home_id}/{item_id}', [ShoppingListController::class, 'update']);
-        Route::delete('/{home_id}/checked', [ShoppingListController::class, 'clearChecked']);
+        Route::get('/{home_id}/checked', [ShoppingListController::class, 'clearChecked']);
     });
 
 

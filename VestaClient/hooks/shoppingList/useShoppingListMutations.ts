@@ -1,6 +1,6 @@
 import { useCreateShoppingListItem } from "./mutations/useCreateShoppingListItem";
 import { useUpdateShoppingListItem } from "./mutations/useUpdateShoppingListItem";
-import { useDeleteShoppingListItem } from "./mutations/useDeleteShoppingListItem";
+import { useClearCheckedShoppingList } from "./mutations/useClearCheckedShoppingList";
 
 export function useShoppingListMutations(args: {
   homeId: number;
@@ -8,7 +8,7 @@ export function useShoppingListMutations(args: {
 }) {
   const createMutation = useCreateShoppingListItem(args);
   const updateMutation = useUpdateShoppingListItem(args);
-  const deleteMutation = useDeleteShoppingListItem(args);
+  const clearCheckedMutation = useClearCheckedShoppingList(args);
 
-  return { createMutation, updateMutation, deleteMutation };
+  return { createMutation, updateMutation, clearCheckedMutation };
 }

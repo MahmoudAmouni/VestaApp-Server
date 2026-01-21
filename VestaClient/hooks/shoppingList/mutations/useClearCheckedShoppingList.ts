@@ -1,22 +1,22 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../lib/reactQuery";
 import type { ShoppingListItem } from "../../../features/shoppingList/shoppingList.types";
-import { apiDeleteShoppingListItem } from "../../../features/shoppingList/shoppingList.api";
+import { apiClearCheckedShoppingList } from "../../../features/shoppingList/shoppingList.api";
 import { shoppingListKey } from "../useShoppingListQuery";
 
-export function useDeleteShoppingListItem(args: { homeId: number; token?: string }) {
+export function useClearCheckedShoppingList(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;
 
   return useMutation<
     void,
     Error,
-    { shoppingListItemId: number },
+    void,
     { prev?: ShoppingListItem[] }
   >({
-    mutationFn: async ({ shoppingListItemId }) =>
-      apiDeleteShoppingListItem({ homeId, shoppingListItemId, token }),
+    mutationFn: async () =>
+      apiClearCheckedShoppingList({ homeId, token }),
 
-    onMutate: async ({ shoppingListItemId }) => {
+    onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: shoppingListKey(homeId) });
       const prev = queryClient.getQueryData<ShoppingListItem[]>(
         shoppingListKey(homeId)
@@ -26,7 +26,7 @@ export function useDeleteShoppingListItem(args: { homeId: number; token?: string
         shoppingListKey(homeId),
         (current) => {
           if (!current) return current;
-          return current.filter((x) => x.id !== shoppingListItemId);
+          return current.filter((x) => !x.checked);
         }
       );
 

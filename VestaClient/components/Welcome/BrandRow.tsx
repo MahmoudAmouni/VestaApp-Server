@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { Theme } from "@/type";
-import { brandRowStyles as styles } from "./BrandRow.styles";
+import { brandRowStyles as styles } from "./BrandRowStyles";
 
 export default function BrandRow(props: { theme: Theme }) {
   const { theme } = props;

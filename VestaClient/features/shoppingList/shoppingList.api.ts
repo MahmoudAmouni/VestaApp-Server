@@ -93,19 +93,18 @@ export async function apiUpdateShoppingListItem(params: {
   return updatedRaw ? mapShoppingListItem(updatedRaw) : null;
 }
 
-export async function apiDeleteShoppingListItem(params: {
+export async function apiClearCheckedShoppingList(params: {
   homeId: number;
-  shoppingListItemId: number;
   token?: string;
   signal?: AbortSignal;
 }): Promise<void> {
-  const { homeId, shoppingListItemId, token, signal } = params;
+  const { homeId, token, signal } = params;
 
   const res = await fetchJson<ApiResponse<unknown>>(
-    `/shoppinglist/${homeId}/${shoppingListItemId}`,
+    `/shoppinglist/${homeId}/checked`,
     { method: "GET", token, signal }
   );
 
   if (!res.success)
-    throw new Error(res.message || "Failed to delete shopping list item.");
+    throw new Error(res.message || "Failed to clear checked items.");
 }

@@ -8,6 +8,8 @@ export default function ConfirmDeleteCard(props: {
   onConfirm: () => void;
   onCancel: () => void;
   message?: string;
+  confirmLabel?: string;
+  confirmIcon?: any;
 }) {
   const { theme } = props;
 
@@ -32,8 +34,8 @@ export default function ConfirmDeleteCard(props: {
         />
         <Button
           variant="primary"
-          label="Confirm"
-          icon="trash-outline"
+          label={props.confirmLabel || "Confirm"}
+          icon={props.confirmIcon || "trash-outline"}
           onPress={props.onConfirm}
           flex
         />
