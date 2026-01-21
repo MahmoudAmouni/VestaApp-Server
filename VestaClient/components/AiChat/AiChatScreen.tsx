@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 
-const BG_IMAGE = require("@/assets/images/chat_bg.png");
+const BG_IMAGE = require("@/assets/images/image.png");
 
 import Header from "@/components/ui/Header";
 import { aiChatStyles as styles } from "./ai.styles";
@@ -51,21 +51,21 @@ export default function AiChatScreen() {
   }, [text, sendMessage]);
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
-      <View style={styles.screen}>
-        <StatusBar barStyle="light-content" />
-        <Header
-          theme={theme}
-          title="Assistant"
-          kicker="Always Ready"
-          icon="sparkles-outline"
-        />
+    <ImageBackground
+      source={BG_IMAGE}
+      style={{ flex: 1, width: "100%", height: "100%" }}
+      resizeMode="cover"
+    >
+      <SafeAreaView style={[styles.safe, { backgroundColor: "transparent" }]}>
+        <View style={styles.screen}>
+          <StatusBar barStyle="light-content" />
+          <Header
+            theme={theme}
+            title="Assistant"
+            kicker="Always Ready"
+            icon="sparkles-outline"
+          />
 
-        <ImageBackground
-          source={BG_IMAGE}
-          style={styles.backgroundImage}
-          resizeMode="cover"
-        >
           <KeyboardAvoidingView
             style={styles.body}
             behavior={Platform.OS === "ios" ? "padding" : undefined}
@@ -88,8 +88,8 @@ export default function AiChatScreen() {
               disabled={isSending}
             />
           </KeyboardAvoidingView>
-        </ImageBackground>
-      </View>
-    </SafeAreaView>
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }

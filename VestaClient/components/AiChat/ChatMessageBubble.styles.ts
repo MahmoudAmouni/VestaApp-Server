@@ -14,13 +14,13 @@ export const chatMessageBubbleStyles = StyleSheet.create({
 
   bubble: {
     maxWidth: "82%",
+    minWidth: 200,
     borderRadius: 16,
     paddingHorizontal: 12,
     paddingVertical: 10,
     borderWidth: 1,
     gap: 6,
-    marginTop: 12,
-    marginBottom: 0
+    margin: 10,
   },
 
   userBubble: {
