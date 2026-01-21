@@ -19,6 +19,7 @@ import { RagRecipeResult } from "@/features/recipes/recipes.rag.types";
 
 
 export default function RecipeDetailScreen({recipe}:{recipe:RagRecipeResult}) {
+  console.log(recipe)
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const ingredients = recipe.ingredients.split("$$")

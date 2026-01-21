@@ -40,9 +40,11 @@ export const chatMessageBubbleStyles = StyleSheet.create({
     fontWeight: "700",
     lineHeight: 16,
   },
-  time: {
-    fontSize: 11,
-    fontWeight: "800",
-    opacity: 0.85,
+  recipeDataText: {
+    fontFamily: "monospace",
+    fontSize: 13,
+    fontWeight: "900",
+    textDecorationLine: "underline",
+    letterSpacing: 0.5,
   },
 });

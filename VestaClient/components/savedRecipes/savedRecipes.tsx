@@ -87,7 +87,22 @@ export default function SavedRecipesScreen() {
                 theme={theme}
                 recipes={filtered}
                 onPressCook={(id) => {
-                  router.push(`/recipes/${id}`);
+                  const found = savedRaw.find((r) => r.id === id);
+                  if (found) {
+                    const recipeData = {
+                      id: String(found.id),
+                      recipe_name: found.recipe_name,
+                      cuisine_primary: found.cuisine_primary || undefined,
+                      description: found.description || "",
+                      ingredients: found.ingredients,
+                      directions: found.directions,
+                      cuisines: [],
+                    };
+                    router.push({
+                      pathname: `/recipes/${id}`,
+                      params: { recipeData: JSON.stringify(recipeData) }
+                    });
+                  }
                 }}
                 onToggleSave={(id) => {
                   const found = savedRaw.find((r) => String(r.id) === id);

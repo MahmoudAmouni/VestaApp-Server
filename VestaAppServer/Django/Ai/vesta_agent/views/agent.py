@@ -25,14 +25,11 @@ class AgentChatView(BaseAgentView):
         if audio_file:
             try:
                 client = OpenAI(api_key=settings.OPENAI_API_KEY)
-                # OpenAI's client handles file objects directly if they have a 'name' and 'read' method.
-                # Django's UploadedFile (InMemoryUploadedFile or TemporaryUploadedFile) works here.
                 transcription = client.audio.transcriptions.create(
                     model="whisper-1", 
                     file=(audio_file.name, audio_file.read(), audio_file.content_type)
                 )
                 message = transcription.text
-                # Update data for the service
                 data["message"] = message
             except Exception as e:
                 print(f"DEBUG: Audio Transcription Error: {e}")
@@ -49,11 +46,9 @@ class AgentChatView(BaseAgentView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
-        # Validate input for forbidden words
         try:
             validate_input_content(message)
         except ValidationError as e:
-            # User requested custom message format: "wtv here " + message
             return Response(
                 {"message": f"Security Restriction: {e.detail[0]}"}, 
                 status=status.HTTP_400_BAD_REQUEST

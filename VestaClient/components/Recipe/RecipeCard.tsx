@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
+import { router } from "expo-router";
+import React, { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 
 import Button from "@/components/ui/Button";
@@ -17,6 +18,7 @@ export default function RecipeCard(props: {
 }) {
   const { theme } = useTheme();
   const { recipe } = props;
+  const [isAskingAi, setIsAskingAi] = useState(false);
   const ingredients = recipe.ingredients.split("$$")
 
   return (
@@ -26,18 +28,19 @@ export default function RecipeCard(props: {
           <Text style={[styles.title, { color: theme.text }]}>
             {recipe.recipe_name}
           </Text>
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            {ingredients?.map((n, i) => {
-              if (i < 4)
-                return (
-                  <Text
-                    key={n}
-                    style={[styles.sub, { color: theme.textMuted }]}
-                  >
-                    {i === 3 ? "..." : n + ", "}
-                  </Text>
-                );
-            })}
+          <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+            {(() => {
+              const MAX_CHARS = 40;
+              const allIngredients = ingredients.join(", ");
+              const truncated = allIngredients.length > MAX_CHARS 
+                ? allIngredients.substring(0, MAX_CHARS) + "..." 
+                : allIngredients;
+              return (
+                <Text style={[styles.sub, { color: theme.textMuted }]}>
+                  {truncated}
+                </Text>
+              );
+            })()}
           </View>
 
           <View style={styles.tagsRow}>
@@ -87,12 +90,33 @@ export default function RecipeCard(props: {
         </View>
       </View>
 
-      <Button
-        variant="primary"
-        label="Cook Now"
-        onPress={props.onPressCook}
-        style={styles.cookBtn}
-      />
+      <View style={styles.buttonRow}>
+        <Button
+          variant="primary"
+          label="Cook Now"
+          onPress={props.onPressCook}
+          style={styles.cookBtn}
+          icon="restaurant"
+          flex
+        />
+        <Button
+          variant="secondary"
+          label="Ask AI"
+          disabled={isAskingAi}
+          onPress={() => {
+            setIsAskingAi(true);
+            router.push({
+              pathname: "/(tabs)/ai",
+              params: { recipeData: JSON.stringify(recipe) }
+            });
+            // Reset after a delay in case navigation is slow or they come back
+            setTimeout(() => setIsAskingAi(false), 2000);
+          }}
+          style={styles.askAiBtn}
+          icon="sparkles"
+          flex
+        />
+      </View>
     </Card>
   );
 }

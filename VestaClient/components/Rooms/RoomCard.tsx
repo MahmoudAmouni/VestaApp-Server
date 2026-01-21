@@ -18,8 +18,6 @@ export default function RoomCard(props: {
   theme: Theme;
   room: Room;
   onPressOpen: () => void;
-  onPressAllOn: () => void;
-  onPressAllOff: () => void;
 }) {
   const { theme, room } = props;
 
@@ -56,21 +54,6 @@ export default function RoomCard(props: {
       </View>
 
       <View style={styles.footer}>
-        <View style={{ flexDirection: 'row', gap: 8 }}>
-          <BulkActionButton 
-            theme={theme} 
-            label="ON" 
-            onPress={props.onPressAllOn}
-            style={{ minWidth: 60 }}
-          />
-          <BulkActionButton 
-            theme={theme} 
-            label="OFF" 
-            onPress={props.onPressAllOff}
-            style={{ minWidth: 60 }}
-          />
-        </View>
-
         <Button
           variant="secondary"
           label="Open"

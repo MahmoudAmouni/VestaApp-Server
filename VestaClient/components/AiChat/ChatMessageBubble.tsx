@@ -38,8 +38,17 @@ export default function ChatMessageBubble(props: {
             <ActivityIndicator size="small" color={textColor} />
           </View>
         ) : (
-          <Text style={[styles.text, { color: textColor }]}>
-            {message.content}
+          <Text
+            style={[
+              message.content.startsWith("[RECIPE_CONTEXT]")
+                ? styles.recipeDataText
+                : styles.text,
+              { color: textColor },
+            ]}
+          >
+            {message.content.startsWith("[RECIPE_CONTEXT]")
+              ? "Recipe_data"
+              : message.content}
           </Text>
         )}
       </View>

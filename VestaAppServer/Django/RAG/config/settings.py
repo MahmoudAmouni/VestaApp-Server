@@ -74,7 +74,7 @@ CHROMA_HOST = os.getenv("CHROMA_HOST", "127.0.0.1")
 CHROMA_PORT = int(os.getenv("CHROMA_PORT", "8000"))
 CHROMA_SSL = env_bool("CHROMA_SSL", False)
 
-CHROMA_EMBEDDING_PROVIDER = os.getenv("CHROMA_EMBEDDING_PROVIDER", "default")  # default | sentence_transformer
+CHROMA_EMBEDDING_PROVIDER = os.getenv("CHROMA_EMBEDDING_PROVIDER", "default") 
 SENTENCE_TRANSFORMER_MODEL = os.getenv("SENTENCE_TRANSFORMER_MODEL", "all-MiniLM-L6-v2")
 
 LLM_BASE_URL = os.getenv("LLM_BASE_URL", "").strip()

@@ -5,7 +5,7 @@ from rest_framework import serializers
 class SearchRequestSerializer(serializers.Serializer):
     query = serializers.CharField(min_length=2, max_length=500)
     n_results = serializers.IntegerField(min_value=1, max_value=50, default=4)
-
+    seed = serializers.IntegerField(required=False, allow_null=True)
     
     cuisines = serializers.ListField(
         child=serializers.CharField(min_length=2, max_length=64),

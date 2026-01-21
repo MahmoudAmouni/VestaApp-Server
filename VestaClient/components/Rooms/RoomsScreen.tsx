@@ -112,8 +112,7 @@ export default function RoomsScreen() {
                     theme={theme}
                     room={room}
                     onPressOpen={() => router.push(`/rooms/${room.id}`)}
-                    onPressAllOn={() => turnRoomOnMutation.mutate({ roomId: room.id })}
-                    onPressAllOff={() => turnRoomOffMutation.mutate({ roomId: room.id })}
+
                   />
                 ))
               )
