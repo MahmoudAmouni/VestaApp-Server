@@ -3,7 +3,6 @@ import { SafeAreaView, ScrollView, StatusBar, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 
-import BottomNav from "@/components/ui/BottomNav";
 import Header from "@/components/ui/Header";
 import HeroCard from "@/components/ui/HeroCard";
 
@@ -97,7 +96,6 @@ export default function PantryScreen() {
         <PantryItemSheet
           theme={theme}
         />
-        <BottomNav theme={theme} />
       </View>
     </SafeAreaView>
   );

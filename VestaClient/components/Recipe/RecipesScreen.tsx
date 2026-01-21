@@ -78,9 +78,8 @@ export default function RecipesScreen() {
               router.push(`/recipes/${id}`);
             }}
           />
+          
         </ScrollView>
-
-        <BottomNav theme={theme} />
       </View>
     </SafeAreaView>
   );

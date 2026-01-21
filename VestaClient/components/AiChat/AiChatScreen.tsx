@@ -80,8 +80,6 @@ export default function AiChatScreen() {
             disabled={isSending} 
           />
         </KeyboardAvoidingView>
-
-        <BottomNav theme={theme} />
       </View>
     </SafeAreaView>
   );

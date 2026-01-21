@@ -17,14 +17,13 @@ export const heroCardStyles = StyleSheet.create({
     fontWeight: "700",
   },
   heroTitle: {
-    marginTop: 2,
     fontSize: 18,
     fontWeight: "900",
-    letterSpacing: -0.2,
+    letterSpacing: -0.25,
   },
   heroSub: {
-    marginTop: 6,
     fontSize: 12,
+    fontWeight: "700",
     lineHeight: 16,
   },
 
@@ -50,7 +49,7 @@ export const heroCardStyles = StyleSheet.create({
     fontSize: 13,
   },
   kpis: {
-    marginTop: 16,
+    marginTop: 12,
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 10,

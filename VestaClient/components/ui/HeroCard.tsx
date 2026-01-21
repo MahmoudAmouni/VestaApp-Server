@@ -26,6 +26,7 @@ export default function HeroCard(props: {
   return (
     <Card
       theme={theme}
+      padding={16}
       style={[
         styles.heroCard,
         {
@@ -34,7 +35,7 @@ export default function HeroCard(props: {
       ]}
     >
       <View style={styles.heroTop}>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, gap: 6 }}>
           {props.kicker ? (
             <Text style={[styles.heroKicker, { color: theme.textMuted }]}>
               {props.kicker.toUpperCase()}

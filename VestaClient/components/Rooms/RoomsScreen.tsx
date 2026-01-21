@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import BottomNav from "@/components/ui/BottomNav";
 import RoomCard from "@/components/Rooms/RoomCard";
 import RoomsSectionHeader from "@/components/Rooms/RoomSectionHeader";
-import RoomsHero from "@/components/Rooms/RoomsHero";
+import HeroCard from "@/components/ui/HeroCard";
 
 import Header from "@/components/ui/Header";
 import { useRouter } from "expo-router";
@@ -49,17 +49,15 @@ export default function RoomsScreen() {
               { paddingBottom: insets.bottom + 150 },
             ]}
           >
-            <RoomsHero
+            <HeroCard
               theme={theme}
               title="Every room, simplified."
-              sub={
-                'Preview devices by room. Tap "Open room" to\ncontrol everything.'
-              }
-              stats={[
-                { label: "Total devices", value: "7" },
-                { label: "Devices ON", value: "3" },
-                { label: "Devices OFF", value: "4" },
-                { label: "Quick tip", value: "Tap a room" },
+              sub={'Preview devices by room. Tap "Open room" to\ncontrol everything.'}
+              kpis={[
+                { label: "Total devices", value: "7", smallValue: true },
+                { label: "Devices ON", value: "3", smallValue: true },
+                { label: "Devices OFF", value: "4", smallValue: true },
+                { label: "Quick tip", value: "Tap a room", smallValue: true },
               ]}
             />
 
@@ -88,10 +86,6 @@ export default function RoomsScreen() {
             visible={showRoomSheet}
             onClose={() => setShowRoomSheet(false)}
           />
-
-          <View style={{ paddingBottom: insets.bottom }}>
-            <BottomNav theme={theme} />
-          </View>
         </View>
       </View>
     </SafeAreaView>

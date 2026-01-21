@@ -56,7 +56,6 @@ export default function DashboardScreen() {
         >
           <HeroCard
             theme={theme}
-            kicker="Today’s vibe"
             title="Calm & ready."
             sub="A quick snapshot of your space — lights, pantry, and what’s coming up."
             kpis={[
@@ -102,12 +101,6 @@ export default function DashboardScreen() {
 
           <View style={{ height: 18 }} />
         </ScrollView>
-
-        <BottomNav
-          theme={theme}
-          active={activeTab}
-          onChange={(k) => setActiveTab(k)}
-        />
       </View>
     </SafeAreaView>
   );
