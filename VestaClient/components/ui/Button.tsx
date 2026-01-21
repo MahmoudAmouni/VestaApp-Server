@@ -10,6 +10,7 @@ export default function Button(props: {
   onPress: () => void;
   disabled?: boolean;
   style?: ViewStyle;
+  textStyle?: TextStyle;
   icon?: keyof typeof Ionicons.glyphMap;
   flex?: boolean;
 }) {
@@ -46,7 +47,7 @@ export default function Button(props: {
             style={{ marginRight: 6 }}
           />
         )}
-        <Text style={[styles.btnText, { color: textColor }]}>{props.label}</Text>
+        <Text style={[styles.btnText, { color: textColor }, props.textStyle]}>{props.label}</Text>
       </View>
     </Pressable>
   );

@@ -10,6 +10,7 @@ import BottomNav from "@/components/ui/BottomNav";
 import Button from "@/components/ui/Button";
 import Header from "@/components/ui/Header";
 import HeroCard from "@/components/ui/HeroCard";
+import Skeleton from "@/components/ui/Skeleton";
 
 import RecipesSection from "@/components/Recipe/RecipeSection";
 import { recipesScreenStyles as styles } from "./recipe.styles";
@@ -31,9 +32,10 @@ export default function RecipesScreen() {
     setSavedIds((prev) => ({ ...prev, [id]: !prev[id] }));
   }
 
-  if(isLoading) return <Text>Loading...</Text>
-  console.log(primaryResults)
-
+  if(isLoading && !primaryResults.length) {
+       // logic handled below
+  }
+  
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
       <StatusBar barStyle="light-content" />
@@ -56,6 +58,7 @@ export default function RecipesScreen() {
           <HeroCard
             theme={theme}
             title="Use what you have."
+            loading={isLoading}
             sub="Vesta pulls ideas from your pantry + world recipes."
             kpis={[
               { label: "Saved Recipes", value: "5" },
@@ -70,14 +73,21 @@ export default function RecipesScreen() {
             />
           </HeroCard>
 
-          <RecipesSection
-            recipes={primaryResults}
-            isSaved={(id) => savedIds[id]}
-            onToggleSave={toggleSave}
-            onPressCook={(id) => {
-              router.push(`/recipes/${id}`);
-            }}
-          />
+          {isLoading ? (
+             <View style={{ gap: 16, marginTop: 16 }}>
+                 <Skeleton height={200} borderRadius={18} />
+                 <Skeleton height={200} borderRadius={18} />
+             </View>
+          ) : (
+            <RecipesSection
+              recipes={primaryResults}
+              isSaved={(id) => savedIds[id]}
+              onToggleSave={toggleSave}
+              onPressCook={(id) => {
+                router.push(`/recipes/${id}`);
+              }}
+            />
+          )}
           
         </ScrollView>
       </View>

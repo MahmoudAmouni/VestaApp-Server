@@ -19,6 +19,7 @@ import ExpiringSoonSection from "../Pantry/ExpiringSoonSection";
 import { indexStyles as styles } from "./Dashboard.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import Skeleton from "../ui/Skeleton";
 
 type NavKey = "Home" | "Rooms" | "Pantry" | "Recipes" | "AI";
 
@@ -33,8 +34,6 @@ export default function DashboardScreen() {
   const { data: pantryItems = [], isLoading } = usePantryQuery({ homeId, token });
   const { data: rooms = [], isLoading: isGettingRooms } = useRoomsQuery({ homeId, token });
   const isWorking = isLoading || isGettingRooms;
-
-  if (isWorking) return;
   const expiringSoon = getExpiringSoon(pantryItems);
 
   return (
@@ -58,6 +57,7 @@ export default function DashboardScreen() {
             theme={theme}
             title="Calm & ready."
             sub="A quick snapshot of your space — lights, pantry, and what’s coming up."
+            loading={isWorking}
             kpis={[
               { label: "Devices ON", value: "3" },
               { label: "Offline", value: "0" },
@@ -74,15 +74,22 @@ export default function DashboardScreen() {
           />
 
           <View style={styles.sectionGap}>
-            {rooms.map((room) => (
-              <RoomCard
-                key={room.id}
-                room={room}
-                onPressAllOn={() => {}}
-                onPressAllOff={() => {}}
-                onPressCard={() => {}}
-              />
-            ))}
+            {isWorking ? (
+               <View style={{ gap: 14 }}>
+                  <Skeleton height={140} borderRadius={18} />
+                  <Skeleton height={140} borderRadius={18} />
+               </View>
+            ) : (
+              rooms.map((room) => (
+                <RoomCard
+                  key={room.id}
+                  room={room}
+                  onPressAllOn={() => {}}
+                  onPressAllOff={() => {}}
+                  onPressCard={() => {}}
+                />
+              ))
+            )}
           </View>
 
           
@@ -94,7 +101,11 @@ export default function DashboardScreen() {
                 onPressAction={() => setActiveTab("Pantry")}
               />
 
-                <ExpiringSoonSection items={expiringSoon} />
+                {isWorking ? (
+                  <Skeleton height={100} borderRadius={12} />
+                ) : (
+                  <ExpiringSoonSection items={expiringSoon} />
+                )}
             </>
           <View style={{ height: 14 }} />
           

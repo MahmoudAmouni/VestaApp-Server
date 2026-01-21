@@ -2,6 +2,7 @@ import { Theme } from "@/type";
 import React from "react";
 import { Text, View } from "react-native";
 import Card from "./Card";
+import Skeleton from "./Skeleton";
 import { heroCardStyles as styles } from "./HeroCard.styles";
 import KPI from "./KPI";
 
@@ -20,6 +21,7 @@ export default function HeroCard(props: {
   badge?: React.ReactNode;
   kpis?: HeroKpi[];
   children?: React.ReactNode;
+  loading?: boolean;
 }) {
   const { theme } = props;
 
@@ -36,21 +38,31 @@ export default function HeroCard(props: {
     >
       <View style={styles.heroTop}>
         <View style={{ flex: 1, gap: 6 }}>
-          {props.kicker ? (
-            <Text style={[styles.heroKicker, { color: theme.textMuted }]}>
-              {props.kicker.toUpperCase()}
-            </Text>
-          ) : null}
+          {props.loading ? (
+             <>
+               {props.kicker && <Skeleton width={80} height={12} borderRadius={4} />}
+               <Skeleton width={180} height={22} borderRadius={6} />
+               <Skeleton width={240} height={14} borderRadius={4} />
+             </>
+          ) : (
+            <>
+              {props.kicker ? (
+                <Text style={[styles.heroKicker, { color: theme.textMuted }]}>
+                  {props.kicker.toUpperCase()}
+                </Text>
+              ) : null}
 
-          <Text style={[styles.heroTitle, { color: theme.text }]}>
-            {props.title}
-          </Text>
+              <Text style={[styles.heroTitle, { color: theme.text }]}>
+                {props.title}
+              </Text>
 
-          {props.sub ? (
-            <Text style={[styles.heroSub, { color: theme.textMuted }]}>
-              {props.sub}
-            </Text>
-          ) : null}
+              {props.sub ? (
+                <Text style={[styles.heroSub, { color: theme.textMuted }]}>
+                  {props.sub}
+                </Text>
+              ) : null}
+            </>
+          )}
         </View>
 
         {props.badge ? <View>{props.badge}</View> : null}
@@ -66,6 +78,7 @@ export default function HeroCard(props: {
               value={k.value}
               hint={k.hint}
               smallValue={k.smallValue}
+              loading={props.loading}
             />
           ))}
         </View>

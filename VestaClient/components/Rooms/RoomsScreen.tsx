@@ -15,6 +15,10 @@ import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
 
+import Skeleton from "@/components/ui/Skeleton";
+
+
+
 export default function RoomsScreen() {
   const { session } = useAuth();
   const homeId = session?.homeId ?? 0;
@@ -25,8 +29,6 @@ export default function RoomsScreen() {
   const { theme } = useTheme();
   const router = useRouter();
   const insets = useSafeAreaInsets();
-
-  if (isLoading) return <Text>Loading</Text>;
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
@@ -53,6 +55,7 @@ export default function RoomsScreen() {
               theme={theme}
               title="Every room, simplified."
               sub={'Preview devices by room. Tap "Open room" to\ncontrol everything.'}
+              loading={isLoading}
               kpis={[
                 { label: "Total devices", value: "7", smallValue: true },
                 { label: "Devices ON", value: "3", smallValue: true },
@@ -72,14 +75,21 @@ export default function RoomsScreen() {
             />
 
             <View>
-              {rooms.map((room) => (
-                <RoomCard
-                  key={room.id}
-                  theme={theme}
-                  room={room}
-                  onPressOpen={() => router.push(`/rooms/${room.id}`)}
-                />
-              ))}
+              {isLoading ? (
+                <View style={{ gap: 14 }}>
+                   <Skeleton height={140} borderRadius={18} />
+                   <Skeleton height={140} borderRadius={18} />
+                </View>
+              ) : (
+                rooms.map((room) => (
+                  <RoomCard
+                    key={room.id}
+                    theme={theme}
+                    room={room}
+                    onPressOpen={() => router.push(`/rooms/${room.id}`)}
+                  />
+                ))
+              )}
             </View>
           </ScrollView>
           <RoomSheet

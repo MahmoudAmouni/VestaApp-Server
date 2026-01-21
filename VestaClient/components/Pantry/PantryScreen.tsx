@@ -19,6 +19,9 @@ import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 import { getExpiringSoon } from "@/utils/dateHelpers";
 
+import Skeleton from "@/components/ui/Skeleton";
+
+
 export default function PantryScreen() {
   const { theme } = useTheme();
   const {homeId} = useAuth()
@@ -47,11 +50,7 @@ export default function PantryScreen() {
     return items;
   }, [pantryItems, query, filter]);
 
-  if (isLoading)
-    return (
-        <Text>Loading....</Text>
-      );
-    const expiringSoon = getExpiringSoon(pantryItems)
+  const expiringSoon = getExpiringSoon(pantryItems)
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
@@ -75,6 +74,7 @@ export default function PantryScreen() {
           <HeroCard
             theme={theme}
             title="Cook from what's inside."
+            loading={isLoading}
             sub="Keep it simple: add items, check expiry, and let Vesta suggest meals."
             kpis={[
               { label: "Expiring soon", value: String(expiringSoon.length) },
@@ -86,12 +86,24 @@ export default function PantryScreen() {
           <PantryFilterRow theme={theme} value={filter} onChange={setFilter} />
           
           <Text style={[styles.sectionTitle,{color:theme.text}]}>Expiring Soon</Text>
-          <ExpiringSoonSection items={expiringSoon} />
+          {isLoading ? (
+             <Skeleton height={100} borderRadius={12} />
+          ) : (
+            <ExpiringSoonSection items={expiringSoon} />
+          )}
 
-          <AllItemsSection
-            theme={theme}
-            items={filteredItems}
-          />
+          {isLoading ? (
+             <View style={{ gap: 14, marginTop: 16 }}>
+                <Skeleton height={60} borderRadius={12} />
+                <Skeleton height={60} borderRadius={12} />
+                <Skeleton height={60} borderRadius={12} />
+             </View>
+          ) : (
+            <AllItemsSection
+              theme={theme}
+              items={filteredItems}
+            />
+          )}
         </ScrollView>
         <PantryItemSheet
           theme={theme}
