@@ -18,4 +18,9 @@ export const pantryScreenStyles = StyleSheet.create({
     paddingTop: 14,
     gap: 14,
   },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "800",
+    marginBottom: 4, 
+  },
 });

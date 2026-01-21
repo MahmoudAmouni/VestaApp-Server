@@ -10,7 +10,7 @@ export const kpiStyles = StyleSheet.create({
   kpi: {
     width: "48%",
     borderWidth: 1,
-    borderRadius: 18,
+    borderRadius: 14,
     padding: 12,
   },
   kpiLabel: {

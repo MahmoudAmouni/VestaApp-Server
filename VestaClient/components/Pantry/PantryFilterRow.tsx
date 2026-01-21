@@ -2,24 +2,16 @@ import React from "react";
 import { Pressable, ScrollView, Text } from "react-native";
 import { Theme } from "@/type";
 import { pantryFilterRowStyles as styles } from "./PantryFilterRow.styles";
-
-export type PantryFilterKey = "All" | "Expiring" | "Fridge" | "Freezer";
-
-const FILTERS: PantryFilterKey[] = [
-  "All",
-  "Expiring",
-  "Fridge",
-  "Freezer",
-  "Freezer",
-  "Freezer",
-];
+export type PantryFilterKey = string | null;
 
 export default function PantryFilterRow(props: {
   theme: Theme;
   value: PantryFilterKey;
   onChange: (k: PantryFilterKey) => void;
+  locations: string[];
 }) {
-  const { theme } = props;
+  const { theme, locations } = props;
+  const filters = ["All", ...locations];
 
   return (
     <ScrollView
@@ -27,13 +19,14 @@ export default function PantryFilterRow(props: {
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.row}
     >
-      {FILTERS.map((k, idx) => {
-        const active = props.value === k;
+      {filters.map((k, idx) => {
+        const isAll = k === "All";
+        const active = isAll ? props.value === null : props.value === k;
 
         return (
           <Pressable
             key={`${k}-${idx}`}
-            onPress={() => props.onChange(k)}
+            onPress={() => props.onChange(isAll ? null : k)}
             style={({ pressed }) => [
               styles.pill,
               {

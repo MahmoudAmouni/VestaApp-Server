@@ -5,12 +5,14 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-
-import BottomNav from "@/components/ui/BottomNav";
 import AddItemRow from "@/components/ShoppingList/AddItemRow";
 import ItemsSection from "@/components/ShoppingList/ItemsSection";
+import EmptyShoppingListState from "@/components/ShoppingList/EmptyShoppingListState";
 import ShoppingHeader from "@/components/ShoppingList/ShoppingHeader";
-import ShoppingHero from "@/components/ShoppingList/ShoppingHero";
+
+import HeroCard from "@/components/ui/HeroCard";
+import Skeleton from "@/components/ui/Skeleton";
+import Button from "@/components/ui/Button";
 import { ShoppingListItem } from "@/features/shoppingList/shoppingList.types";
 import { useShoppingListQuery } from "@/hooks/shoppingList/useShoppingListQuery";
 import { useShoppingListMutations } from "@/hooks/shoppingList/useShoppingListMutations";
@@ -58,7 +60,6 @@ export default function ShoppingListScreen() {
   }
   const [openModal, setOpenModal] = useState(false);
 
-  if (isLoading) return <Text>is Loading...</Text>;
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
@@ -73,48 +74,93 @@ export default function ShoppingListScreen() {
           style={styles.scroll}
           contentContainerStyle={[
             styles.content,
-            { paddingBottom: 110 + insets.bottom },
+            { paddingBottom: 150 + insets.bottom },
           ]}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
-          <ShoppingHero
+          <HeroCard
             theme={theme}
             title="Grab the basics."
-            subtitle="Tap to mark items as done. Add anything you need  Vesta can suggest based on your pantry."
-            onPressPantryGaps={() => {}}
-            onPressSavedRecipes={() => {}}
-          />
-
-          <AddItemRow
-            onPress={() => {
-              setOpenModal(true);
-            }}
-          />
+            sub="Tap to mark items as done. Add anything you need Vesta can suggest based on your pantry."
+            loading={isLoading}
+            kpis={[
+              { label: "Total Items", value: String(shoppingListItems.length) },
+              { label: "Checked", value: String(shoppingListItems.filter(i => i.is_checked).length) },
+            ]}
+          >
+             <View style={{ flexDirection: 'row', gap: 12, marginTop: 12 }}>
+                <Button
+                  variant="secondary"
+                  label="From pantry gaps"
+                  onPress={() => {}}
+                  style={{flex: 1}}
+                />
+                <Button
+                  variant="secondary"
+                  label="For saved recipes"
+                  onPress={() => {}}
+                  style={{flex: 1}}
+                />
+             </View>
+          </HeroCard>
 
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: theme.text }]}>
-              Items
-            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text style={[styles.sectionTitle, { color: theme.text }]}>
+                Items
+              </Text>
+              <Button
+                variant="secondary"
+                label="Add"
+                icon="add"
+                onPress={() => setOpenModal(true)}
+                style={{
+                  height: 32,
+                  paddingHorizontal: 12,
+                  paddingVertical: 0,
+                  borderRadius: 8,
+                }}
+                textStyle={{ fontSize: 13, fontWeight: "700" }}
+              />
+            </View>
 
-            <ItemsSection items={shoppingListItems} onToggle={onToggle} />
-          </View>
-
-          {/* <View style={styles.clearWrap}>
-            <ItemsSection.ClearCheckedButton
-              theme={theme}
-              disabled={checkedCount === 0}
-              onPress={clearChecked}
+            {isLoading ? (
+               <View style={{ gap: 10 }}>
+                  <Skeleton height={50} borderRadius={12} />
+                  <Skeleton height={50} borderRadius={12} />
+                  <Skeleton height={50} borderRadius={12} />
+               </View>
+            ) : (
+                shoppingListItems.length > 0 ? (
+                  <ItemsSection items={shoppingListItems} onToggle={onToggle} />
+                ) : (
+                  <EmptyShoppingListState
+                    theme={theme}
+                    onPressAction={() => setOpenModal(true)}
+                    actionLabel="Add Item"
+                  />
+                )
+             )}
+            <Button
+              variant="secondary"
+              label="Clear all checks"
+              onPress={() => {}}
+              style={{ marginTop: 12 }}
             />
-          </View> */}
+          </View>
         </ScrollView>
         <ShoppingItemSheet
           visible={openModal}
           onClose={() => setOpenModal(false)}
           onSave={onCreate}
         />
-
-        <BottomNav theme={theme} />
       </View>
     </SafeAreaView>
   );

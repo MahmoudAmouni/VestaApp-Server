@@ -1,14 +1,18 @@
 import BottomNav from "@/components/ui/BottomNav";
-import Card from "@/components/ui/Card";
 import Header from "@/components/ui/Header";
 import HeroCard from "@/components/ui/HeroCard";
 import RoomCard from "@/components/Home/RoomCard";
+import EmptyRoomState from "@/components/Rooms/EmptyRoomState";
 
 import SectionHeader from "@/components/Home/SectionHeader";
 
 import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
 import { usePantryQuery } from "@/hooks/pantry/usePantryQuery";
 import { getExpiringSoon } from "@/utils/dateHelpers";
+import { useRouter } from "expo-router";
+import ShoppingListPreview from "@/components/Home/ShoppingListPreview";
+import { useShoppingListQuery } from "@/hooks/shoppingList/useShoppingListQuery";
+import RoomSheet from "@/components/Rooms/RoomSheet";
 import React, { useState } from "react";
 import {
   SafeAreaView,
@@ -20,6 +24,7 @@ import ExpiringSoonSection from "../Pantry/ExpiringSoonSection";
 import { indexStyles as styles } from "./Dashboard.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import Skeleton from "../ui/Skeleton";
 
 type NavKey = "Home" | "Rooms" | "Pantry" | "Recipes" | "AI";
 
@@ -27,16 +32,18 @@ export default function DashboardScreen() {
   const { theme } = useTheme();
   
   const [activeTab, setActiveTab] = useState<NavKey>("Home");
+  const [showRoomSheet, setShowRoomSheet] = useState(false);
   const { session } = useAuth();
   const homeId = session?.homeId ?? 0;
   const token = session?.token;
 
   const { data: pantryItems = [], isLoading } = usePantryQuery({ homeId, token });
   const { data: rooms = [], isLoading: isGettingRooms } = useRoomsQuery({ homeId, token });
-  const isWorking = isLoading || isGettingRooms;
-
-  if (isWorking) return;
+  const { data: shoppingList = [], isLoading: isGettingList } = useShoppingListQuery({ homeId, token });
+  
+  const isWorking = isLoading || isGettingRooms || isGettingList;
   const expiringSoon = getExpiringSoon(pantryItems);
+  const router = useRouter();
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
@@ -45,25 +52,26 @@ export default function DashboardScreen() {
       <View style={[styles.phone, { backgroundColor: theme.surface }]}>
         <Header
           theme={theme}
-          kicker="Home Pulse"
-          title="My Home"
+          kicker="Welcome Home"
+          title="Dashboard"
+          icon="grid-outline"
           onPressNotifications={() => {}}
         />
 
         <ScrollView
-          contentContainerStyle={[styles.scrollContent, { paddingBottom: 90 }]}
+          contentContainerStyle={[styles.scrollContent, { paddingBottom: 80 }]}
           showsVerticalScrollIndicator={false}
         >
           <HeroCard
             theme={theme}
-            kicker="Today’s vibe"
             title="Calm & ready."
             sub="A quick snapshot of your space — lights, pantry, and what’s coming up."
+            loading={isWorking}
             kpis={[
-              { label: "Devices ON", value: "3", hint: "Kitchen + Living" },
-              { label: "Offline", value: "0", hint: "All online" },
-              { label: "Expiring soon", value: "2", hint: "Next 48hr" },
-              { label: "Saved Recipes", value: "12", hint: "Start Cooking!" },
+              { label: "Devices ON", value: "3" },
+              { label: "Offline", value: "0" },
+              { label: "Expiring soon", value: "2" },
+              { label: "Saved Recipes", value: "12" },
             ]}
           />
 
@@ -75,18 +83,51 @@ export default function DashboardScreen() {
           />
 
           <View style={styles.sectionGap}>
-            {rooms.map((room) => (
-              <RoomCard
-                key={room.id}
-                room={room}
-                onPressAllOn={() => {}}
-                onPressAllOff={() => {}}
-                onPressCard={() => {}}
-              />
-            ))}
+            {isWorking ? (
+               <View style={{ gap: 14 }}>
+                  <Skeleton height={140} borderRadius={18} />
+                  <Skeleton height={140} borderRadius={18} />
+               </View>
+            ) : (
+              rooms.length === 0 ? (
+                <EmptyRoomState 
+                  theme={theme} 
+                  onAddRoom={() => setShowRoomSheet(true)} 
+                />
+              ) : (
+                rooms.map((room) => (
+                  <RoomCard
+                    key={room.id}
+                    room={room}
+                    onPressAllOn={() => {}}
+                    onPressAllOff={() => {}}
+                    onPressCard={() => {}}
+                  />
+                ))
+              )
+            )}
           </View>
 
-          
+          <View style={styles.sectionGap}>
+            <SectionHeader
+              theme={theme}
+              title="Shopping List"
+              actionLabel="View All"
+              onPressAction={() => router.push("/shoppingList")}
+            />
+            {isWorking ? (
+              <Skeleton height={120} borderRadius={16} />
+            ) : (
+              <ShoppingListPreview
+                theme={theme}
+                items={shoppingList}
+                onPressAction={() => router.push("/shoppingList")}
+              />
+            )}
+          </View>
+
+          <View style={{ height: 24 }} />
+
             <>
               <SectionHeader
                 theme={theme}
@@ -95,23 +136,21 @@ export default function DashboardScreen() {
                 onPressAction={() => setActiveTab("Pantry")}
               />
 
-              <Card
-                theme={theme}
-                style={{ paddingVertical: 0, overflow: "hidden" }}
-              >
-                <ExpiringSoonSection items={expiringSoon} />
-              </Card>
+                {isWorking ? (
+                  <Skeleton height={100} borderRadius={12} />
+                ) : (
+                  <ExpiringSoonSection items={expiringSoon} />
+                )}
             </>
           <View style={{ height: 14 }} />
           
 
+
           <View style={{ height: 18 }} />
         </ScrollView>
-
-        <BottomNav
-          theme={theme}
-          active={activeTab}
-          onChange={(k) => setActiveTab(k)}
+        <RoomSheet
+          visible={showRoomSheet}
+          onClose={() => setShowRoomSheet(false)}
         />
       </View>
     </SafeAreaView>

@@ -10,17 +10,24 @@ import BottomNav from "@/components/ui/BottomNav";
 import Button from "@/components/ui/Button";
 import Header from "@/components/ui/Header";
 import HeroCard from "@/components/ui/HeroCard";
+import Skeleton from "@/components/ui/Skeleton";
 
 import RecipesSection from "@/components/Recipe/RecipeSection";
 import { recipesScreenStyles as styles } from "./recipe.styles";
 import { useRecipesRag } from "@/features/recipes/useRecipesRag";
+import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
-
 
 export default function RecipesScreen() {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
-  const {isLoading,primaryResults} = useRecipesRag({mustContain:[],mustNotContain:[]})
+  const { session } = useAuth();
+  const token = session?.token;
+  const { isLoading, primaryResults } = useRecipesRag({
+    token,
+    mustContain: [],
+    mustNotContain: [],
+  });
 
   const [savedIds, setSavedIds] = useState<Record<string, boolean>>({
     "4": true,
@@ -31,26 +38,33 @@ export default function RecipesScreen() {
     setSavedIds((prev) => ({ ...prev, [id]: !prev[id] }));
   }
 
-  if(isLoading) return <Text>Loading...</Text>
-  console.log(primaryResults)
-
+  if(isLoading && !primaryResults.length) {
+       // logic handled below
+  }
+  
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
       <StatusBar barStyle="light-content" />
       <View style={styles.screen}>
-        <Header theme={theme} title="Vesta" kicker="Recipes" />
+        <Header
+          theme={theme}
+          title="Recipes"
+          kicker="Taste & Explore"
+          icon="restaurant-outline"
+        />
 
         <ScrollView
           style={styles.scroll}
           contentContainerStyle={[
             styles.content,
-            { paddingBottom: 110 + insets.bottom },
+            { paddingBottom: 150 + insets.bottom },
           ]}
           showsVerticalScrollIndicator={false}
         >
           <HeroCard
             theme={theme}
             title="Use what you have."
+            loading={isLoading}
             sub="Vesta pulls ideas from your pantry + world recipes."
             kpis={[
               { label: "Saved Recipes", value: "5" },
@@ -65,17 +79,23 @@ export default function RecipesScreen() {
             />
           </HeroCard>
 
-          <RecipesSection
-            recipes={primaryResults}
-            isSaved={(id) => savedIds[id]}
-            onToggleSave={toggleSave}
-            onPressCook={(id) => {
-              router.push(`/recipes/${id}`);
-            }}
-          />
+          {isLoading ? (
+             <View style={{ gap: 16, marginTop: 16 }}>
+                 <Skeleton height={200} borderRadius={18} />
+                 <Skeleton height={200} borderRadius={18} />
+             </View>
+          ) : (
+            <RecipesSection
+              recipes={primaryResults}
+              isSaved={(id) => savedIds[id]}
+              onToggleSave={toggleSave}
+              onPressCook={(id) => {
+                router.push(`/recipes/${id}`);
+              }}
+            />
+          )}
+          
         </ScrollView>
-
-        <BottomNav theme={theme} />
       </View>
     </SafeAreaView>
   );

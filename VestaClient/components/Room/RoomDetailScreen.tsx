@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import { roomDetailsStyles as styles } from "./RoomDetailsScreen.styles";
 
 import BottomNav from "@/components/ui/BottomNav";
 import Card from "@/components/ui/Card";
 import HeroCard from "@/components/ui/HeroCard";
-import QuickActionTile from "@/components/Room/QuickActionTile";
 import RoomActions from "@/components/Room/RoomActions";
+import BulkActionButton from "@/components/Room/BulkActionButton";
+import ConfirmDeleteModal from "@/components/Room/ConfirmDeleteModal";
 import RoomHeader from "@/components/Room/RoomHeader";
 import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
 import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
@@ -25,6 +27,8 @@ export default function RoomDetailsScreen() {
   const [openModal, setOpenModal] = useState(false);
   const [openDeviceModal, setOpenDeviceModal] = useState(false);
   const [device, setDevice] = useState<Device | null>();
+
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const { id } = useLocalSearchParams<{ id: string }>();
   const roomId = Number(id);
@@ -49,8 +53,11 @@ export default function RoomDetailsScreen() {
     }
   }
 
+  const devicesOn = room?.devices?.filter((d) => d.is_on).length ?? 0;
+  const devicesOff = room?.devices?.filter((d) => !d.is_on).length ?? 0;
+
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
+    <View style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={[styles.screen, { backgroundColor: theme.bg }]}>
         <RoomHeader
           theme={theme}
@@ -58,81 +65,35 @@ export default function RoomDetailsScreen() {
           onBack={() => {
             router.back();
           }}
-          onAddDevice={() => {
-            setShowDeviceModal(true);
-          }}
+          onAddDevice={undefined}
         />
 
         <ScrollView
-          contentContainerStyle={[styles.scroll, { paddingBottom: 118 }]}
+          contentContainerStyle={[styles.scroll, { paddingBottom: 100 }]}
           showsVerticalScrollIndicator={false}
         >
           <HeroCard
             theme={theme}
-            title="Kitchen control"
-            sub="Toggle devices instantly. Control all kitchen devices"
+            title={`${room?.room_name.name} control`}
+            sub={`Toggle devices instantly. Control all ${room?.room_name.name.toLowerCase()} devices`}
+            kpis={[
+              { label: "Devices ON", value: devicesOn.toString() },
+              { label: "Devices OFF", value: devicesOff.toString() },
+              { label: "Quick Action", value: "All OFF", smallValue: true },
+              { label: "Quick Action", value: "All ON", smallValue: true },
+            ]}
           >
-            <View style={styles.tiles}>
-              <QuickActionTile
-                theme={theme}
-                label="Devices ON"
-                value={`${2}`}
-              />
-              <QuickActionTile
-                theme={theme}
-                label="Devices OFF"
-                value={`${2}`}
-              />
-              <QuickActionTile
-                theme={theme}
-                label="Quick Action"
-                value="All OFF"
-                onPress={() => {}}
-              />
-              <QuickActionTile
-                theme={theme}
-                label="Quick Action"
-                value="All ON"
-                onPress={() => {}}
-              />
-            </View>
-
             <View style={styles.bulkRow}>
-              <Pressable
+              <BulkActionButton
+                theme={theme}
+                label="All ON"
                 onPress={() => {}}
-                style={({ pressed }) => [
-                  styles.bulkBtn,
-                  {
-                    backgroundColor: theme.bg,
-                    borderColor: theme.border,
-                    opacity: pressed ? 0.9 : 1,
-                  },
-                ]}
-                accessibilityRole="button"
-                accessibilityLabel="All ON"
-              >
-                <Text style={[styles.bulkText, { color: theme.text }]}>
-                  All ON
-                </Text>
-              </Pressable>
-
-              <Pressable
+              />
+              <BulkActionButton
+                theme={theme}
+                label="All OFF"
                 onPress={() => {}}
-                style={({ pressed }) => [
-                  styles.bulkBtn,
-                  {
-                    backgroundColor: theme.bg,
-                    borderColor: theme.border,
-                    opacity: pressed ? 0.9 : 1,
-                  },
-                ]}
-                accessibilityRole="button"
-                accessibilityLabel="All OFF"
-              >
-                <Text style={[styles.bulkText, { color: theme.text }]}>
-                  All OFF
-                </Text>
-              </Pressable>
+              />
             </View>
           </HeroCard>
 
@@ -140,34 +101,105 @@ export default function RoomDetailsScreen() {
             <Text style={[styles.sectionTitle, { color: theme.text }]}>
               Devices
             </Text>
+            <Pressable
+              onPress={() => setShowDeviceModal(true)}
+              style={({ pressed }) => ({
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 6,
+                paddingVertical: 6,
+                paddingHorizontal: 12,
+                backgroundColor: theme.surface2,
+                borderRadius: 999,
+                borderWidth: 1,
+                borderColor: theme.border,
+                opacity: pressed ? 0.8 : 1,
+              })}
+            >
+              <Ionicons name="add" size={16} color={theme.textMuted} />
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontWeight: "700",
+                  color: theme.textMuted,
+                }}
+              >
+                Add Device
+              </Text>
+            </Pressable>
           </View>
 
           <View style={styles.list}>
-            {room?.devices?.map((device) => (
-              <DeviceRow
-                device={device}
-                key={device.id}
-                onEdit={() => {
-                  setShowDeviceModal(true, device);
-                }}
-                onDelete={() => deleteDeviceMutation.mutate({ deviceId: device.id, roomId })}
-              />
-            ))}
+            {!room?.devices || room.devices.length === 0 ? (
+              <View
+                style={[
+                  styles.emptyState,
+                  { borderColor: theme.border, backgroundColor: theme.surface },
+                ]}
+              >
+                <View
+                  style={{
+                    width: 52,
+                    height: 52,
+                    borderRadius: 999,
+                    backgroundColor: theme.surface2,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: 4,
+                  }}
+                >
+                  <Ionicons name="cube-outline" size={24} color={theme.textMuted} />
+                </View>
+                <View style={{ alignItems: "center", gap: 4 }}>
+                  <Text style={[styles.emptyTitle, { color: theme.text }]}>
+                    No devices added
+                  </Text>
+                  <Text style={[styles.emptySub, { color: theme.textMuted }]}>
+                    This room is empty. Add a device to get started.
+                  </Text>
+                </View>
+              </View>
+            ) : (
+              room.devices.map((device) => (
+                <DeviceRow
+                  device={device}
+                  key={device.id}
+                  onEdit={() => {
+                    setShowDeviceModal(true, device);
+                  }}
+                  onDelete={() =>
+                    deleteDeviceMutation.mutate({ deviceId: device.id, roomId })
+                  }
+                />
+              ))
+            )}
           </View>
 
-          <Card theme={theme} padding={12} radius={16} noShadow>
-            <RoomActions
-              theme={theme}
-              onEditRoom={() => {
-                setOpenModal(true);
-              }}
-              onDeleteRoom={() => {
-                deleteRoomMutation.mutate({ roomId });
-                router.back();
-              }}
-            />
-          </Card>
+
         </ScrollView>
+
+        <View style={{ paddingHorizontal: 14, paddingBottom: 14 }}>
+            <RoomActions
+            theme={theme}
+            onEditRoom={() => {
+                setOpenModal(true);
+            }}
+            onDeleteRoom={() => {
+                setIsDeleting(true);
+            }}
+            />
+        </View>
+
+        <ConfirmDeleteModal
+          visible={isDeleting}
+          theme={theme}
+          onCancel={() => setIsDeleting(false)}
+          onConfirm={() => {
+            setIsDeleting(false);
+            deleteRoomMutation.mutate({ roomId });
+            router.back();
+          }}
+        />
 
         <RoomSheet
           visible={openModal}
@@ -180,8 +212,7 @@ export default function RoomDetailsScreen() {
           onClose={() => setShowDeviceModal(false)}
           device={device}
         />
-        <BottomNav theme={theme} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

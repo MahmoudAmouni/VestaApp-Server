@@ -1,37 +1,54 @@
 import { useTheme } from "@/contexts/theme/ThemeContext";
-import { Pressable, StyleSheet, Text, ViewStyle } from "react-native";
+import { Pressable, StyleSheet, Text, ViewStyle, TextStyle, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 type ButtonVariant = "primary" | "secondary";
 
 export default function Button(props: {
-  variant: ButtonVariant;
+  variant?: ButtonVariant;
   label: string;
   onPress: () => void;
-  disabled?:boolean
-  style?: ViewStyle; 
+  disabled?: boolean;
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+  icon?: keyof typeof Ionicons.glyphMap;
+  flex?: boolean;
 }) {
   const { theme } = useTheme();
-  const { disabled } = props;
+  const { disabled, variant = "primary", icon, flex } = props;
 
-  const bg = props.variant === "primary" ? theme.primary : theme.surface2;
-  const border = props.variant === "primary" ? theme.primary : theme.border;
+  
+  const bg = variant === "primary" ? theme.primary : theme.surface2;
+  const border = variant === "primary" ? theme.primary : theme.border;
+  const textColor = variant === "primary" ? "#fff" : theme.textMuted;
 
   return (
     <Pressable
       onPress={props.onPress}
       style={({ pressed }) => [
         styles.btn,
-        props.style,
         {
           backgroundColor: bg,
           borderColor: border,
-          opacity: pressed ? 0.9 : 1,
+          opacity: pressed || disabled ? 0.7 : 1,
+          flex: flex ? 1 : undefined,
         },
+        props.style,
       ]}
       accessibilityRole="button"
       disabled={disabled}
     >
-      <Text style={[styles.btnText, { color: "#fff" }]}>{props.label}</Text>
+      <View style={styles.content}>
+        {icon && (
+          <Ionicons
+            name={icon}
+            size={18}
+            color={textColor}
+            style={{ marginRight: 6 }}
+          />
+        )}
+        <Text style={[styles.btnText, { color: textColor }, props.textStyle]}>{props.label}</Text>
+      </View>
     </Pressable>
   );
 }
@@ -39,14 +56,19 @@ export default function Button(props: {
 const styles = StyleSheet.create({
   btn: {
     borderWidth: 1,
-    borderRadius: 14,
+    borderRadius: 12,
     paddingVertical: 12,
     paddingHorizontal: 14,
     alignItems: "center",
     justifyContent: "center",
   },
+  content: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   btnText: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: "900",
   },
 });

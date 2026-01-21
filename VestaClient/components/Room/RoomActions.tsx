@@ -1,7 +1,7 @@
 import React from "react";
-import { Pressable, Text, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View } from "react-native";
 import { Theme } from "@/type";
+import Button from "@/components/ui/Button";
 import { roomActionsStyles as styles } from "./RoomActions.styles";
 
 export default function RoomActions(props: {
@@ -13,43 +13,21 @@ export default function RoomActions(props: {
 
   return (
     <View style={styles.row}>
-      <Pressable
-        onPress={props.onEditRoom}
-        style={({ pressed }) => [
-          styles.btn,
-          {
-            backgroundColor: theme.bg,
-            borderColor: theme.border,
-            opacity: pressed ? 0.9 : 1,
-          },
-        ]}
-        accessibilityRole="button"
-        accessibilityLabel="Edit Room"
-      >
-        <View style={styles.btnContent}>
-          <Ionicons name="create-outline" size={16} color={theme.text} />
-          <Text style={[styles.btnText, { color: theme.text }]}>Edit Room</Text>
-        </View>
-      </Pressable>
+      <Button
+        variant="secondary"
+        label="Edit Room"
+        icon="create-outline"
+        onPress={props.onEditRoom || (() => {})}
+        flex
+      />
 
-      <Pressable
-        onPress={props.onDeleteRoom}
-        style={({ pressed }) => [
-          styles.btn,
-          {
-            backgroundColor: theme.primary,
-            borderColor: "transparent",
-            opacity: pressed ? 0.9 : 1,
-          },
-        ]}
-        accessibilityRole="button"
-        accessibilityLabel="Delete Room"
-      >
-        <View style={styles.btnContent}>
-          <Ionicons name="trash-outline" size={16} color={theme.bg} />
-          <Text style={[styles.btnText, { color: theme.bg }]}>Delete Room</Text>
-        </View>
-      </Pressable>
+      <Button
+        variant="primary"
+        label="Delete Room"
+        icon="trash-outline"
+        onPress={props.onDeleteRoom || (() => {})}
+        flex
+      />
     </View>
   );
 }

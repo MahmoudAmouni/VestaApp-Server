@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { SafeAreaView, ScrollView, StatusBar, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Theme } from "@/type";
-
 import BottomNav from "@/components/ui/BottomNav";
 import RoomCard from "@/components/Rooms/RoomCard";
+import EmptyRoomState from "@/components/Rooms/EmptyRoomState";
 import RoomsSectionHeader from "@/components/Rooms/RoomSectionHeader";
-import RoomsHero from "@/components/Rooms/RoomsHero";
+import HeroCard from "@/components/ui/HeroCard";
 
 import Header from "@/components/ui/Header";
 import { useRouter } from "expo-router";
@@ -16,6 +15,10 @@ import RoomSheet from "./RoomSheet";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
+
+import Skeleton from "@/components/ui/Skeleton";
+
+
 
 export default function RoomsScreen() {
   const { session } = useAuth();
@@ -28,8 +31,6 @@ export default function RoomsScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
-  if (isLoading) return <Text>Loading</Text>;
-
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={styles.frame}>
@@ -37,8 +38,9 @@ export default function RoomsScreen() {
         <View style={styles.container}>
           <Header
             theme={theme}
-            title="Vesta"
-            kicker="Rooms"
+            title="Rooms"
+            kicker="Your Sanctuary"
+            icon="bed-outline"
             onPressProfile={() => {}}
             onPressNotifications={() => {}}
           />
@@ -47,20 +49,19 @@ export default function RoomsScreen() {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={[
               styles.content,
-              { paddingBottom: insets.bottom + 96 },
+              { paddingBottom: insets.bottom + 150 },
             ]}
           >
-            <RoomsHero
+            <HeroCard
               theme={theme}
               title="Every room, simplified."
-              sub={
-                'Preview devices by room. Tap "Open room" to\ncontrol everything.'
-              }
-              stats={[
-                { label: "Total devices", value: "7" },
-                { label: "Devices ON", value: "3" },
-                { label: "Devices OFF", value: "4" },
-                { label: "Quick tip", value: "Tap a room" },
+              sub={'Preview devices by room. Tap "Open room" to\ncontrol everything.'}
+              loading={isLoading}
+              kpis={[
+                { label: "Total devices", value: "7", smallValue: true },
+                { label: "Devices ON", value: "3", smallValue: true },
+                { label: "Devices OFF", value: "4", smallValue: true },
+                { label: "Quick tip", value: "Tap a room", smallValue: true },
               ]}
             />
 
@@ -75,24 +76,34 @@ export default function RoomsScreen() {
             />
 
             <View>
-              {rooms.map((room) => (
-                <RoomCard
-                  key={room.id}
-                  theme={theme}
-                  room={room}
-                  onPressOpen={() => router.push(`/rooms/${room.id}`)}
+              {isLoading ? (
+                <View style={{ gap: 14 }}>
+                   <Skeleton height={140} borderRadius={18} />
+                   <Skeleton height={140} borderRadius={18} />
+                </View>
+              ) : (
+              rooms.length === 0 ? (
+                <EmptyRoomState 
+                  theme={theme} 
+                  onAddRoom={() => setShowRoomSheet(true)} 
                 />
-              ))}
+              ) : (
+                rooms.map((room) => (
+                  <RoomCard
+                    key={room.id}
+                    theme={theme}
+                    room={room}
+                    onPressOpen={() => router.push(`/rooms/${room.id}`)}
+                  />
+                ))
+              )
+            )}
             </View>
           </ScrollView>
           <RoomSheet
             visible={showRoomSheet}
             onClose={() => setShowRoomSheet(false)}
           />
-
-          <View style={{ paddingBottom: insets.bottom }}>
-            <BottomNav theme={theme} />
-          </View>
         </View>
       </View>
     </SafeAreaView>

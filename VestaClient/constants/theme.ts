@@ -55,7 +55,7 @@ export const lightTheme: Theme = {
   textMuted: "rgba(17, 24, 28, 0.68)",
   border: "rgba(0,0,0,0.10)",
   borderStrong: "rgba(0,0,0,0.16)",
-  primary: "#c45b3d",
+  primary: "#E7523C",
   navBg: "rgba(255, 255, 255, 0.82)",
   shadow1: "rgba(0,0,0,0.15)",
 };
@@ -68,10 +68,9 @@ export const darkTheme: Theme = {
   textMuted: "rgba(243, 243, 246, 0.68)",
   border: "rgba(255,255,255,0.10)",
   borderStrong: "rgba(255,255,255,0.16)",
-  primary: "#c45b3d",
+  primary: "#E7523C",
   navBg: "rgba(15, 15, 18, 0.82)",
   shadow1: "rgba(0,0,0,0.35)",
 };
 
-// Default export for backward compatibility during refactor (Points to Dark for now)
 export const theme: Theme = darkTheme;

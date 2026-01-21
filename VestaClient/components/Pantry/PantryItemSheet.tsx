@@ -18,6 +18,7 @@ import { makePantryItemSheetStyles } from "./PantryItemSheet.styles";
 import { usePantryModal } from "@/contexts/PantryModalContext";
 import { usePantryMutations } from "@/hooks/pantry/usePantryMutations";
 import { useAuth } from "@/contexts/auth/AuthContext";
+import Button from "../ui/Button";
 
 
 export default function PantryItemSheet(props: {
@@ -43,6 +44,8 @@ let {homeId }= useAuth();
   const [date, setDate] = useState("");
   const [quantity, setQuantity] = useState("");
   const [showDate, setShowDate] = useState(false);
+  const [inputError, setInputError] = useState<string | null>(null);
+
   let datePicker = new Date()
   const insets = useSafeAreaInsets();
   const styles = useMemo(
@@ -54,9 +57,10 @@ let {homeId }= useAuth();
   useEffect(()=>{
     setName(pantryItem?.item_name?.name || "")
     setDate(pantryItem?.expiry_date || "")
-    setQuantity(String(pantryItem?.quantity) || "")
+    setQuantity(pantryItem?.quantity ? String(pantryItem.quantity) : "")
     setLocation(pantryItem?.location?.name || "")
     setUnit(pantryItem?.unit?.name || "")
+    setInputError(null)
   },[pantryItem])
 // function normalizeExpiryDate(date: string | Date | null | undefined) {
 //   if (!date) return null;
@@ -66,6 +70,7 @@ let {homeId }= useAuth();
 
 
   function onPressSave() {
+    setInputError(null);
     const dto = {
       item_name: name.trim(),
       location,
@@ -74,7 +79,10 @@ let {homeId }= useAuth();
       expiry_date: "2026-08-12",
     };
 
-    if (!dto.item_name) return;
+    if (!dto.item_name) {
+      setInputError("Please enter a name");
+      return;
+    }
     if (!Number.isFinite(dto.quantity)) return;
 
     if (pantryItem) {
@@ -128,16 +136,26 @@ let {homeId }= useAuth();
             <Text style={styles.label}>Name</Text>
             <TextInput
               value={name}
-              onChangeText={setName}
+              onChangeText={(t) => {
+                setName(t);
+                if (inputError) setInputError(null);
+              }}
               style={[
                 styles.selectBox,
                 {
                   color: "white",
+                  borderColor: inputError ? theme.statusError : "transparent",
+                  borderWidth: inputError ? 1 : 0,
                 },
               ]}
               placeholder="e.g. Carrots"
               placeholderTextColor={theme.textMuted}
             />
+            {inputError && (
+              <Text style={{ color: theme.statusError, marginTop: 4, fontSize: 12 }}>
+                {inputError}
+              </Text>
+            )}
           </View>
 
           <View style={styles.field}>
@@ -168,7 +186,7 @@ let {homeId }= useAuth();
           </View>
 
           <View style={styles.field}>
-            <Text style={styles.label}>Name</Text>
+            <Text style={styles.label}>Location</Text>
             <TextInput
               value={location}
               onChangeText={setLocation}
@@ -178,7 +196,7 @@ let {homeId }= useAuth();
                   color: "white",
                 },
               ]}
-              placeholder="e.g. Carrots"
+              placeholder="e.g. Fridge"
               placeholderTextColor={theme.textMuted}
             ></TextInput>
           </View>
@@ -214,16 +232,18 @@ let {homeId }= useAuth();
             )}
           </View>
           <View style={styles.actionsRow}>
-            <Pressable
-              style={styles.actionBtn}
+            <Button
+              variant="secondary"
+              label="Cancel"
               onPress={() => setShowModal(false)}
-            >
-              <Text style={styles.actionText}>Cancel</Text>
-            </Pressable>
-
-            <Pressable style={styles.actionBtnPrimary} onPress={onPressSave}>
-              <Text style={styles.actionTextPrimary}>Save</Text>
-            </Pressable>
+              flex
+            />
+            <Button
+              variant="primary"
+              label="Save"
+              onPress={onPressSave}
+              flex
+            />
           </View>
         </Animated.View>
       </KeyboardAvoidingView>

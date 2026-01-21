@@ -9,18 +9,15 @@ import Pill from "@/components/ui/Pill";
 import { pantryItemCardStyles as styles } from "./PantryItemCard.styles";
 import { PantryItem } from "@/features/pantry/pantry.types";
 import { daysFromToday } from "@/utils/dateHelpers";
-import { usePantryMutations } from "@/hooks/pantry/usePantryMutations";
 import { usePantryModal } from "@/contexts/PantryModalContext";
-import { useAuth } from "@/contexts/auth/AuthContext";
 
 export default function PantryItemCard(props: {
   theme: Theme;
   item: PantryItem;
+  onDelete: () => void;
 }) {
-  const {homeId} = useAuth()
-  const { theme, item } = props;
+  const { theme, item, onDelete } = props;
   const days = daysFromToday(item.expiry_date)
-  const { deleteMutation } = usePantryMutations({ homeId });
   const {setShowModal} = usePantryModal()
 
   return (
@@ -62,7 +59,7 @@ export default function PantryItemCard(props: {
         </Pressable>
 
         <Pressable
-          onPress={()=>deleteMutation.mutate({pantryItemId:item.id})}
+          onPress={onDelete}
           style={({ pressed }) => [
             styles.actionBtn,
             {

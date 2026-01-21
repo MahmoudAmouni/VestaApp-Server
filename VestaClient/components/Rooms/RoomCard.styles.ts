@@ -39,12 +39,10 @@ export const roomCardStyles = StyleSheet.create({
   openBtn: {
     flexGrow: 0,
     minWidth: 128,
-    height: 36,
     borderRadius: 12,
   },
   openBtnSolo: {
     minWidth: 160,
-    height: 36,
     borderRadius: 12,
   },
 });

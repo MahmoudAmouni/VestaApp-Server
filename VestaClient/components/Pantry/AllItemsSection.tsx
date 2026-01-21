@@ -12,8 +12,9 @@ import { usePantryModal } from "@/contexts/PantryModalContext";
 export default function AllItemsSection(props: {
   theme: Theme;
   items: PantryItem[] | undefined;
+  onDelete: (id: number) => void;
 }) {
-  const { theme, items } = props;
+  const { theme, items, onDelete } = props;
   const {setShowModal} =usePantryModal()
 
   return (
@@ -37,6 +38,7 @@ export default function AllItemsSection(props: {
               key={it.id}
               theme={theme}
               item={it}
+              onDelete={() => onDelete(it.id)}
             />
           ))}
         </View>

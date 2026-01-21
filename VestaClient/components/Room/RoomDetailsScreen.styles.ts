@@ -14,32 +14,20 @@ export const roomDetailsStyles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingTop: 12,
     gap: 14,
+    flexGrow: 1,
   },
-  tiles: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 10,
-  },
+
   bulkRow: {
     marginTop: 10,
     flexDirection: "row",
     gap: 10,
   },
-  bulkBtn: {
-    flex: 1,
-    height: 38,
-    borderRadius: 14,
-    borderWidth: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  bulkText: {
-    fontSize: 12,
-    fontWeight: "900",
-  },
   sectionHead: {
     marginTop: 0,
-    marginBottom: 2,
+    marginBottom: 6,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   sectionTitle: {
     fontSize: 18,
@@ -98,5 +86,27 @@ export const roomDetailsStyles = StyleSheet.create({
     borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  
+  emptyState: {
+    padding: 32,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 12,
+    marginTop: 10,
+    borderWidth: 2,
+    borderStyle: "dashed",
+    borderRadius: 20,
+  },
+  emptyTitle: {
+    fontSize: 16,
+    fontWeight: "700",
+    letterSpacing: -0.3,
+  },
+  emptySub: {
+    fontSize: 14,
+    fontWeight: "500",
+    textAlign: "center",
+    maxWidth: 200,
   },
 });

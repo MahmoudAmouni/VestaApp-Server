@@ -40,9 +40,15 @@ export default function RoomCard(props: {
       <View style={[styles.divider, { backgroundColor: theme.border }]} />
 
       <View style={styles.preview}>
-        {room.devices?.slice(0, 2).map((d) => (
-          <DeviceRow key={d.id} theme={theme} device={d} roomId={room.id} />
-        ))}
+        {room.devices?.length === 0 ? (
+          <View style={{ paddingVertical: 12, alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={{ color: theme.textMuted, fontSize: 14 }}>No devices added yet</Text>
+          </View>
+        ) : (
+          room.devices?.slice(0, 2).map((d) => (
+            <DeviceRow key={d.id} theme={theme} device={d} roomId={room.id} />
+          ))
+        )}
       </View>
 
       {room.devices?.length > 2 ? (

@@ -16,6 +16,7 @@ import { Device } from "@/features/rooms/rooms.types";
 import { makeRoomSheetStyles } from "../Rooms/RoomSheet.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import Button from "@/components/ui/Button";
 
 type Props = {
   visible: boolean;
@@ -124,13 +125,18 @@ export default function DeviceSheet({
           </View>
 
           <View style={styles.actionsRow}>
-            <Pressable style={styles.actionBtn} onPress={onClose}>
-              <Text style={styles.actionText}>Close</Text>
-            </Pressable>
-
-            <Pressable style={styles.actionBtnPrimary} onPress={onPressSave}>
-              <Text style={styles.actionTextPrimary}>Save</Text>
-            </Pressable>
+            <Button
+              variant="secondary"
+              label="Close"
+              onPress={onClose}
+              flex
+            />
+            <Button
+              variant="primary"
+              label="Save"
+              onPress={onPressSave}
+              flex
+            />
           </View>
         </Animated.View>
       </KeyboardAvoidingView>

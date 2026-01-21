@@ -11,4 +11,10 @@ export const aiChatStyles = StyleSheet.create({
   body: {
     flex: 1,
   },
+  backgroundContainer: {
+    flex: 1,
+  },
+  backgroundImage: {
+    flex: 1,
+  },
 });

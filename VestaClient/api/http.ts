@@ -1,6 +1,10 @@
 const API_BASE_URL = {
-  base: "http://127.0.0.1:8000/api/v1",
-  auth: "http://127.0.0.1:8000/api",
+  base: process.env.EXPO_PUBLIC_API_URL
+    ? `${process.env.EXPO_PUBLIC_API_URL}/api/v1`
+    : "http://127.0.0.1:8000/api/v1",
+  auth: process.env.EXPO_PUBLIC_API_URL
+    ? `${process.env.EXPO_PUBLIC_API_URL}/api`
+    : "http://127.0.0.1:8000/api",
 };
 // const API_BASE_URL = {
 //   base: "http://52.47.107.193:80/api/v1",
@@ -40,8 +44,11 @@ export async function fetchJson<T>(
 
   const effectiveToken = token ?? AUTH_TOKEN ?? undefined;
 
+  const url = `${!login ? API_BASE_URL.base : API_BASE_URL.auth}${path}`;
+  console.log('[http] fetching:', url);
+
   const res = await fetch(
-    `${!login ? API_BASE_URL.base : API_BASE_URL.auth}${path}`,
+    url,
     {
       method,
       headers: {

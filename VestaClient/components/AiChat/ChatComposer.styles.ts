@@ -6,7 +6,6 @@ export const chatComposerStyles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 12,
     borderTopWidth: 1,
-    top:-80,
   },
   inputWrap: {
     height: 46,

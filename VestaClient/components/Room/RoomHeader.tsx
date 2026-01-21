@@ -45,22 +45,26 @@ export default function RoomHeader(props: {
         <Text style={[styles.title, { color: theme.text }]}>{props.title}</Text>
       </View>
 
-      <Pressable
-        onPress={props.onAddDevice}
-        style={({ pressed }) => [
-          styles.addBtn,
-          {
-            backgroundColor: theme.surface2,
-            borderColor: theme.border,
-            opacity: pressed ? 0.85 : 1,
-          },
-        ]}
-        accessibilityRole="button"
-        accessibilityLabel="Add Device"
-      >
-        <Ionicons name="add" size={16} color={theme.textMuted} />
-        <Text style={[styles.addText, { color: theme.textMuted }]}>Add Device</Text>
-      </Pressable>
+      {props.onAddDevice && (
+        <Pressable
+          onPress={props.onAddDevice}
+          style={({ pressed }) => [
+            styles.addBtn,
+            {
+              backgroundColor: theme.surface2,
+              borderColor: theme.border,
+              opacity: pressed ? 0.85 : 1,
+            },
+          ]}
+          accessibilityRole="button"
+          accessibilityLabel="Add Device"
+        >
+          <Ionicons name="add" size={16} color={theme.textMuted} />
+          <Text style={[styles.addText, { color: theme.textMuted }]}>
+            Add Device
+          </Text>
+        </Pressable>
+      )}
     </View>
   );
 }

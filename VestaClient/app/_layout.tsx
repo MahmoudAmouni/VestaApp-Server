@@ -26,6 +26,8 @@ const NavTheme = {
   },
 };
 
+import LoadingScreen from "./(auth)/loading";
+
 function RouteGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const segments = useSegments();
@@ -41,7 +43,7 @@ function RouteGuard({ children }: { children: React.ReactNode }) {
     const inTabs = group === "(tabs)";
 
     if (!isAuthed && inTabs) {
-      router.replace("/(auth)/login");
+      router.replace("/(auth)");
       return;
     }
 
@@ -51,7 +53,7 @@ function RouteGuard({ children }: { children: React.ReactNode }) {
     }
   }, [isLoading, isAuthed, segments.join("|"), router]);
 
-  if (isLoading) return null; 
+  if (isLoading) return <LoadingScreen />; 
 
   return <>{children}</>;
 }
@@ -60,7 +62,11 @@ function RouteGuard({ children }: { children: React.ReactNode }) {
 
 function AuthenticatedOverlay() {
   const { session } = useAuth();
-  if (!session?.token) return null;
+  const segments = useSegments();
+  
+  const isAiPage = segments.some(seg => seg === 'ai');
+  
+  if (!session?.token || isAiPage) return null;
   return <VestaVoiceOverlay />;
 }
 

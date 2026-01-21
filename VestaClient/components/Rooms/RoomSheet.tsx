@@ -16,6 +16,7 @@ import { Room } from "@/features/rooms/rooms.types";
 import { makeRoomSheetStyles } from "./RoomSheet.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import Button from "../ui/Button";
 
 type Props = {
   visible: boolean;
@@ -99,13 +100,18 @@ export default function RoomSheet({
           </View>
 
           <View style={styles.actionsRow}>
-            <Pressable style={styles.actionBtn} onPress={onClose}>
-              <Text style={styles.actionText}>Close</Text>
-            </Pressable>
-
-            <Pressable style={styles.actionBtnPrimary} onPress={onPressSave}>
-              <Text style={styles.actionTextPrimary}>Save</Text>
-            </Pressable>
+            <Button
+              variant="secondary"
+              label="Cancel"
+              onPress={onClose}
+              flex
+            />
+            <Button
+              variant="primary"
+              label="Save"
+              onPress={onPressSave}
+              flex
+            />
           </View>
         </Animated.View>
       </KeyboardAvoidingView>

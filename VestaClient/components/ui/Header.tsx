@@ -13,6 +13,7 @@ export default function Header(props: {
   kicker: string;
   onPressProfile?: () => void;
   onPressNotifications?: () => void;
+  icon?: keyof typeof Ionicons.glyphMap;
 }) {
   function onPressProfilee(){
     router.push("/profile")
@@ -20,7 +21,7 @@ export default function Header(props: {
   function onPressShoppingList() {
     router.push("/shoppingList");
   }
-  const { theme } = props;
+  const { theme, icon = "grid-outline" } = props;
   const insets = useSafeAreaInsets();
 
   return (
@@ -40,7 +41,9 @@ export default function Header(props: {
             styles.logo,
             { backgroundColor: theme.surface2, borderColor: theme.border },
           ]}
-        />
+        >
+          <Ionicons name={icon} size={20} color={theme.text} />
+        </View>
 
         <View style={styles.textBlock}>
           <Text style={[styles.title, { color: theme.text }]}>

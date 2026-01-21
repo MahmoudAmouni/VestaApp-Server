@@ -38,25 +38,25 @@ export default function BottomNav(props: { theme: Theme }) {
     icon: React.ComponentProps<typeof Ionicons>["name"];
     iconActive: React.ComponentProps<typeof Ionicons>["name"];
   }[] = [
-    { key: "Home", label: "Home", icon: "home-outline", iconActive: "home" },
-    { key: "Rooms", label: "Rooms", icon: "tv-outline", iconActive: "tv" },
+    { key: "Home", label: "Home", icon: "grid-outline", iconActive: "grid" },
+    { key: "Rooms", label: "Rooms", icon: "bed-outline", iconActive: "bed" },
     {
       key: "Pantry",
       label: "Pantry",
-      icon: "grid-outline",
-      iconActive: "grid",
+      icon: "basket-outline",
+      iconActive: "basket",
     },
     {
       key: "Recipes",
       label: "Recipes",
-      icon: "book-outline",
-      iconActive: "book",
+      icon: "restaurant-outline",
+      iconActive: "restaurant",
     },
     {
       key: "AI",
       label: "AI",
-      icon: "chatbubble-outline",
-      iconActive: "chatbubble",
+      icon: "sparkles-outline",
+      iconActive: "sparkles",
     },
   ];
 
@@ -114,7 +114,7 @@ export default function BottomNav(props: { theme: Theme }) {
                   <Ionicons
                     name={isActive ? it.iconActive : it.icon}
                     size={20}
-                    color={isActive ? theme.bg : theme.textMuted}
+                    color={isActive ? "#fff" : theme.textMuted}
                   />
                 </View>
               </View>
