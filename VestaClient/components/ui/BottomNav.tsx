@@ -62,7 +62,7 @@ export default function BottomNav(props: { theme: Theme }) {
 
   function goTo(key: NavKey) {
     const href = ROUTES[key];
-    router.replace(href);
+    router.replace(href as any);
   }
 
   return (

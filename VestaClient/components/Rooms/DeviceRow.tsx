@@ -5,7 +5,7 @@ import { Pressable, Text, View } from "react-native";
 
 import { Device } from "@/features/rooms/rooms.types";
 import { deviceRowStyles as styles } from "./DeviceRow.styles";
-import DeviceStatePill from "./DeviceStatePill";
+import { DeviceToggle } from "../Room/DeviceToggle";
 import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
 import { useAuth } from "@/contexts/auth/AuthContext";
 
@@ -43,10 +43,10 @@ export default function DeviceRow(props: {
       </View>
 
       <View style={styles.right}>
-        <DeviceStatePill
-          click={handleToggle}
+        <DeviceToggle
+          onPress={handleToggle}
           theme={theme}
-          state={device.is_on ? "on" : "off"}
+          on={device.is_on}
         />
 
         {!!props.onEdit && (
@@ -81,7 +81,7 @@ export default function DeviceRow(props: {
             accessibilityRole="button"
             accessibilityLabel={`Delete ${device.id}`}
           >
-            <Ionicons name="trash-outline" size={16} color={theme.textMuted} />
+            <Ionicons name="trash-outline" size={16} color="#FFFFFF" />
           </Pressable>
         )}
       </View>

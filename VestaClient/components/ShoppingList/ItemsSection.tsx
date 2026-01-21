@@ -20,7 +20,7 @@ function ClearCheckedButton(props: {
       label="Clear Checked"
       onPress={props.onPress}
       disabled={props.disabled}
-      leftIcon={<Ionicons name="trash-outline" size={16} color={theme.bg} />}
+      icon="trash-outline"
       style={styles.clearBtn}
     />
   );

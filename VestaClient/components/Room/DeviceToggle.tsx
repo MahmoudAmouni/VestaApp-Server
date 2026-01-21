@@ -32,7 +32,7 @@ export function DeviceToggle(p: { on: boolean;theme:Theme; onPress?: () => void 
         <Text
           style={[
             styles.toggleText,
-            { color: isOn ? theme.bg : theme.textMuted },
+            { color: isOn ? "#FFFFFF" : theme.textMuted },
           ]}
         >
           {isOn ? "ON" : "OFF"}

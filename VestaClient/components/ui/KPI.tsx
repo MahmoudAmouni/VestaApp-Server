@@ -9,7 +9,6 @@ export default function KPI(props: {
   label: string;
   value: string;
   hint?: string;
-  smallValue?: boolean;
   loading?: boolean;
 }) {
   const { theme, loading } = props;
@@ -35,7 +34,7 @@ export default function KPI(props: {
           style={[
             styles.kpiValue,
             { color: theme.text },
-            props.smallValue && { fontSize: 18 },
+            { fontSize: 18 },
           ]}
         >
           {props.value}

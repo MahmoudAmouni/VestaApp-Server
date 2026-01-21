@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { SafeAreaView, ScrollView, StatusBar, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -31,6 +31,23 @@ export default function RoomsScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
+  const stats = useMemo(() => {
+    let total = 0;
+    let on = 0;
+
+    rooms.forEach((room) => {
+      const roomDevices = room.devices ?? [];
+      total += roomDevices.length;
+      on += roomDevices.filter((d) => d.is_on).length;
+    });
+
+    return {
+      total,
+      on,
+      off: total - on,
+    };
+  }, [rooms]);
+
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={styles.frame}>
@@ -55,13 +72,15 @@ export default function RoomsScreen() {
             <HeroCard
               theme={theme}
               title="Every room, simplified."
-              sub={'Preview devices by room. Tap "Open room" to\ncontrol everything.'}
+              sub={
+                'Preview devices by room. Tap "Open room" to\ncontrol everything.'
+              }
               loading={isLoading}
               kpis={[
-                { label: "Total devices", value: "7", smallValue: true },
-                { label: "Devices ON", value: "3", smallValue: true },
-                { label: "Devices OFF", value: "4", smallValue: true },
-                { label: "Quick tip", value: "Tap a room", smallValue: true },
+                { label: "Total devices", value: stats.total.toString() },
+                { label: "Devices ON", value: stats.on.toString() },
+                { label: "Devices OFF", value: stats.off.toString() },
+                { label: "Quick tip", value: "Tap a room" },
               ]}
             />
 

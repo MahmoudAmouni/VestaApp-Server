@@ -57,6 +57,14 @@ export default function ShoppingItemSheet({
   const translateY = useRef(new Animated.Value(520)).current;
 
   useEffect(() => {
+    if (!visible) {
+      setName("");
+      setQuantity("");
+      setUnit("");
+    }
+  }, [visible]);
+
+  useEffect(() => {
     if (!visible) return;
     translateY.setValue(520);
     Animated.timing(translateY, {

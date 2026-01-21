@@ -77,7 +77,6 @@ export default function HeroCard(props: {
               label={k.label}
               value={k.value}
               hint={k.hint}
-              smallValue={k.smallValue}
               loading={props.loading}
             />
           ))}

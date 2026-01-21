@@ -24,7 +24,8 @@ import Button from "../ui/Button";
 export default function PantryItemSheet(props: {
   theme: Theme;
 }) {
-let {homeId }= useAuth();
+let { homeId, session } = useAuth();
+const token = session?.token;
 
   function toYyyyMmDd(d: Date) {
     const y = d.getFullYear();
@@ -53,15 +54,25 @@ let {homeId }= useAuth();
     [theme, insets.bottom]
   );
 
-  const { updateMutation, createMutation } = usePantryMutations({ homeId });
-  useEffect(()=>{
-    setName(pantryItem?.item_name?.name || "")
-    setDate(pantryItem?.expiry_date || "")
-    setQuantity(pantryItem?.quantity ? String(pantryItem.quantity) : "")
-    setLocation(pantryItem?.location?.name || "")
-    setUnit(pantryItem?.unit?.name || "")
-    setInputError(null)
-  },[pantryItem])
+  const { updateMutation, createMutation } = usePantryMutations({ homeId, token });
+  useEffect(() => {
+    if (pantryItem) {
+      setName(pantryItem?.item_name?.name || "");
+      setDate(pantryItem?.expiry_date || "");
+      setQuantity(pantryItem?.quantity ? String(pantryItem.quantity) : "");
+      setLocation(pantryItem?.location?.name || "");
+      setUnit(pantryItem?.unit?.name || "");
+      setInputError(null);
+    } else if (!showModal) {
+      // Clear when closed if no item is being edited
+      setName("");
+      setDate("");
+      setQuantity("");
+      setLocation("");
+      setUnit("");
+      setInputError(null);
+    }
+  }, [pantryItem, showModal]);
 // function normalizeExpiryDate(date: string | Date | null | undefined) {
 //   if (!date) return null;
 //   if (typeof date === "string") return date; 
@@ -90,6 +101,7 @@ let {homeId }= useAuth();
     } else {
       createMutation.mutate({ dto });
     }
+    setShowModal(false);
   }
 
   const translateY = useRef(new Animated.Value(520)).current;
@@ -178,7 +190,6 @@ let {homeId }= useAuth();
                   onChangeText={setUnit}
                   placeholder="e.g. kg"
                   placeholderTextColor={theme.textMuted}
-                  keyboardType="numeric"
                   style={styles.input}
                 />
               </View>
