@@ -15,10 +15,12 @@ export const headerStyles = StyleSheet.create({
     gap: 10,
   },
   logo: {
-    width: 22,
-    height: 22,
-    borderRadius: 6,
+    width: 36,
+    height: 36,
+    borderRadius: 10,
     borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
   textBlock: {
     gap: 2,

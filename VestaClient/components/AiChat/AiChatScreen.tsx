@@ -51,7 +51,12 @@ export default function AiChatScreen() {
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={styles.screen}>
         <StatusBar barStyle="light-content" />
-        <Header theme={theme} title="Vesta" kicker="AI" />
+        <Header
+          theme={theme}
+          title="Assistant"
+          kicker="Always Ready"
+          icon="sparkles-outline"
+        />
 
         <KeyboardAvoidingView
           style={styles.body}

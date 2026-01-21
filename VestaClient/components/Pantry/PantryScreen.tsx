@@ -58,7 +58,12 @@ export default function PantryScreen() {
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
       <StatusBar barStyle="light-content" />
       <View style={[styles.screen, { backgroundColor: theme.bg }]}>
-        <Header theme={theme} title="Vesta" kicker="Pantry" />
+        <Header
+          theme={theme}
+          title="Pantry"
+          kicker="Fresh Ingredients"
+          icon="basket-outline"
+        />
 
         <ScrollView
           style={styles.scroll}

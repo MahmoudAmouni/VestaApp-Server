@@ -1,5 +1,4 @@
 import BottomNav from "@/components/ui/BottomNav";
-import Card from "@/components/ui/Card";
 import Header from "@/components/ui/Header";
 import HeroCard from "@/components/ui/HeroCard";
 import RoomCard from "@/components/Home/RoomCard";
@@ -45,8 +44,9 @@ export default function DashboardScreen() {
       <View style={[styles.phone, { backgroundColor: theme.surface }]}>
         <Header
           theme={theme}
-          kicker="Home Pulse"
-          title="My Home"
+          kicker="Welcome Home"
+          title="Dashboard"
+          icon="grid-outline"
           onPressNotifications={() => {}}
         />
 

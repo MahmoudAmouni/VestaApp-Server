@@ -35,8 +35,9 @@ export default function RoomsScreen() {
         <View style={styles.container}>
           <Header
             theme={theme}
-            title="Vesta"
-            kicker="Rooms"
+            title="Rooms"
+            kicker="Your Sanctuary"
+            icon="bed-outline"
             onPressProfile={() => {}}
             onPressNotifications={() => {}}
           />

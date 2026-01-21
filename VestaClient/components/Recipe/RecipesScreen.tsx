@@ -38,7 +38,12 @@ export default function RecipesScreen() {
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
       <StatusBar barStyle="light-content" />
       <View style={styles.screen}>
-        <Header theme={theme} title="Vesta" kicker="Recipes" />
+        <Header
+          theme={theme}
+          title="Recipes"
+          kicker="Taste & Explore"
+          icon="restaurant-outline"
+        />
 
         <ScrollView
           style={styles.scroll}
