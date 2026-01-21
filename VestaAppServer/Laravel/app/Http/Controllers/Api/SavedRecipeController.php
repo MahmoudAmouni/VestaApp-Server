@@ -29,10 +29,10 @@ class SavedRecipeController extends BaseApiController
         );
     }
 
-    public function delete(int $home, int $savedRecipe): JsonResponse
+    public function deleteByName(int $home_id, string $recipe_name): JsonResponse
     {
         return $this->handle(
-            fn() => $this->savedRecipeService->deleteByName($home, $savedRecipe),
+            fn() => $this->savedRecipeService->deleteByName($home_id, $recipe_name),
             'Saved recipe deleted.'
         );
     }

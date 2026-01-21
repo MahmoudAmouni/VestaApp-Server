@@ -37,11 +37,12 @@ class ShoppingListController extends BaseApiController
         );
     }
 
-    public function delete(int $home, int $item): JsonResponse
+
+    public function clearChecked(int $home): JsonResponse
     {
         return $this->handle(
-            fn() => $this->shoppingListService->delete($home, $item),
-            'Shopping item deleted.'
+            fn() => $this->shoppingListService->clearChecked($home),
+            'Checked items cleared.'
         );
     }
 }

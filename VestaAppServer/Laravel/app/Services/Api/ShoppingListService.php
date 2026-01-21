@@ -96,26 +96,19 @@ class ShoppingListService
         return ['shopping_list_item' => $shoppingItem];
     }
 
-    public function delete(int $homeId, int $shoppingListItemId): array
+
+    public function clearChecked(int $homeId): array
     {
         $home = Home::query()->find($homeId);
         if (!$home) {
             throw ApiException::notFound('Home not found.');
         }
 
-        
-
-        $shoppingItem = ShoppingListItem::query()
-            ->where('id', $shoppingListItemId)
-            ->where('home_id', $homeId)
-            ->first();
-
-        if (!$shoppingItem) {
-            throw ApiException::notFound('Shopping list item not found in this home.');
-        }
-
-        DB::transaction(function () use ($shoppingItem) {
-            $shoppingItem->delete();
+        DB::transaction(function () use ($homeId) {
+            ShoppingListItem::query()
+                ->where('home_id', $homeId)
+                ->where('is_checked', true)
+                ->delete();
         });
 
         return ['deleted' => true];
