@@ -99,9 +99,6 @@ export default function DashboardScreen() {
                   <RoomCard
                     key={room.id}
                     room={room}
-                    onPressAllOn={() => {}}
-                    onPressAllOff={() => {}}
-                    onPressCard={() => {}}
                   />
                 ))
               )

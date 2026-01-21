@@ -14,11 +14,8 @@ import { roomsStyles as styles } from "./rooms.styles";
 import RoomSheet from "./RoomSheet";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
 import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
-
-import Skeleton from "@/components/ui/Skeleton";
-
-
 
 export default function RoomsScreen() {
   const { session } = useAuth();
@@ -26,6 +23,7 @@ export default function RoomsScreen() {
   const token = session?.token;
 
   const { data: rooms = [], isLoading, error } = useRoomsQuery({ homeId, token });
+  const { turnRoomOnMutation, turnRoomOffMutation } = useRoomsMutations({ homeId, token });
   const [showRoomSheet, setShowRoomSheet] = useState(false);
   const { theme } = useTheme();
   const router = useRouter();
@@ -113,6 +111,8 @@ export default function RoomsScreen() {
                     theme={theme}
                     room={room}
                     onPressOpen={() => router.push(`/rooms/${room.id}`)}
+                    onPressAllOn={() => turnRoomOnMutation.mutate({ roomId: room.id })}
+                    onPressAllOff={() => turnRoomOffMutation.mutate({ roomId: room.id })}
                   />
                 ))
               )

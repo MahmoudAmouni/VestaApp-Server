@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import AddItemRow from "@/components/ShoppingList/AddItemRow";
 import ItemsSection from "@/components/ShoppingList/ItemsSection";
 import EmptyShoppingListState from "@/components/ShoppingList/EmptyShoppingListState";
 import ShoppingHeader from "@/components/ShoppingList/ShoppingHeader";
@@ -100,30 +99,32 @@ export default function ShoppingListScreen() {
           </HeroCard>
 
           <View style={styles.section}>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text style={[styles.sectionTitle, { color: theme.text }]}>
-                Items
-              </Text>
-              <Button
-                variant="secondary"
-                label="Add"
-                icon="add"
-                onPress={() => setOpenModal(true)}
+            {shoppingListItems.length > 0 && (
+              <View
                 style={{
-                  height: 32,
-                  paddingHorizontal: 12,
-                  paddingVertical: 0,
-                  borderRadius: 8,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
                 }}
-                textStyle={{ fontSize: 13, fontWeight: "700" }}
-              />
-            </View>
+              >
+                <Text style={[styles.sectionTitle, { color: theme.text }]}>
+                  Items
+                </Text>
+                <Button
+                  variant="secondary"
+                  label="Add"
+                  icon="add"
+                  onPress={() => setOpenModal(true)}
+                  style={{
+                    height: 32,
+                    paddingHorizontal: 12,
+                    paddingVertical: 0,
+                    borderRadius: 8,
+                  }}
+                  textStyle={{ fontSize: 13, fontWeight: "700" }}
+                />
+              </View>
+            )}
 
             {isLoading ? (
                <View style={{ gap: 10 }}>
@@ -142,12 +143,14 @@ export default function ShoppingListScreen() {
                   />
                 )
              )}
-            <Button
-              variant="secondary"
-              label="Clear all checks"
-              onPress={() => setConfirmClear(true)}
-              style={{ marginTop: 12 }}
-            />
+            {shoppingListItems.length > 0 && (
+              <Button
+                variant="secondary"
+                label="Clear all checks"
+                onPress={() => setConfirmClear(true)}
+                style={{ marginTop: 12 }}
+              />
+            )}
           </View>
         </ScrollView>
         <ShoppingItemSheet
