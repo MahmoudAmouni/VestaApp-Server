@@ -43,9 +43,9 @@ Route::group(["prefix" => "v1", "middleware" => "auth:api"], function () {
         
         
     Route::prefix('/device')->group(function () {
-        Route::get('/device/{home_id}/{room_id}/{device_id}', [DeviceController::class, 'delete']);
-        Route::post('/device/{home_id}/{room_id}/{device_id}', [DeviceController::class, 'update']);
-        Route::post('/device/{home_id}/{room_id}', [DeviceController::class, 'create']);
+        Route::get('/{home_id}/{room_id}/{device_id}', [DeviceController::class, 'delete']);
+        Route::post('/{home_id}/{room_id}/{device_id}', [DeviceController::class, 'update']);
+        Route::post('/{home_id}/{room_id}', [DeviceController::class, 'create']);
     });
 
     Route::prefix('/shoppinglist')->group(function () {
