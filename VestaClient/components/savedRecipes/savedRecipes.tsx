@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import BottomNav from "@/components/ui/BottomNav";
 import HeroCard from "@/components/ui/HeroCard";
 
 import SavedHeader from "@/components/savedRecipes/SavedHeader";
@@ -12,6 +11,7 @@ import SavedRecipesSearchBar from "@/components/savedRecipes/SavedRecipesSearchB
 import SavedRecipesSection, {
   SavedRecipe,
 } from "@/components/savedRecipes/SavedRecipesSection";
+import EmptySavedRecipesState from "@/components/savedRecipes/EmptySavedRecipesState";
 import { savedRecipesStyles as styles } from "./SavedRecipes.styles";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 import { useAuth } from "@/contexts/auth/AuthContext";
@@ -26,10 +26,20 @@ export default function SavedRecipesScreen() {
   const [query, setQuery] = useState("");
 
   const { session } = useAuth();
-  const { data: saved = [], isLoading } = useSavedRecipesQuery({
+  const { data: savedRaw = [], isLoading } = useSavedRecipesQuery({
     homeId: session?.homeId ?? 0,
     token: session?.token,
   });
+
+  const savedRecipes = useMemo(() => {
+    return savedRaw.map((r) => ({
+      id: String(r.id),
+      title: r.recipe_name,
+      subtitle: r.description || r.cuisine_primary || "Delicious recipe",
+      badge: r.cuisine_primary || "Saved",
+      tags: [],
+    }));
+  }, [savedRaw]);
   const { deleteByNameMutation } = useSavedRecipesMutations({
     homeId: session?.homeId ?? 0,
     token: session?.token,
@@ -37,14 +47,14 @@ export default function SavedRecipesScreen() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return saved;
-    return saved.filter(
+    if (!q) return savedRecipes;
+    return savedRecipes.filter(
       (r) =>
         r.title.toLowerCase().includes(q) ||
         r.subtitle.toLowerCase().includes(q) ||
         r.badge.toLowerCase().includes(q)
     );
-  }, [query, saved]);
+  }, [query, savedRecipes]);
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
@@ -64,28 +74,39 @@ export default function SavedRecipesScreen() {
             title="Saved for later."
             sub="Your favorite ideas, ready when you are."
             kpis={[
-              { label: "Saved Recipes", value: "3" },
+              { label: "Saved Recipes", value: String(savedRaw.length) },
               { label: "More Recipes ?", value: "Ask Ai" },
             ]}
           />
 
-          <SavedRecipesSearchBar
-            theme={theme}
-            value={query}
-            onChangeText={setQuery}
-          />
-
-            {/* recipes={filtered}
-            onPressCook={(id) => {
-              router.push("/recipes/recipeDetail");
-            }}
-            onToggleSave={(name) => {
-               deleteByNameMutation.mutate({ name });
-            }} */}
-          {/* /> */}
+          {savedRecipes.length === 0 ? (
+            <EmptySavedRecipesState
+              theme={theme}
+              onPressAction={() => router.push("/recipes")}
+            />
+          ) : (
+            <>
+              <SavedRecipesSearchBar
+                theme={theme}
+                value={query}
+                onChangeText={setQuery}
+              />
+              <SavedRecipesSection
+                theme={theme}
+                recipes={filtered}
+                onPressCook={(id) => {
+                  router.push("/recipes/recipeDetail");
+                }}
+                onToggleSave={(id) => {
+                  const found = savedRaw.find((r) => String(r.id) === id);
+                  if (found) {
+                    deleteByNameMutation.mutate({ recipeName: found.recipe_name });
+                  }
+                }}
+              />
+            </>
+          )}
         </ScrollView>
-
-        <BottomNav theme={theme} />
       </View>
     </SafeAreaView>
   );

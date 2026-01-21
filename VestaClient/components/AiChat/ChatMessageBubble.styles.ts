@@ -19,7 +19,8 @@ export const chatMessageBubbleStyles = StyleSheet.create({
     paddingVertical: 10,
     borderWidth: 1,
     gap: 6,
-    marginVertical:10
+    marginTop: 12,
+    marginBottom: 0
   },
 
   userBubble: {

@@ -15,13 +15,19 @@ import Skeleton from "@/components/ui/Skeleton";
 import RecipesSection from "@/components/Recipe/RecipeSection";
 import { recipesScreenStyles as styles } from "./recipe.styles";
 import { useRecipesRag } from "@/features/recipes/useRecipesRag";
+import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
-
 
 export default function RecipesScreen() {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
-  const {isLoading,primaryResults} = useRecipesRag({mustContain:[],mustNotContain:[]})
+  const { session } = useAuth();
+  const token = session?.token;
+  const { isLoading, primaryResults } = useRecipesRag({
+    token,
+    mustContain: [],
+    mustNotContain: [],
+  });
 
   const [savedIds, setSavedIds] = useState<Record<string, boolean>>({
     "4": true,

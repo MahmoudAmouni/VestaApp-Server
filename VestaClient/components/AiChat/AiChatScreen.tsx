@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import {
+  ImageBackground,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -7,8 +8,9 @@ import {
   View,
 } from "react-native";
 
+const BG_IMAGE = require("@/assets/images/chat_bg.png");
+
 import Header from "@/components/ui/Header";
-import BottomNav from "@/components/ui/BottomNav";
 import { aiChatStyles as styles } from "./ai.styles";
 import ChatThread from "@/components/AiChat/ChatThread";
 import ChatComposer from "@/components/AiChat/ChatComposer";
@@ -20,7 +22,8 @@ import { useTheme } from "@/contexts/theme/ThemeContext";
 export default function AiChatScreen() {
   const { theme } = useTheme();
 
-  const {homeId} = useAuth();
+  const { homeId, session } = useAuth();
+  const token = session?.token;
 
   const {
     data,
@@ -28,8 +31,8 @@ export default function AiChatScreen() {
     isFetchingNextPage: isFetchingOlder,
     hasNextPage: hasOlder,
     fetchNextPage: fetchOlder,
-  } = useAiChatQuery({ homeId });
-  const { sendMutation, isSending } = useAiChatMutations({ homeId });
+  } = useAiChatQuery({ homeId, token });
+  const { sendMutation, isSending } = useAiChatMutations({ homeId, token });
 
   const messages = data?.pages.flatMap((p) => p.messages) ?? [];
   const sendMessage = (msg: string) => sendMutation.mutate({ message: msg });
@@ -58,28 +61,34 @@ export default function AiChatScreen() {
           icon="sparkles-outline"
         />
 
-        <KeyboardAvoidingView
-          style={styles.body}
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
-          keyboardVerticalOffset={0}
+        <ImageBackground
+          source={BG_IMAGE}
+          style={styles.backgroundImage}
+          resizeMode="cover"
         >
-          <ChatThread
-            messages={messages} 
-            isInitialLoading={isLoading}
-            isFetchingOlder={isFetchingOlder}
-            hasOlder={hasOlder}
-            onLoadOlder={fetchOlder}
-            onAtBottomChange={setIsAtBottom}
-          />
+          <KeyboardAvoidingView
+            style={styles.body}
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
+            keyboardVerticalOffset={0}
+          >
+            <ChatThread
+              messages={messages}
+              isInitialLoading={isLoading}
+              isFetchingOlder={isFetchingOlder}
+              hasOlder={hasOlder}
+              onLoadOlder={fetchOlder}
+              onAtBottomChange={setIsAtBottom}
+            />
 
-          <ChatComposer
-            theme={theme}
-            value={text}
-            onChangeText={setText}
-            onSend={onSend}
-            disabled={isSending} 
-          />
-        </KeyboardAvoidingView>
+            <ChatComposer
+              theme={theme}
+              value={text}
+              onChangeText={setText}
+              onSend={onSend}
+              disabled={isSending}
+            />
+          </KeyboardAvoidingView>
+        </ImageBackground>
       </View>
     </SafeAreaView>
   );

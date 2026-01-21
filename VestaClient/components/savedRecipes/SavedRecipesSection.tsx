@@ -4,20 +4,15 @@ import { Theme } from "@/type";
 
 import { savedRecipesSectionStyles as styles } from "./SavedRecipesSection.styles";
 import RecipeCard from "../Recipe/RecipeCard";
+import { SavedRecipe } from "@/features/savedRecipes/savedRecipes.types";
 
-export type SavedRecipe = {
-  id: string;
-  title: string;
-  subtitle: string;
-  badge: string;
-  tags: string[];
-};
+export type { SavedRecipe };
 
 export default function SavedRecipesSection(props: {
   theme: Theme;
   recipes: SavedRecipe[];
-  onPressCook: (id: string) => void;
-  onToggleSave: (id: string) => void;
+  onPressCook: (id: number) => void;
+  onToggleSave: (name: string) => void;
 }) {
   const { theme } = props;
 
@@ -29,10 +24,17 @@ export default function SavedRecipesSection(props: {
         {props.recipes.map((r) => (
           <RecipeCard
             key={r.id}
-            theme={theme}
-            recipe={r}
+            
+            recipe={{
+              id: String(r.id),
+              recipe_name: r.recipe_name,
+              ingredients: r.ingredients,
+              directions: r.directions,
+              description: r.description || "",
+              cuisine_primary: r.cuisine_primary || undefined,
+            }}
             saved={true}
-            onToggleSave={() => props.onToggleSave(r.id)}
+            onToggleSave={() => props.onToggleSave(r.recipe_name)}
             onPressCook={() => props.onPressCook(r.id)}
           />
         ))}

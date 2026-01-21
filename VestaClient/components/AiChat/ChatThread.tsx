@@ -87,7 +87,7 @@ export default function ChatThread({
       keyExtractor={keyExtractor}
       renderItem={renderItem}
       inverted
-      contentContainerStyle={{ paddingBottom: 150 }}
+      contentContainerStyle={{ paddingTop: 0, paddingBottom: 20 }}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
       onScroll={onScroll}

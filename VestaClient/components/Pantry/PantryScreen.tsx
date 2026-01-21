@@ -29,15 +29,19 @@ import { usePantryModal } from "@/contexts/PantryModalContext";
 
 export default function PantryScreen() {
   const { theme } = useTheme();
-  const {homeId} = useAuth()
-  const { data: pantryItems = [], isLoading, error } = usePantryQuery({ homeId });
-  const { deleteMutation } = usePantryMutations({ homeId });
+  const { homeId, session } = useAuth();
+  const token = session?.token;
+  const { data: pantryItems = [], isLoading, error } = usePantryQuery({
+    homeId,
+    token,
+  });
+  const { deleteMutation } = usePantryMutations({ homeId, token });
   const { setShowModal } = usePantryModal();
   const insets = useSafeAreaInsets();
 
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState<PantryFilterKey>("All");
+  const [filter, setFilter] = useState<PantryFilterKey>(null);
   
   const filteredItems = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -51,14 +55,23 @@ export default function PantryScreen() {
       });
     }
 
-    if (filter !== "All") {
+    if (filter !== null) {
       items = items.filter((it) => (it.location?.name ?? "") === filter);
     }
 
     return items;
   }, [pantryItems, query, filter]);
 
-  const expiringSoon = getExpiringSoon(pantryItems)
+  const expiringSoon = getExpiringSoon(pantryItems);
+  const locations = useMemo(() => {
+    const locs = new Set<string>();
+    pantryItems.forEach((item) => {
+      if (item.location?.name) {
+        locs.add(item.location.name);
+      }
+    });
+    return Array.from(locs).sort();
+  }, [pantryItems]);
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
@@ -91,7 +104,7 @@ export default function PantryScreen() {
           />
 
           <PantrySearchBar theme={theme} value={query} onChange={setQuery} />
-          <PantryFilterRow theme={theme} value={filter} onChange={setFilter} />
+          <PantryFilterRow theme={theme} value={filter} onChange={setFilter} locations={locations} />
           
           <Text style={[styles.sectionTitle,{color:theme.text}]}>Expiring Soon</Text>
           {isLoading ? (

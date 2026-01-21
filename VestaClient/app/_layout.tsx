@@ -62,7 +62,11 @@ function RouteGuard({ children }: { children: React.ReactNode }) {
 
 function AuthenticatedOverlay() {
   const { session } = useAuth();
-  if (!session?.token) return null;
+  const segments = useSegments();
+  
+  const isAiPage = segments.some(seg => seg === 'ai');
+  
+  if (!session?.token || isAiPage) return null;
   return <VestaVoiceOverlay />;
 }
 
