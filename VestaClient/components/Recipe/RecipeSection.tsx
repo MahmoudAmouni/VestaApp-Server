@@ -17,10 +17,10 @@ export default function RecipesSection(props: {
 
   return (
     <View style={styles.wrap}>
-      <Text style={[styles.title, { color: theme.text }]}>Recipes</Text>
+
 
       <View style={styles.list}>
-        {props.recipes.map((recipe) => (
+        {recipes.map((recipe) => (
           <RecipeCard
             key={recipe.id}
             recipe={recipe}

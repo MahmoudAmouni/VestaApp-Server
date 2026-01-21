@@ -21,7 +21,7 @@ export default function Card(props: {
         {
           padding,
           borderRadius: radius,
-          backgroundColor: theme.surface,
+          backgroundColor: theme.surface2,
           borderColor: theme.border,
           shadowColor: theme.shadow1,
         },

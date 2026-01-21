@@ -35,7 +35,7 @@ export default function TagRow(props: {
         accessibilityRole="button"
         accessibilityLabel={`Remove ${props.label}`}
       >
-        <Ionicons name="trash-outline" size={16} color={theme.bg} />
+        <Ionicons name="trash-outline" size={16} color="#FFFFFF" />
       </Pressable>
     </View>
   );

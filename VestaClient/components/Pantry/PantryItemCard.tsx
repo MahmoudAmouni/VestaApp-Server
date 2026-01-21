@@ -25,10 +25,10 @@ export default function PantryItemCard(props: {
       <View style={styles.topRow}>
         <View style={styles.left}>
           <Text style={[styles.name, { color: theme.text }]}>
-            {item.item_name?.name}
+            {item.item_name?.name ? item.item_name.name.charAt(0).toUpperCase() + item.item_name.name.slice(1) : ""}
           </Text>
           <Text style={[styles.meta, { color: theme.textMuted }]}>
-            {item.location?.name}
+            {item.location?.name}{item.unit?.name ? ` • ${item.quantity} ${item.unit.name}` : ""}
           </Text>
         </View>
 
@@ -71,7 +71,7 @@ export default function PantryItemCard(props: {
           accessibilityRole="button"
           accessibilityLabel="Delete item"
         >
-          <Ionicons name="trash-outline" size={16} color={theme.bg} />
+          <Ionicons name="trash-outline" size={16} color="#FFFFFF" />
         </Pressable>
       </View>
     </Card>

@@ -61,15 +61,15 @@ export const lightTheme: Theme = {
 };
 
 export const darkTheme: Theme = {
-  bg: "#0f0f12",
+  bg: "#15151B",
   surface: "#15151b",
-  surface2: "#1b1b23",
+  surface2: "#1B1B23",
   text: "#f3f3f6",
   textMuted: "rgba(243, 243, 246, 0.68)",
   border: "rgba(255,255,255,0.10)",
   borderStrong: "rgba(255,255,255,0.16)",
   primary: "#E7523C",
-  navBg: "rgba(15, 15, 18, 0.82)",
+  navBg: "#0F0F12",
   shadow1: "rgba(0,0,0,0.35)",
 };
 

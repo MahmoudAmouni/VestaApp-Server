@@ -38,9 +38,13 @@ export default function RoomSheet({
     () => makeRoomSheetStyles(theme, insets.bottom),
     [insets.bottom]
   );
-    useEffect(()=>{
-      if(room)setQuery(room?.room_name.name)
-    },[room])
+    useEffect(() => {
+      if (visible && room) {
+        setQuery(room?.room_name.name);
+      } else if (!visible) {
+        setQuery("");
+      }
+    }, [visible, room]);
 
   function onPressSave() {
     onClose();

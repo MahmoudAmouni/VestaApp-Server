@@ -46,6 +46,20 @@ export default function ProfileSheet({
   const translateY = useRef(new Animated.Value(720)).current;
 
   useEffect(() => {
+    if (visible) {
+      setFullName(user?.name || "");
+      setEmail(user?.email || "");
+      setPassword("12345678");
+      setConfirmPassword("12345678");
+    } else if (!visible) {
+      setFullName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+    }
+  }, [visible, user]);
+
+  useEffect(() => {
     if (!visible) return;
     translateY.setValue(720);
     Animated.timing(translateY, {

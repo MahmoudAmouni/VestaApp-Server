@@ -44,11 +44,14 @@ export default function DeviceSheet({
   const { createDeviceMutation, updateDeviceMutation } = useRoomsMutations({ homeId: session?.homeId ?? 0, token: session?.token });
 
   useEffect(() => {
-    if (device) {
+    if (visible && device) {
       setName(device.device_name.name);
       setIpAdress(device.external_id);
+    } else if (!visible) {
+      setName("");
+      setIpAdress("");
     }
-  }, [device]);
+  }, [visible, device]);
 
   const input2Ref = useRef<TextInput>(null);
 

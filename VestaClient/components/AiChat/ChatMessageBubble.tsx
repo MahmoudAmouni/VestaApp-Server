@@ -23,8 +23,8 @@ export default function ChatMessageBubble(props: {
     },
   ];
 
-  const nameColor = isUser ? theme.bg : theme.textMuted;
-  const textColor = isUser ? theme.bg : theme.text;
+  const nameColor = isUser ? "#FFFFFF" : theme.textMuted;
+  const textColor = isUser ? "#FFFFFF" : theme.text;
 
   return (
     <View style={[styles.row, isUser ? styles.rowUser : styles.rowAssistant]}>

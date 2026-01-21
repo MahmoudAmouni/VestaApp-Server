@@ -103,14 +103,25 @@ export default function PantryScreen() {
             ]}
           />
 
-          <PantrySearchBar theme={theme} value={query} onChange={setQuery} />
-          <PantryFilterRow theme={theme} value={filter} onChange={setFilter} locations={locations} />
-          
-          <Text style={[styles.sectionTitle,{color:theme.text}]}>Expiring Soon</Text>
-          {isLoading ? (
-             <Skeleton height={100} borderRadius={12} />
-          ) : (
-            <ExpiringSoonSection items={expiringSoon} />
+          {(isLoading || pantryItems.length > 0) && (
+            <>
+              <PantrySearchBar theme={theme} value={query} onChange={setQuery} />
+              <PantryFilterRow
+                theme={theme}
+                value={filter}
+                onChange={setFilter}
+                locations={locations}
+              />
+
+              <Text style={[styles.sectionTitle, { color: theme.text }]}>
+                Expiring Soon
+              </Text>
+              {isLoading ? (
+                <Skeleton height={100} borderRadius={12} />
+              ) : (
+                <ExpiringSoonSection items={expiringSoon} />
+              )}
+            </>
           )}
 
           {isLoading ? (

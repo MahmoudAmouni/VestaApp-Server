@@ -72,7 +72,7 @@ export default function DeviceRow(p: {
           accessibilityRole="button"
           accessibilityLabel={`Delete ${device.device_name.name}`}
         >
-          <Ionicons name="trash-outline" size={16} color={theme.textMuted} />
+          <Ionicons name="trash-outline" size={16} color="#FFFFFF" />
         </Pressable>
       </View>
     </View>
