@@ -40,7 +40,7 @@ export default function RecipeDetailScreen({recipe}:{recipe:RagRecipeResult}) {
   );
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
+    <View style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={styles.screen}>
         <HeaderSecondary
           theme={theme}
@@ -74,6 +74,6 @@ export default function RecipeDetailScreen({recipe}:{recipe:RagRecipeResult}) {
         </ScrollView>
 
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

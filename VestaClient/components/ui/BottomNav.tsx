@@ -66,13 +66,14 @@ export default function BottomNav(props: { theme: Theme }) {
   }
 
   return (
-    <View style={[{ paddingBottom: insets.bottom }]}>
+    <View style={{ backgroundColor: theme.navBg ?? theme.bg, paddingBottom: insets.bottom }}>
       <View
         style={[
           styles.bottomNav,
           {
             backgroundColor: theme.navBg ?? theme.bg,
             borderColor: theme.border,
+            paddingBottom: 8,
           },
         ]}
       >

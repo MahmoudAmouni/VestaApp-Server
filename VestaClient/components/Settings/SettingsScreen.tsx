@@ -62,7 +62,7 @@ export default function SettingsScreen() {
   );
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
+    <View style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={styles.screen}>
         <HeaderSecondary
           theme={theme}
@@ -171,6 +171,6 @@ export default function SettingsScreen() {
 
         <BottomNav theme={theme} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

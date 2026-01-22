@@ -59,7 +59,7 @@ export default function LoginScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={[
             styles.content,
-            { paddingTop: insets.top + 8, paddingBottom: insets.bottom + 18 },
+            { paddingTop: 8, paddingBottom: insets.bottom + 18 },
           ]}
           keyboardShouldPersistTaps="handled"
         >

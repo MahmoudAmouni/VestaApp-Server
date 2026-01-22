@@ -15,7 +15,7 @@ export default function AboutScreen() {
   const insets = useSafeAreaInsets();
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
+    <View style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={styles.screen}>
         <HeaderSecondary
           theme={theme}
@@ -61,6 +61,6 @@ export default function AboutScreen() {
           </Text>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

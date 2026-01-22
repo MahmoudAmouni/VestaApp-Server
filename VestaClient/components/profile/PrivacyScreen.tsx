@@ -14,7 +14,7 @@ export default function PrivacyScreen() {
   const insets = useSafeAreaInsets();
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
+    <View style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={styles.screen}>
         <HeaderSecondary
           theme={theme}
@@ -72,6 +72,6 @@ export default function PrivacyScreen() {
 
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
