@@ -4,6 +4,8 @@ import type { PantryItem, PantryItemWriteDto } from "../../../features/pantry/pa
 import { apiCreatePantryItem } from "../../../features/pantry/pantry.api";
 import { pantryKey } from "../usePantryQuery";
 
+import Toast from "react-native-toast-message";
+
 export function useCreatePantryItem(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;
 
@@ -45,6 +47,12 @@ export function useCreatePantryItem(args: { homeId: number; token?: string }) {
 
     onSuccess: (created, _vars, ctx) => {
       if (!created) return;
+
+      Toast.show({
+        type: "success",
+        text1: "Item Added",
+        text2: `${created.item_name.name} has been added to your pantry.`,
+      });
 
       queryClient.setQueryData<PantryItem[]>(pantryKey(homeId), (current) => {
         if (!current) return current;
