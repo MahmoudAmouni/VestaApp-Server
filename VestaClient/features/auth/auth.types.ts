@@ -15,6 +15,7 @@ export type AuthUser = {
   created_at?: string;
   updated_at?: string;
   deleted_at?: string | null;
+  allergies?: string[];
 };
 
 export type Home = {

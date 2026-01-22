@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import AddItemRow from "@/components/ShoppingList/AddItemRow";
 import ItemsSection from "@/components/ShoppingList/ItemsSection";
 import EmptyShoppingListState from "@/components/ShoppingList/EmptyShoppingListState";
 import ShoppingHeader from "@/components/ShoppingList/ShoppingHeader";
@@ -18,6 +17,7 @@ import { useShoppingListQuery } from "@/hooks/shoppingList/useShoppingListQuery"
 import { useShoppingListMutations } from "@/hooks/shoppingList/useShoppingListMutations";
 import { shoppingStyles as styles } from "./ShoppingListScreen.styles";
 import ShoppingItemSheet from "./shoppingListSheet";
+import ConfirmDeleteModal from "@/components/Room/ConfirmDeleteModal";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 
@@ -27,7 +27,8 @@ export default function ShoppingListScreen() {
   const {homeId,session} = useAuth()
   const token = session?.token;
   const { data: shoppingListItems = [], isLoading } = useShoppingListQuery({ homeId, token });
-  const { updateMutation, createMutation } = useShoppingListMutations({ homeId, token }); 
+  const { updateMutation, createMutation, clearCheckedMutation } = useShoppingListMutations({ homeId, token }); 
+  const [confirmClear, setConfirmClear] = useState(false);
 
   function onToggle(id: number, item: ShoppingListItem) {
     updateMutation.mutate({
@@ -58,6 +59,12 @@ export default function ShoppingListScreen() {
       }
     });
   }
+
+  function handleClearChecked() {
+      setConfirmClear(false);
+      clearCheckedMutation.mutate();
+  }
+
   const [openModal, setOpenModal] = useState(false);
 
 
@@ -89,47 +96,35 @@ export default function ShoppingListScreen() {
               { label: "Checked", value: String(shoppingListItems.filter(i => i.is_checked).length) },
             ]}
           >
-             <View style={{ flexDirection: 'row', gap: 12, marginTop: 12 }}>
-                <Button
-                  variant="secondary"
-                  label="From pantry gaps"
-                  onPress={() => {}}
-                  style={{flex: 1}}
-                />
-                <Button
-                  variant="secondary"
-                  label="For saved recipes"
-                  onPress={() => {}}
-                  style={{flex: 1}}
-                />
-             </View>
           </HeroCard>
 
           <View style={styles.section}>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text style={[styles.sectionTitle, { color: theme.text }]}>
-                Items
-              </Text>
-              <Button
-                variant="secondary"
-                label="Add"
-                icon="add"
-                onPress={() => setOpenModal(true)}
+            {shoppingListItems.length > 0 && (
+              <View
                 style={{
-                  height: 32,
-                  paddingHorizontal: 12,
-                  paddingVertical: 0,
-                  borderRadius: 8,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
                 }}
-                textStyle={{ fontSize: 13, fontWeight: "700" }}
-              />
-            </View>
+              >
+                <Text style={[styles.sectionTitle, { color: theme.text }]}>
+                  Items
+                </Text>
+                <Button
+                  variant="secondary"
+                  label="Add"
+                  icon="add"
+                  onPress={() => setOpenModal(true)}
+                  style={{
+                    height: 32,
+                    paddingHorizontal: 12,
+                    paddingVertical: 0,
+                    borderRadius: 8,
+                  }}
+                  textStyle={{ fontSize: 13, fontWeight: "700" }}
+                />
+              </View>
+            )}
 
             {isLoading ? (
                <View style={{ gap: 10 }}>
@@ -148,18 +143,29 @@ export default function ShoppingListScreen() {
                   />
                 )
              )}
-            <Button
-              variant="secondary"
-              label="Clear all checks"
-              onPress={() => {}}
-              style={{ marginTop: 12 }}
-            />
+            {shoppingListItems.length > 0 && (
+              <Button
+                variant="secondary"
+                label="Clear all checks"
+                onPress={() => setConfirmClear(true)}
+                style={{ marginTop: 12 }}
+              />
+            )}
           </View>
         </ScrollView>
         <ShoppingItemSheet
           visible={openModal}
           onClose={() => setOpenModal(false)}
           onSave={onCreate}
+        />
+        <ConfirmDeleteModal
+            visible={confirmClear}
+            theme={theme}
+            onCancel={() => setConfirmClear(false)}
+            onConfirm={handleClearChecked}
+            message="Clear all checked items? This cannot be undone."
+            confirmLabel="Clear"
+            confirmIcon="checkmark-done"
         />
       </View>
     </SafeAreaView>

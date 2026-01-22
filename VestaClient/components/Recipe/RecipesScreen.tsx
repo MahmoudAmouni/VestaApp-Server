@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Pressable, SafeAreaView, ScrollView, StatusBar, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -18,30 +18,63 @@ import { recipesScreenStyles as styles } from "./recipe.styles";
 import { useRecipesRag } from "@/features/recipes/useRecipesRag";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
+import { useSavedRecipesQuery } from "@/hooks/savedRecipes/useSavedRecipesQuery";
+import { useCreateSavedRecipe } from "@/hooks/savedRecipes/mutations/useCreateSavedRecipe";
+import { useDeleteSavedRecipe } from "@/hooks/savedRecipes/mutations/useDeleteSavedRecipe";
+import { usePantryQuery } from "@/hooks/pantry/usePantryQuery";
 
 export default function RecipesScreen() {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const { session } = useAuth();
   const token = session?.token;
-  const { isLoading, primaryResults, refetch } = useRecipesRag({
+  const homeId = session?.homeId ?? 0;
+
+  const { data: pantryItems = [] } = usePantryQuery({ homeId, token });
+  
+  const pantryItemNames = useMemo(
+    () => pantryItems.map((item) => item.item_name.name),
+    [pantryItems]
+  );
+
+  const { isLoading, primaryResults, secondaryResults, refetch } = useRecipesRag({
     token,
-    mustContain: [],
+    pantryItems: pantryItemNames,
     mustNotContain: [],
   });
 
-  const [savedIds, setSavedIds] = useState<Record<string, boolean>>({
-    "4": true,
-  });
+  const allRecipes = useMemo(
+    () => [...primaryResults, ...secondaryResults],
+    [primaryResults, secondaryResults]
+  );
 
+  const { data: savedRecipes = [] } = useSavedRecipesQuery({ homeId, token });
+  const { mutate: saveRecipe } = useCreateSavedRecipe({ homeId, token });
+  const { mutate: deleteRecipe } = useDeleteSavedRecipe({ homeId, token });
+
+  function isRecipeSaved(name: string) {
+    return savedRecipes.some((r) => r.recipe_name === name);
+  }
 
   function toggleSave(id: string) {
-    setSavedIds((prev) => ({ ...prev, [id]: !prev[id] }));
-  }
+    const recipe = allRecipes.find((r) => r.id === id);
+    if (!recipe) return;
 
-  if(isLoading && !primaryResults.length) {
-       // logic handled below
+    if (isRecipeSaved(recipe.recipe_name)) {
+      deleteRecipe({ recipeName: recipe.recipe_name });
+    } else {
+      saveRecipe({
+        dto: {
+          recipe_name: recipe.recipe_name,
+          ingredients: recipe.ingredients,
+          directions: recipe.directions,
+          cuisine_primary: recipe.cuisine_primary ?? null,
+          description: recipe.description,
+        },
+      });
+    }
   }
+  
   
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
@@ -68,7 +101,7 @@ export default function RecipesScreen() {
             loading={isLoading}
             sub="Vesta pulls ideas from your pantry + world recipes."
             kpis={[
-              { label: "Saved Recipes", value: "5" },
+              { label: "Saved Recipes", value: savedRecipes.length.toString() },
               { label: "More Recipes ?", value: "Ask Ai" },
             ]}
           >
@@ -97,14 +130,25 @@ export default function RecipesScreen() {
              <View style={{ gap: 16, marginTop: 16 }}>
                  <Skeleton height={200} borderRadius={18} />
                  <Skeleton height={200} borderRadius={18} />
+                 <Skeleton height={200} borderRadius={18} />
+                 <Skeleton height={200} borderRadius={18} />
              </View>
           ) : (
             <RecipesSection
-              recipes={primaryResults}
-              isSaved={(id) => savedIds[id]}
+              recipes={allRecipes}
+              isSaved={(id) => {
+                 const r = allRecipes.find(x => x.id === id);
+                 return r ? isRecipeSaved(r.recipe_name) : false;
+              }}
               onToggleSave={toggleSave}
               onPressCook={(id) => {
-                router.push(`/recipes/${id}`);
+                const recipe = allRecipes.find(r => r.id === id);
+                if (recipe) {
+                  router.push({
+                    pathname: `/recipes/${id}`,
+                    params: { recipeData: JSON.stringify(recipe) }
+                  });
+                }
               }}
             />
           )}

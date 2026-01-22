@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useQueries } from "@tanstack/react-query";
 import { apiRagSearchRecipes } from "./recipes.rag.api";
 import type { RagRecipeResult } from "./recipes.rag.types";
@@ -6,33 +6,43 @@ import type { RagRecipeResult } from "./recipes.rag.types";
 const PRIMARY_QUERY =
   "Give me recipes that match these ingredient constraints.";
 const SECONDARY_QUERY =
-  "Give me quick and easy recipes that match these ingredient constraints.";
+  "Give me random popular recipes from different cuisines.";
 
 function normalizeList(input?: string[]) {
   if (!input?.length) return [];
-  return Array.from(new Set(input.map((x) => x.trim()).filter(Boolean))).sort(
-    (a, b) => a.localeCompare(b)
-  );
+  return Array.from(
+    new Set(
+      input
+        .filter((x) => x != null && x !== undefined) 
+        .map((x) => x.trim())
+        .filter(Boolean) 
+    )
+  ).sort((a, b) => a.localeCompare(b));
 }
 
 export function useRecipesRag(args: {
   token?: string;
+  pantryItems?: string[];
   cuisines?: string[];
-  mustContain?: string[];
   mustNotContain?: string[];
   enabled?: boolean;
 }) {
   const enabled = args.enabled ?? true;
+  const [refreshKey, setRefreshKey] = useState(Date.now());
 
   const cuisines = useMemo(() => normalizeList(args.cuisines), [args.cuisines]);
-  const mustContain = useMemo(
-    () => normalizeList(args.mustContain),
-    [args.mustContain]
+  const pantryItems = useMemo(
+    () => normalizeList(args.pantryItems),
+    [args.pantryItems]
   );
   const mustNotContain = useMemo(
     () => normalizeList(args.mustNotContain),
     [args.mustNotContain]
   );
+
+  const shouldUsePantry = pantryItems.length >= 5;
+  const firstQueryMustContain = shouldUsePantry ? pantryItems : [];
+  const secondQueryMustContain: string[] = [];
 
   const queries = useQueries({
     queries: [
@@ -42,17 +52,17 @@ export function useRecipesRag(args: {
           "rag",
           "search",
           "primary",
-          { cuisines, mustContain, mustNotContain },
+          { cuisines, mustContain: firstQueryMustContain, mustNotContain, refreshKey },
         ],
         enabled,
-        staleTime: 30_000,
+        staleTime: 0, 
         queryFn: ({ signal }) =>
           apiRagSearchRecipes({
             token: args.token,
             signal,
             query: PRIMARY_QUERY, 
             cuisines,
-            mustContain,
+            mustContain: firstQueryMustContain,
             mustNotContain,
           }),
       },
@@ -62,17 +72,17 @@ export function useRecipesRag(args: {
           "rag",
           "search",
           "secondary",
-          { cuisines, mustContain, mustNotContain },
+          { cuisines, mustContain: secondQueryMustContain, mustNotContain, refreshKey },
         ],
         enabled,
-        staleTime: 30_000,
+        staleTime: 0, 
         queryFn: ({ signal }) =>
           apiRagSearchRecipes({
             token: args.token,
             signal,
             query: SECONDARY_QUERY, 
             cuisines,
-            mustContain,
+            mustContain: secondQueryMustContain,
             mustNotContain,
           }),
       },
@@ -94,9 +104,7 @@ export function useRecipesRag(args: {
     error: primary.error ?? secondary.error ?? null,
     refetch: async () => {
       console.log("Refreshing recipes data...");
-      const [p, s] = await Promise.all([primary.refetch(), secondary.refetch()]);
-      console.log("Primary Result:", { status: p.status, data: p.data, error: p.error });
-      console.log("Secondary Result:", { status: s.status, data: s.data, error: s.error });
+      setRefreshKey(Date.now());
     }
   };
 }

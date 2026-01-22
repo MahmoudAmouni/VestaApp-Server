@@ -93,7 +93,8 @@ export async function apiRagSearchRecipes(
 
   const body: RagSearchRequest = {
     query,
-    n_results: 2, 
+    n_results: 2,
+    seed: Math.floor(Math.random() * 1000000),
     ...(cuisines?.length ? { cuisines } : {}),
     ...(mustContain?.length ? { must_contain: mustContain } : {}),
     ...(mustNotContain?.length ? { must_not_contain: mustNotContain } : {}),

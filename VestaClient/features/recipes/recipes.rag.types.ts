@@ -1,6 +1,7 @@
 export type RagSearchRequest = {
   query: string;
   n_results: number;
+  seed?: number;
   cuisines?: string[];
   must_contain?: string[];
   must_not_contain?: string[];

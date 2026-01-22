@@ -38,7 +38,12 @@ export default function RoomDetailsScreen() {
   const token = session?.token;
   
   const { data: rooms = [], isLoading } = useRoomsQuery({ homeId, token });
-  const { deleteRoomMutation, deleteDeviceMutation } = useRoomsMutations({ homeId, token });
+  const { 
+    deleteRoomMutation, 
+    deleteDeviceMutation, 
+    turnRoomOnMutation, 
+    turnRoomOffMutation 
+  } = useRoomsMutations({ homeId, token });
 
   if (isLoading) return <Text>Loading...</Text>;
   let room = rooms.find((room) => room.id === roomId);
@@ -87,12 +92,12 @@ export default function RoomDetailsScreen() {
               <BulkActionButton
                 theme={theme}
                 label="All ON"
-                onPress={() => {}}
+                onPress={() => turnRoomOnMutation.mutate({ roomId })}
               />
               <BulkActionButton
                 theme={theme}
                 label="All OFF"
-                onPress={() => {}}
+                onPress={() => turnRoomOffMutation.mutate({ roomId })}
               />
             </View>
           </HeroCard>

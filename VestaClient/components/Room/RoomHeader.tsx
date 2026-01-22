@@ -20,7 +20,7 @@ export default function RoomHeader(props: {
         styles.wrap,
         {
           paddingTop: insets.top + 10,
-          backgroundColor: theme.bg,
+          backgroundColor: theme.navBg,
           borderColor: theme.border,
         },
       ]}

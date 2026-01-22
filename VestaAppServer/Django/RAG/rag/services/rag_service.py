@@ -42,6 +42,7 @@ class RagService:
     self,
     query: str,
     n_results: int = 10,
+    seed: Optional[int] = None,
     cuisines: Optional[list[str]] = None,
     must_contain: Optional[list[str]] = None,
     must_not_contain: Optional[list[str]] = None,
@@ -62,9 +63,11 @@ class RagService:
         if doc_filters:
             where_document = doc_filters[0] if len(doc_filters) == 1 else {"$and": doc_filters}
 
+        fetch_count = n_results * 3 if seed is not None else n_results
+
         results = collection.query(
             query_texts=[query],
-            n_results=n_results,
+            n_results=fetch_count,
             where=where,
             where_document=where_document,
             include=["documents", "metadatas", "distances"],
@@ -78,19 +81,16 @@ class RagService:
         for rid, meta, dist in zip(ids, metas, dists):
             meta = meta or {}
 
-            # --- Ingredients: support old ("ingredients_json") and new ("ingredients") ---
             ingredients = _safe_json_list(meta.get("ingredients_json"))
             if not ingredients:
                 ingredients = _safe_json_list(meta.get("ingredients"))
 
-            # --- Directions/Steps: support old ("directions_json") and new ("steps") ---
             directions = _safe_json_list(meta.get("directions_json"))
             if not directions:
                 directions = _safe_json_list(meta.get("steps"))
             if not directions:
                 directions = _safe_json_list(meta.get("directions"))
 
-            # --- Cuisines/tags: support old pipe-string and new list ---
             cuisines_list: list[str] = []
             cuisines_val = meta.get("cuisines")
 
@@ -100,7 +100,6 @@ class RagService:
                 cuisines_raw = cuisines_val.strip()
                 cuisines_list = cuisines_raw.split("|") if cuisines_raw and cuisines_raw != "unknown" else []
             else:
-                # new dataset often stores tags as a list
                 tags_val = meta.get("tags")
                 if isinstance(tags_val, list):
                     cuisines_list = [str(x).strip() for x in tags_val if str(x).strip()]
@@ -112,10 +111,8 @@ class RagService:
             if not cuisine_primary or cuisine_primary == "unknown":
                 cuisine_primary = cuisines_list[0] if cuisines_list else "unknown"
 
-        # --- Name: support old ("recipe_name") and new ("name") ---
             recipe_name = (meta.get("recipe_name") or meta.get("name") or "").strip()
 
-        # --- Description: NEW (string) ---
             description = (meta.get("description") or "").strip()
 
             hits.append(
@@ -130,6 +127,12 @@ class RagService:
                     "description": description,
                 }
             )
+
+        if seed is not None and len(hits) > n_results:
+            import random
+            random.seed(seed)
+            random.shuffle(hits)
+            hits = hits[:n_results]
 
         return {"query": query, "count": len(hits), "results": hits}
 
@@ -179,7 +182,6 @@ class RagService:
             "'Not found in the provided dataset.' "
             "Do not invent recipe details."
         )
-        # REMOVE THESE FROM HERE TO ANOTHER FILE
         user = (
             f"Question: {question}\n\n"
             f"Retrieved recipes:\n" + "\n".join(context_lines) + "\n\n"

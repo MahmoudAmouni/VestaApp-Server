@@ -27,7 +27,7 @@ class AgentRunner:
         executor = AgentExecutor(
             agent=agent,
             tools=tools,
-            verbose=True,  # prints to server logs; helpful during dev
+            verbose=True,  
             return_intermediate_steps=True,
         )
 

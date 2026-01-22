@@ -152,3 +152,29 @@ export function apiDeleteDevice(args: {
     { method: "GET", token, signal }
   );
 }
+
+export function apiTurnRoomOn(args: {
+  homeId: number;
+  roomId: number;
+  token?: string;
+  signal?: AbortSignal;
+}) {
+  const { homeId, roomId, token, signal } = args;
+  return fetchJson<{ success?: boolean; message?: string }>(
+    `/room/${homeId}/${roomId}/on`,
+    { method: "POST", token, signal }
+  );
+}
+
+export function apiTurnRoomOff(args: {
+  homeId: number;
+  roomId: number;
+  token?: string;
+  signal?: AbortSignal;
+}) {
+  const { homeId, roomId, token, signal } = args;
+  return fetchJson<{ success?: boolean; message?: string }>(
+    `/room/${homeId}/${roomId}/off`,
+    { method: "POST", token, signal }
+  );
+}

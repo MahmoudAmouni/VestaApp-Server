@@ -31,15 +31,7 @@ export default function SavedRecipesScreen() {
     token: session?.token,
   });
 
-  const savedRecipes = useMemo(() => {
-    return savedRaw.map((r) => ({
-      id: String(r.id),
-      title: r.recipe_name,
-      subtitle: r.description || r.cuisine_primary || "Delicious recipe",
-      badge: r.cuisine_primary || "Saved",
-      tags: [],
-    }));
-  }, [savedRaw]);
+
   const { deleteByNameMutation } = useSavedRecipesMutations({
     homeId: session?.homeId ?? 0,
     token: session?.token,
@@ -47,14 +39,14 @@ export default function SavedRecipesScreen() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return savedRecipes;
-    return savedRecipes.filter(
+    if (!q) return savedRaw;
+    return savedRaw.filter(
       (r) =>
-        r.title.toLowerCase().includes(q) ||
-        r.subtitle.toLowerCase().includes(q) ||
-        r.badge.toLowerCase().includes(q)
+        r.recipe_name.toLowerCase().includes(q) ||
+        (r.description && r.description.toLowerCase().includes(q)) ||
+        (r.cuisine_primary && r.cuisine_primary.toLowerCase().includes(q))
     );
-  }, [query, savedRecipes]);
+  }, [query, savedRaw]);
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
@@ -79,7 +71,7 @@ export default function SavedRecipesScreen() {
             ]}
           />
 
-          {savedRecipes.length === 0 ? (
+          {filtered.length === 0 && !query ? (
             <EmptySavedRecipesState
               theme={theme}
               onPressAction={() => router.push("/recipes")}
@@ -95,7 +87,22 @@ export default function SavedRecipesScreen() {
                 theme={theme}
                 recipes={filtered}
                 onPressCook={(id) => {
-                  router.push("/recipes/recipeDetail");
+                  const found = savedRaw.find((r) => r.id === id);
+                  if (found) {
+                    const recipeData = {
+                      id: String(found.id),
+                      recipe_name: found.recipe_name,
+                      cuisine_primary: found.cuisine_primary || undefined,
+                      description: found.description || "",
+                      ingredients: found.ingredients,
+                      directions: found.directions,
+                      cuisines: [],
+                    };
+                    router.push({
+                      pathname: `/recipes/${id}`,
+                      params: { recipeData: JSON.stringify(recipeData) }
+                    });
+                  }
                 }}
                 onToggleSave={(id) => {
                   const found = savedRaw.find((r) => String(r.id) === id);

@@ -19,6 +19,7 @@ import { RagRecipeResult } from "@/features/recipes/recipes.rag.types";
 
 
 export default function RecipeDetailScreen({recipe}:{recipe:RagRecipeResult}) {
+  console.log(recipe)
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
   const ingredients = recipe.ingredients.split("$$")
@@ -74,7 +75,6 @@ export default function RecipeDetailScreen({recipe}:{recipe:RagRecipeResult}) {
           <StepsSection theme={theme} steps={steps} />
         </ScrollView>
 
-        <BottomNav theme={theme} />
       </View>
     </SafeAreaView>
   );

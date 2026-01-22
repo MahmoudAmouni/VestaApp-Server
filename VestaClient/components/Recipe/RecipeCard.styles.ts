@@ -45,8 +45,15 @@ export const recipeCardStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  cookBtn: {
+  buttonRow: {
+    flexDirection: "row",
+    gap: 8,
     marginTop: 12,
-    width: "100%",
+  },
+  cookBtn: {
+    paddingVertical: 8,
+  },
+  askAiBtn: {
+    paddingVertical: 8,
   },
 });

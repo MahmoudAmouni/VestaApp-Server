@@ -29,6 +29,7 @@ export const stepCardStyles = StyleSheet.create({
   title: {
     fontSize: 13,
     fontWeight: "900",
+    flexShrink: 1,
   },
   body: {
     fontSize: 12,

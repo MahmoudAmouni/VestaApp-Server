@@ -12,7 +12,7 @@ export default function SavedRecipesSection(props: {
   theme: Theme;
   recipes: SavedRecipe[];
   onPressCook: (id: number) => void;
-  onToggleSave: (name: string) => void;
+  onToggleSave: (id: string) => void;
 }) {
   const { theme } = props;
 
@@ -34,7 +34,7 @@ export default function SavedRecipesSection(props: {
               cuisine_primary: r.cuisine_primary || undefined,
             }}
             saved={true}
-            onToggleSave={() => props.onToggleSave(r.recipe_name)}
+            onToggleSave={() => props.onToggleSave(String(r.id))}
             onPressCook={() => props.onPressCook(r.id)}
           />
         ))}

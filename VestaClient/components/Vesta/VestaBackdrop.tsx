@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { vestaBackdropStyles as styles } from './VestaBackdrop.styles';
+import { vestaBackdropStyles as styles } from './VestaBackdropStyles';
 
 interface VestaBackdropProps {
   onPress: () => void;

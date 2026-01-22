@@ -3,10 +3,12 @@ import { Text, View } from "react-native";
 import { Theme } from "@/type";
 
 
+
 import { roomCardStyles as styles } from "./RoomCard.styles";
 import Card from "../ui/Card";
 import Pill from "../ui/Pill";
 import Button from "../ui/Button";
+import BulkActionButton from "@/components/Room/BulkActionButton";
 import DeviceRow from "./DeviceRow";
 import { Room } from "@/features/rooms/rooms.types";
 
@@ -51,32 +53,14 @@ export default function RoomCard(props: {
         )}
       </View>
 
-      {room.devices?.length > 2 ? (
-        <View style={styles.footer}>
-          <Text style={[styles.hint, { color: theme.textMuted }]}>
-            {`+ ${room.devices?.length - 2} more devices`}
-          </Text>
-
-          <Button
-            variant="secondary"
-            label="Open room"
-            onPress={props.onPressOpen}
-            style={styles.openBtn}
-          />
-        </View>
-      ) : (
-        <View style={styles.footerSolo}>
-          <Text style={[styles.hint, { color: theme.textMuted }]}>
-            
-          </Text>
-          <Button
-            variant="secondary"
-            label="Open room"
-            onPress={props.onPressOpen}
-            style={styles.openBtnSolo}
-          />
-        </View>
-      )}
+      <View style={styles.footer}>
+        <Button
+          variant="secondary"
+          label="Open"
+          onPress={props.onPressOpen}
+          style={styles.openBtn}
+        />
+      </View>
     </Card>
   );
 }

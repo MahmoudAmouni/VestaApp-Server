@@ -58,7 +58,7 @@ class ChromaService:
         if self._client is not None:
             return self._client
 
-        import chromadb  # type: ignore
+        import chromadb 
 
         if self._cfg.mode == "server":
             self._client = chromadb.HttpClient(
@@ -72,12 +72,11 @@ class ChromaService:
         return self._client
 
     def _embedding_function(self):
-        # provider = default -> let Chroma pick its default embedding function
         if self._cfg.embedding_provider == "default":
             return None
 
         if self._cfg.embedding_provider == "sentence_transformer":
-            from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction  # type: ignore
+            from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction  
             return SentenceTransformerEmbeddingFunction(model_name=self._cfg.sentence_transformer_model)
 
         raise ValueError(f"Unsupported CHROMA_EMBEDDING_PROVIDER={self._cfg.embedding_provider}")
@@ -86,8 +85,6 @@ class ChromaService:
         client = self._init_client()
         embedding_function = self._embedding_function()
 
-        # Set index distance metric via collection metadata.
-        # Note: this applies only when the collection is created.
         metadata = {"hnsw:space": self._cfg.distance}
 
         return client.get_or_create_collection(

@@ -15,7 +15,6 @@ def reproduce_view():
     factory = APIRequestFactory()
     view = SearchAPIView.as_view()
 
-    # Case 1: Full payload
     print("\n--- Test 1: Full Payload ---")
     data = {
         "query": "chicken",
@@ -34,7 +33,6 @@ def reproduce_view():
         import traceback
         traceback.print_exc()
 
-    # Case 2: Minimal Payload (like the user might be sending initially)
     print("\n--- Test 2: Minimal Payload ---")
     data = {
         "query": "dinner",
