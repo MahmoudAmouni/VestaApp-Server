@@ -1,0 +1,91 @@
+name: CI Backend
+
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - 'VestaAppServer/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'VestaAppServer/**'
+
+jobs:
+  laravel-test:
+    name: Laravel Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./VestaAppServer/Laravel
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          tools: composer
+          extensions: mbstring, pdo_sqlite, sqlite3
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --optimize-autoloader
+
+      - name: Prepare app + DB
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          mkdir -p database
+          touch database/database.sqlite
+          echo "DB_CONNECTION=sqlite" >> .env
+          echo "DB_DATABASE=${GITHUB_WORKSPACE}/VestaAppServer/Laravel/database/database.sqlite" >> .env
+          php artisan migrate --force
+
+      - name: Run tests
+        run: php artisan test
+
+  django-test:
+    name: Django Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./VestaAppServer/Django/Ai
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+
+  rag-test:
+    name: RAG Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./VestaAppServer/Django/RAG
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
