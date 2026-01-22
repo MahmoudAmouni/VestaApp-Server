@@ -7,8 +7,9 @@ from django.conf import settings
 from ...clients.laravel_client import LaravelClient
 from ..shoppinglist_service import ShoppingListApiService
 from ..pantry_service import PantryApiService
+from ..iot_service import IotApiService
 from ...llm.runner import AgentRunner
-from ...llm.tools import build_shopping_tools, build_pantry_tools
+from ...llm.tools import build_shopping_tools, build_pantry_tools, build_iot_tools
 from ...exceptions import AuthError
 from vesta_agent.models import ChatMessage
 from langchain_core.messages import HumanMessage, AIMessage
@@ -29,11 +30,13 @@ class VestaAgentService:
 
         shopping_api = ShoppingListApiService(client=self.client, home_id=home_id)
         pantry_api = PantryApiService(client=self.client, home_id=home_id)
+        iot_api = IotApiService(client=self.client)
         
         shopping_tools = build_shopping_tools(shopping_api=shopping_api)
         pantry_tools = build_pantry_tools(pantry_api=pantry_api)
+        iot_tools = build_iot_tools(iot_api=iot_api)
         
-        all_tools = shopping_tools + pantry_tools
+        all_tools = shopping_tools + pantry_tools + iot_tools
 
         recent_msgs = ChatMessage.objects.filter(home_id=home_id).order_by("-created_at")[:10]
         chronological_msgs = reversed(list(recent_msgs))
