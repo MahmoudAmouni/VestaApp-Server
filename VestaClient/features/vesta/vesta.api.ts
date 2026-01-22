@@ -75,9 +75,7 @@ export async function apiTextToSpeech(params: TTSRequest): Promise<Blob> {
   return await response.blob();
 }
 
-/**
- * Convert blob to file URI for native playback
- */
+
 export async function blobToFileUri(blob: Blob): Promise<string> {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
