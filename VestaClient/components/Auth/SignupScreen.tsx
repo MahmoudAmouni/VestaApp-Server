@@ -14,7 +14,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import { signupStyles as styles } from "./Signup.styles";
-import LoginHeader from "@/components/Auth/LoginHeader";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
 import TextField from "@/components/Auth/TextField";
 import SocialButton from "@/components/Welcome/SocialButton";
 import { useAuth } from "@/contexts/auth/AuthContext";
@@ -58,11 +58,11 @@ export default function SignupScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={[
             styles.content,
-            { paddingTop: insets.top + 8, paddingBottom: insets.bottom + 18 },
+            { paddingTop: 8, paddingBottom: insets.bottom + 18 },
           ]}
           keyboardShouldPersistTaps="handled"
         >
-          <LoginHeader
+          <HeaderSecondary
             theme={theme}
             title="Sign up"
             onBack={() => router.back()}

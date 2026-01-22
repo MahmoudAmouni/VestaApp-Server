@@ -1,16 +1,16 @@
-import React, { useMemo, useState } from "react";
-import { ScrollView, View, Text } from "react-native";
+import React, { useMemo, useState, useEffect } from "react";
+import { ScrollView, View, Text, Alert } from "react-native";
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { router } from "expo-router";
-
+import * as ImagePicker from 'expo-image-picker';
 
 import BottomNav from "@/components/ui/BottomNav";
 import { profileStyles as styles } from "./ProfileScreen.styles";
 import SettingsSection, { SettingsItem } from "@/components/profile/SettingsSection";
-import ProfileHeader from "@/components/profile/ProfileHeader";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
 import ProfileSummaryCard from "@/components/profile/ProfileSummaryCard";
 import DangerZoneActions from "@/components/profile/DangerZoneActions";
 import ProfileSheet from "./ProfileSheet";
@@ -25,9 +25,44 @@ export default function ProfileScreen() {
   const insets = useSafeAreaInsets();
   const [homeName, setHomeName] = useState("My Home");
   const [showModal,setShowModal] = useState(false)
+  const [avatar, setAvatar] = useState<string | null>(null);
 
-  const {user,isLoading,logout} = useAuth()
+  const { user, isLoading, logout, updateUser } = useAuth();
   
+  useEffect(() => {
+    if (user?.avatar_url) {
+      setAvatar(user.avatar_url);
+    }
+  }, [user?.avatar_url]);
+
+  const handlePickImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.5,
+      });
+
+      if (!result.canceled && result.assets && result.assets.length > 0) {
+        const asset = result.assets[0];
+        
+        setAvatar(asset.uri);
+
+        const formData = new FormData();
+        // @ts-ignore
+        formData.append('avatar', {
+          uri: asset.uri,
+          name: 'avatar.jpg',
+          type: 'image/jpeg',
+        });
+
+        updateUser(formData as any); 
+      }
+    } catch (e) {
+      Alert.alert("Error", "Failed to update profile picture");
+    }
+  };
 
   const support: SettingsItem[] = useMemo(
     () => [
@@ -48,9 +83,9 @@ export default function ProfileScreen() {
   if (isLoading) return <Text>loading</Text>;
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
+    <View style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={styles.screen}>
-        <ProfileHeader
+        <HeaderSecondary
           theme={theme}
           title="Profile"
           onBack={() => router.back()}
@@ -66,9 +101,11 @@ export default function ProfileScreen() {
         >
           <ProfileSummaryCard
             theme={theme}
-            name={user?.name}
-            homeLabel="Home:My home"
+            name={user?.name || "User"}
+            homeLabel="Home: My home"
+            avatar={avatar}
             onPressEdit={() => {setShowModal(true)}}
+            onPressAvatar={handlePickImage}
           />
 
           <View style={{ marginBottom: 24 }}>
@@ -108,6 +145,6 @@ export default function ProfileScreen() {
         <ProfileSheet visible={showModal} onClose={()=>setShowModal(false)}/>
 
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

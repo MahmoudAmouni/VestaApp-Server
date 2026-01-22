@@ -7,6 +7,8 @@ import { roomsKey } from "../useRoomsQuery";
 import { getRoomFromCache } from "../../../features/rooms/rooms.cache";
 import { buildRoomUpdateDto, RoomUpdatePatch } from "@/features/rooms/rooms.write.types";
 
+import Toast from "react-native-toast-message";
+
 export function useUpdateRoom(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;
 
@@ -43,6 +45,12 @@ export function useUpdateRoom(args: { homeId: number; token?: string }) {
       if (ctx?.prev) queryClient.setQueryData(roomsKey(homeId), ctx.prev);
     },
     onSuccess: (updatedRoom) => {
+      Toast.show({
+        type: "success",
+        text1: "Room Updated",
+        text2: `${updatedRoom.room_name.name} has been updated successfully.`,
+      });
+
       queryClient.setQueryData<Room[]>(roomsKey(homeId), (current) => {
         if (!current) return current;
         return current.map((r) => (r.id === updatedRoom.id ? updatedRoom : r));

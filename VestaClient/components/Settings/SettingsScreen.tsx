@@ -14,7 +14,7 @@ import { router } from "expo-router";
 
 import { useTheme } from "@/contexts/theme/ThemeContext";
 import { settingsStyles as styles} from "./SettingsScreen.styles";
-import SettingsHeader from "./SettingsHeader";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
 import InlineInputActionRow from "./InlineInputActionRow";
 import NotificationsCard from "./NotificationsCard";
 import ThemeToggle from "./ThemeToggle";
@@ -28,7 +28,6 @@ export default function SettingsScreen() {
   const [homeName, setHomeName] = useState("My Home");
   const [diet, setDiet] = useState("High Protein");
 
-  // const [mode, setMode] = useState<ThemeMode>("Dark");
 
   const [allergyDraft, setAllergyDraft] = useState("");
   const [allergies, setAllergies] = useState<string[]>([
@@ -63,9 +62,9 @@ export default function SettingsScreen() {
   );
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
+    <View style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={styles.screen}>
-        <SettingsHeader
+        <HeaderSecondary
           theme={theme}
           title="Settings"
           onBack={() => router.back()}
@@ -172,6 +171,6 @@ export default function SettingsScreen() {
 
         <BottomNav theme={theme} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

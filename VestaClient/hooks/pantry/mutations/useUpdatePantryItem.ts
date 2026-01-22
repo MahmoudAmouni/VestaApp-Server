@@ -6,6 +6,8 @@ import { apiUpdatePantryItem } from "../../../features/pantry/pantry.api";
 import { pantryKey } from "../usePantryQuery";
 import { getPantryItemFromCache } from "../../../features/pantry/pantry.cache";
 
+import Toast from "react-native-toast-message";
+
 export function useUpdatePantryItem(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;
 
@@ -74,6 +76,12 @@ export function useUpdatePantryItem(args: { homeId: number; token?: string }) {
 
     onSuccess: (updated, vars) => {
       if (!updated) return;
+
+      Toast.show({
+        type: "success",
+        text1: "Item Updated",
+        text2: `${updated.item_name.name} has been updated.`,
+      });
 
       queryClient.setQueryData<PantryItem[]>(pantryKey(homeId), (current) => {
         if (!current) return current;

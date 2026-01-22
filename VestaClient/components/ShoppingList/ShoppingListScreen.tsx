@@ -7,7 +7,7 @@ import {
 } from "react-native-safe-area-context";
 import ItemsSection from "@/components/ShoppingList/ItemsSection";
 import EmptyShoppingListState from "@/components/ShoppingList/EmptyShoppingListState";
-import ShoppingHeader from "@/components/ShoppingList/ShoppingHeader";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
 
 import HeroCard from "@/components/ui/HeroCard";
 import Skeleton from "@/components/ui/Skeleton";
@@ -69,9 +69,9 @@ export default function ShoppingListScreen() {
 
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
+    <View style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={styles.screen}>
-        <ShoppingHeader
+        <HeaderSecondary
           theme={theme}
           title="Shopping list"
           onBack={() => router.back()}
@@ -168,6 +168,6 @@ export default function ShoppingListScreen() {
             confirmIcon="checkmark-done"
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

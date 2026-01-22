@@ -6,6 +6,8 @@ import { apiUpdateShoppingListItem } from "../../../features/shoppingList/shoppi
 import { shoppingListKey } from "../useShoppingListQuery";
 import { getShoppingListItemFromCache } from "../../../features/shoppingList/shoppingList.cache";
 
+import Toast from "react-native-toast-message";
+
 export function useUpdateShoppingListItem(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;
 
@@ -72,6 +74,14 @@ export function useUpdateShoppingListItem(args: { homeId: number; token?: string
 
     onSuccess: (updated, vars) => {
       if (!updated) return;
+
+      if (vars.patch.item_name || vars.patch.quantity || vars.patch.unit) {
+        Toast.show({
+          type: "success",
+          text1: "Item Updated",
+          text2: `${updated.quantity} ${updated.unit.name} ${updated.item_name.name} has been updated.`,
+        });
+      }
 
       queryClient.setQueryData<ShoppingListItem[]>(
         shoppingListKey(homeId),

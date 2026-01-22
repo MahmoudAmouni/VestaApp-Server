@@ -4,6 +4,8 @@ import type { Room } from "../../../features/rooms/rooms.types";
 import { apiCreateDevice } from "../../../features/rooms/rooms.api";
 import { roomsKey } from "../useRoomsQuery";
 
+import Toast from "react-native-toast-message";
+
 export function useCreateDevice(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;
 
@@ -24,6 +26,12 @@ export function useCreateDevice(args: { homeId: number; token?: string }) {
       });
     },
     onSuccess: (createdDevice, vars) => {
+      Toast.show({
+        type: "success",
+        text1: "Device Added",
+        text2: `${createdDevice.device_name.name} has been added to the room.`,
+      });
+
       queryClient.setQueryData<Room[]>(roomsKey(homeId), (current) => {
         if (!current) return current;
 

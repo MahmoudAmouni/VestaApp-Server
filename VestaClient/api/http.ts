@@ -47,19 +47,21 @@ export async function fetchJson<T>(
   const url = `${!login ? API_BASE_URL.base : API_BASE_URL.auth}${path}`;
   console.log('[http] fetching:', url);
 
+  const isFormData = body instanceof FormData;
+
   const res = await fetch(
     url,
     {
       method,
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
+        ...(!isFormData && { "Content-Type": "application/json" }),
         ...(effectiveToken
           ? { Authorization: `Bearer ${effectiveToken}` }
           : {}),
         ...(headers ?? {}),
       },
-      body: body === undefined ? undefined : JSON.stringify(body),
+      body: isFormData ? body : (body === undefined ? undefined : JSON.stringify(body)),
       signal,
     },
   );

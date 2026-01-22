@@ -4,6 +4,8 @@ import type { ShoppingListItem } from "../../../features/shoppingList/shoppingLi
 import { apiClearCheckedShoppingList } from "../../../features/shoppingList/shoppingList.api";
 import { shoppingListKey } from "../useShoppingListQuery";
 
+import Toast from "react-native-toast-message";
+
 export function useClearCheckedShoppingList(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;
 
@@ -36,6 +38,14 @@ export function useClearCheckedShoppingList(args: { homeId: number; token?: stri
     onError: (_err, _vars, ctx) => {
       if (ctx?.prev)
         queryClient.setQueryData(shoppingListKey(homeId), ctx.prev);
+    },
+
+    onSuccess: () => {
+      Toast.show({
+        type: "success",
+        text1: "Cleared",
+        text2: "Checked items removed from shopping list.",
+      });
     },
 
     onSettled: () => {

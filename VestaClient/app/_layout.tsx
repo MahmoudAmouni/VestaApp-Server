@@ -4,6 +4,58 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import { Platform } from "react-native";
 
+import Toast, { BaseToast, ErrorToast, ToastConfig } from "react-native-toast-message";
+import { darkTheme } from "@/constants/theme";
+
+const toastConfig: ToastConfig = {
+  success: (props) => (
+    <BaseToast
+      {...props}
+      style={{
+        borderLeftColor: "#FF453A",
+        backgroundColor: darkTheme.surface2,
+        height: 60,
+        width: "90%",
+        borderRadius: 12,
+        borderColor: darkTheme.border,
+        borderWidth: 1,
+      }}
+      contentContainerStyle={{ paddingHorizontal: 15 }}
+      text1Style={{
+        fontSize: 16,
+        fontWeight: "600",
+        color: darkTheme.text,
+      }}
+      text2Style={{
+        fontSize: 14,
+        color: darkTheme.textMuted,
+      }}
+    />
+  ),
+  error: (props) => (
+    <ErrorToast
+      {...props}
+      style={{
+        borderLeftColor: "#FF453A",
+        backgroundColor: darkTheme.surface2,
+        height: 60,
+        width: "90%",
+        borderRadius: 12,
+        borderColor: darkTheme.border,
+        borderWidth: 1,
+      }}
+      text1Style={{
+        fontSize: 16,
+        fontWeight: "600",
+        color: darkTheme.text,
+      }}
+      text2Style={{
+        fontSize: 14,
+        color: darkTheme.textMuted,
+      }}
+    />
+  ),
+};
 import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { QueryClientProvider } from "@tanstack/react-query";
 
@@ -75,6 +127,7 @@ function AuthenticatedOverlay() {
   return <VestaVoiceOverlay />;
 }
 
+
 export default function RootLayout() {
   useEffect(() => {
     const cleanupFocus = setupReactQueryFocus();
@@ -108,6 +161,7 @@ export default function RootLayout() {
                 </Stack>
               </ThemeProvider>
               <AuthenticatedOverlay />
+              <Toast config={toastConfig} />
           </RouteGuard>
         </AuthProvider>
       </AppThemeProvider>

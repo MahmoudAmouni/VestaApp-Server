@@ -4,6 +4,8 @@ import type { PantryItem } from "../../../features/pantry/pantry.types";
 import { apiDeletePantryItem } from "../../../features/pantry/pantry.api";
 import { pantryKey } from "../usePantryQuery";
 
+import Toast from "react-native-toast-message";
+
 export function useDeletePantryItem(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;
 
@@ -30,6 +32,14 @@ export function useDeletePantryItem(args: { homeId: number; token?: string }) {
 
     onError: (_err, _vars, ctx) => {
       if (ctx?.prev) queryClient.setQueryData(pantryKey(homeId), ctx.prev);
+    },
+
+    onSuccess: () => {
+      Toast.show({
+        type: "success",
+        text1: "Item Deleted",
+        text2: "The item has been removed from your pantry.",
+      });
     },
 
     onSettled: () => {
