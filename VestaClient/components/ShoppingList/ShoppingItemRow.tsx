@@ -46,7 +46,7 @@ export default function ShoppingItemRow(props: {
 
         <View style={styles.textBlock}>
           <Text style={[styles.name, { color: theme.text }]}>
-            {item.item_name.name}
+          {item.item_name.name} <Text style={{ fontSize: 11, color: theme.textMuted }}>• {item.quantity} {item.unit.name}</Text>
           </Text>
         </View>
       </View>

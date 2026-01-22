@@ -4,6 +4,8 @@ import type { ShoppingListItem, ShoppingListItemWriteDto } from "../../../featur
 import { apiCreateShoppingListItem } from "../../../features/shoppingList/shoppingList.api";
 import { shoppingListKey } from "../useShoppingListQuery";
 
+import Toast from "react-native-toast-message";
+
 export function useCreateShoppingListItem(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;
 
@@ -50,6 +52,12 @@ export function useCreateShoppingListItem(args: { homeId: number; token?: string
 
     onSuccess: (created, _vars, ctx) => {
       if (!created) return;
+
+      Toast.show({
+        type: "success",
+        text1: "Item Added",
+        text2: `${created.quantity} ${created.unit.name} ${created.item_name.name} added to shopping list.`,
+      });
 
       queryClient.setQueryData<ShoppingListItem[]>(
         shoppingListKey(homeId),

@@ -64,7 +64,6 @@ const token = session?.token;
       setUnit(pantryItem?.unit?.name || "");
       setInputError(null);
     } else if (!showModal) {
-      // Clear when closed if no item is being edited
       setName("");
       setDate("");
       setQuantity("");
