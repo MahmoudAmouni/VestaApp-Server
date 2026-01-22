@@ -10,7 +10,7 @@ import * as ImagePicker from 'expo-image-picker';
 import BottomNav from "@/components/ui/BottomNav";
 import { profileStyles as styles } from "./ProfileScreen.styles";
 import SettingsSection, { SettingsItem } from "@/components/profile/SettingsSection";
-import ProfileHeader from "@/components/profile/ProfileHeader";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
 import ProfileSummaryCard from "@/components/profile/ProfileSummaryCard";
 import DangerZoneActions from "@/components/profile/DangerZoneActions";
 import ProfileSheet from "./ProfileSheet";
@@ -47,10 +47,8 @@ export default function ProfileScreen() {
       if (!result.canceled && result.assets && result.assets.length > 0) {
         const asset = result.assets[0];
         
-        // Optimistic update
         setAvatar(asset.uri);
 
-        // Upload to backend
         const formData = new FormData();
         // @ts-ignore
         formData.append('avatar', {
@@ -59,28 +57,6 @@ export default function ProfileScreen() {
           type: 'image/jpeg',
         });
 
-        // Use AuthContext's updateUser which should handle the API call
-        // Note: We need to ensure updateUser handles FormData or we call apiUpdateUser directly here
-        // Given AuthContext usually takes a DTO, let's verify if we need to adjust AuthContext or call API here.
-        // For now, let's call API directly if AuthContext doesn't support FormData, 
-        // BUT the user asked to "store url in expo secure storage when login or update".
-        // So we should ideally go through AuthContext to keep state in sync.
-        
-        // Let's assume (and confirm in next step) to update AuthContext to handle this.
-        // For now, I will modify this to assume updateUser accepts FormData or a partial DTO.
-        // Since AuthContext.updateUser expects UpdateUserDto, I'll need to update that signature or casting.
-        // Actually, let's call the API directly here for the upload, then update the context with the result.
-        
-        // Wait, the prompt said "save in laravel storage when updating user".
-        // So I should use the update user flow.
-        
-        // I will temporarily cast to any to pass FormData to updateUser if I modify AuthContext next.
-        // Or better, let's import apiUpdateUser here, call it, then update auth state.
-        
-        // Re-reading: "store the url in the expo secure storage when login or update"
-        // This implies the AuthContext should handle the result.
-        
-        // Let's rely on `updateUser` from AuthContext if I update it to accept FormData.
         updateUser(formData as any); 
       }
     } catch (e) {
@@ -107,9 +83,9 @@ export default function ProfileScreen() {
   if (isLoading) return <Text>loading</Text>;
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
+    <View style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={styles.screen}>
-        <ProfileHeader
+        <HeaderSecondary
           theme={theme}
           title="Profile"
           onBack={() => router.back()}
@@ -169,6 +145,6 @@ export default function ProfileScreen() {
         <ProfileSheet visible={showModal} onClose={()=>setShowModal(false)}/>
 
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

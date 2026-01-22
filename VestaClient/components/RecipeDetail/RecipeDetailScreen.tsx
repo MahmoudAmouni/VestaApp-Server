@@ -9,7 +9,7 @@ import { router } from "expo-router";
 
 import BottomNav from "@/components/ui/BottomNav";
 import { recipeDetailStyles as styles } from "./RecipeDetailScreen.styles";
-import RecipeDetailHeader from "@/components/RecipeDetail/RecipeDetailHeader";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
 import QuickStatsCard, { QuickStat } from "@/components/RecipeDetail/QuickStatsCard";
 import DescriptionSection from "@/components/RecipeDetail/DescriptionSection";
 import IngredientsSection   from "@/components/RecipeDetail/IngredientSection";
@@ -42,12 +42,10 @@ export default function RecipeDetailScreen({recipe}:{recipe:RagRecipeResult}) {
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={styles.screen}>
-        <RecipeDetailHeader
+        <HeaderSecondary
           theme={theme}
-          title={recipe.recipe_name}
-          saved={saved}
-          onBack={() => router.replace("/(tabs)/recipes")}
-          onToggleSave={() => setSaved((v) => !v)}
+          title="Recipe Details"
+          onBack={() => router.back()}
         />
 
         <ScrollView

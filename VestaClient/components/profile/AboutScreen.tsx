@@ -6,9 +6,9 @@ import {
 } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { useTheme } from "@/contexts/theme/ThemeContext";
-import ProfileHeader from "@/components/profile/ProfileHeader";
 import { profileStyles as styles } from "./ProfileScreen.styles";
 import BrandRow from "../Welcome/BrandRow";
+import HeaderSecondary from "../ui/HeaderSecondary";
 
 export default function AboutScreen() {
   const { theme } = useTheme();
@@ -17,7 +17,7 @@ export default function AboutScreen() {
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={styles.screen}>
-        <ProfileHeader
+        <HeaderSecondary
           theme={theme}
           title="About Vesta"
           onBack={() => router.back()}

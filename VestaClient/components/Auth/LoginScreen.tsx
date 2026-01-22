@@ -13,7 +13,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
-import LoginHeader from "@/components/Auth/LoginHeader";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
 import TextField from "@/components/Auth/TextField";
 import SocialButton from "@/components/Welcome/SocialButton";
 import { useAuth } from "@/contexts/auth/AuthContext";
@@ -63,7 +63,7 @@ export default function LoginScreen() {
           ]}
           keyboardShouldPersistTaps="handled"
         >
-          <LoginHeader
+          <HeaderSecondary
             theme={theme}
             title="Login"
             onBack={() => router.back()}

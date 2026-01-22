@@ -6,7 +6,7 @@ import {
 } from "react-native-safe-area-context";
 import HeroCard from "@/components/ui/HeroCard";
 
-import SavedHeader from "@/components/savedRecipes/SavedHeader";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
 import SavedRecipesSearchBar from "@/components/savedRecipes/SavedRecipesSearchBar";
 import SavedRecipesSection, {
   SavedRecipe,
@@ -51,7 +51,7 @@ export default function SavedRecipesScreen() {
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={styles.screen}>
-        <SavedHeader theme={theme} title="Saved" onBack={() => router.back()} />
+        <HeaderSecondary theme={theme} title="Saved" onBack={() => router.back()} />
 
         <ScrollView
           style={styles.scroll}

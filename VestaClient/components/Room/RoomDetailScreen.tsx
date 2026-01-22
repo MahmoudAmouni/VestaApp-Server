@@ -10,7 +10,7 @@ import HeroCard from "@/components/ui/HeroCard";
 import RoomActions from "@/components/Room/RoomActions";
 import BulkActionButton from "@/components/Room/BulkActionButton";
 import ConfirmDeleteModal from "@/components/Room/ConfirmDeleteModal";
-import RoomHeader from "@/components/Room/RoomHeader";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
 import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
 import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
 import { Device } from "@/features/rooms/rooms.types";
@@ -64,13 +64,10 @@ export default function RoomDetailsScreen() {
   return (
     <View style={[styles.safe, { backgroundColor: theme.bg }]}>
       <View style={[styles.screen, { backgroundColor: theme.bg }]}>
-        <RoomHeader
-          theme={theme}
-          title={room?.room_name.name || ""}
-          onBack={() => {
-            router.back();
-          }}
-          onAddDevice={undefined}
+        <HeaderSecondary
+        theme={theme}
+        title={room?.room_name.name || "Room"}
+        onBack={() => router.back()}
         />
 
         <ScrollView
