@@ -4,6 +4,8 @@ import type { Room } from "../../../features/rooms/rooms.types";
 import { apiDeleteDevice } from "../../../features/rooms/rooms.api";
 import { roomsKey } from "../useRoomsQuery";
 
+import Toast from "react-native-toast-message";
+
 export function useDeleteDevice(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;
 
@@ -29,6 +31,13 @@ export function useDeleteDevice(args: { homeId: number; token?: string }) {
     },
     onError: (_err, _vars, ctx) => {
       if (ctx?.prev) queryClient.setQueryData(roomsKey(homeId), ctx.prev);
+    },
+    onSuccess: () => {
+      Toast.show({
+        type: "success",
+        text1: "Device Deleted",
+        text2: "The device has been removed from the room.",
+      });
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: roomsKey(homeId) });

@@ -6,6 +6,8 @@ import {  buildDeviceUpdateDto, DeviceUpdatePatch } from "../../../features/room
 import { roomsKey } from "../useRoomsQuery";
 import { getDeviceFromCache } from "../../../features/rooms/rooms.cache";
 
+import Toast from "react-native-toast-message";
+
 export function useUpdateDevice(args: { homeId: number; token?: string }) {
   const { homeId, token } = args;
 
@@ -56,7 +58,15 @@ export function useUpdateDevice(args: { homeId: number; token?: string }) {
     onError: (_err, _vars, ctx) => {
       if (ctx?.prev) queryClient.setQueryData(roomsKey(homeId), ctx.prev);
     },
-    onSuccess: (updatedDevice) => {
+    onSuccess: (updatedDevice, vars) => {
+      if (vars.patch.name || vars.patch.external_id) {
+        Toast.show({
+          type: "success",
+          text1: "Device Updated",
+          text2: `${updatedDevice.device_name.name} has been updated.`,
+        });
+      }
+
       queryClient.setQueryData<Room[]>(roomsKey(homeId), (current) => {
         if (!current) return current;
         return current.map((room) => ({
