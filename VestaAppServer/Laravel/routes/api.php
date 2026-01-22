@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\RoomsController;
 use App\Http\Controllers\Api\SavedRecipeController;
 use App\Http\Controllers\Api\ShoppingListController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\EspController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -48,6 +49,11 @@ Route::group(["prefix" => "v1", "middleware" => "auth:api"], function () {
         Route::get('/{home_id}/{room_id}/{device_id}', [DeviceController::class, 'delete']);
         Route::post('/{home_id}/{room_id}/{device_id}', [DeviceController::class, 'update']);
         Route::post('/{home_id}/{room_id}', [DeviceController::class, 'create']);
+    });
+
+    Route::prefix('/esp')->group(function () {
+        Route::post('/on', [EspController::class, 'on']);
+        Route::post('/off', [EspController::class, 'off']);
     });
 
     Route::prefix('/shoppinglist')->group(function () {
