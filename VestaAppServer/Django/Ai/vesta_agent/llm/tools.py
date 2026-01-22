@@ -14,6 +14,7 @@ from .schemas import (
 )
 from ..services.shoppinglist_service import ShoppingListApiService
 from ..services.pantry_service import PantryApiService
+from ..services.iot_service import IotApiService
 
 
 
@@ -117,3 +118,19 @@ def build_pantry_tools(pantry_api: PantryApiService):
         return pantry_api.delete_item(item_id=item_id)
 
     return [pantry_list, pantry_add, pantry_update, pantry_delete]
+
+
+def build_iot_tools(iot_api: IotApiService):
+    """Build LangChain tools for IOT control."""
+
+    @tool
+    def turn_on_device() -> Dict[str, Any]:
+        """Turn on the IOT device. Use this tool when the user asks to turn on the lamp, light, device, or similar."""
+        return iot_api.turn_on()
+
+    @tool
+    def turn_off_device() -> Dict[str, Any]:
+        """Turn off the IOT device. Use this tool when the user asks to turn off the lamp, light, device, or similar."""
+        return iot_api.turn_off()
+
+    return [turn_on_device, turn_off_device]

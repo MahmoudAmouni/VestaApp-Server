@@ -14,7 +14,7 @@ class EspController extends BaseApiController
     public function on(): JsonResponse
     {
         return $this->handle(
-            fn() => $this->espService->turnOn(),
+            fn() => ['result' => $this->espService->turnOn()],
             'ESP turned on.'
         );
     }
@@ -22,7 +22,7 @@ class EspController extends BaseApiController
     public function off(): JsonResponse
     {
         return $this->handle(
-            fn() => $this->espService->turnOff(),
+            fn() => ['result' => $this->espService->turnOff()],
             'ESP turned off.'
         );
     }
