@@ -32,11 +32,10 @@ export function apiLogin(args: { body: LoginDto; signal?: AbortSignal }) {
 }
 
 
-export async function apiUpdateUser({ body }: { body: UpdateUserDto }) {
-
+export async function apiUpdateUser({ body }: { body: UpdateUserDto | FormData }) {
   return fetchJson<UpdateUserResponse>(
     "/users",
-    { method:"POST",body},
+    { method: "POST", body },
   );
 }
 

@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
+import { setAuthToken } from "@/api/http";
 import { AuthContext, type AuthContextValue } from "./AuthContext";
 import { useAuthSessionQuery } from "./auth.query";
 import { useAuthMutations } from "./mutations/useAuthMutations";
@@ -18,6 +19,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     googleLogin,
     isGoogleLoggingIn,
   } = useAuthMutations();
+
+  useEffect(() => {
+    if (sessionQuery.data?.token) {
+      setAuthToken(sessionQuery.data.token);
+    } else if (!sessionQuery.isLoading) {
+      // Only clear if we are sure we are not loading (though usually null data means no session)
+      setAuthToken(null);
+    }
+  }, [sessionQuery.data?.token, sessionQuery.isLoading]);
 
   const value = useMemo<AuthContextValue>(() => {
     const session = sessionQuery.data ?? null;

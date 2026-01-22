@@ -1,6 +1,7 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Image } from "expo-image";
 
 import { Theme } from "@/type";
 import Card from "@/components/ui/Card";
@@ -12,21 +13,32 @@ export default function ProfileSummaryCard(props: {
   theme: Theme;
   name: string;
   homeLabel: string;
+  avatar?: string | null;
   onPressEdit: () => void;
+  onPressAvatar?: () => void;
 }) {
-  const { theme } = props;
+  const { theme, avatar } = props;
 
   return (
     <Card theme={theme} padding={14} style={styles.card}>
       <View style={styles.topRow}>
-        <View
+        <Pressable
+          onPress={props.onPressAvatar}
           style={[
             styles.avatar,
-            { backgroundColor: theme.surface2, borderColor: theme.border },
+            { backgroundColor: theme.surface2, borderColor: theme.border, overflow: 'hidden' },
           ]}
         >
-          <Ionicons name="person-outline" size={18} color={theme.text} />
-        </View>
+          {avatar ? (
+            <Image
+              source={{ uri: avatar }}
+              style={{ width: "100%", height: "100%" }}
+              contentFit="cover"
+            />
+          ) : (
+            <Ionicons name="person-outline" size={18} color={theme.text} />
+          )}
+        </Pressable>
 
         <View style={styles.textBlock}>
           <Text style={[styles.name, { color: theme.text }]}>{props.name}</Text>
@@ -37,7 +49,6 @@ export default function ProfileSummaryCard(props: {
       </View>
 
       <Button
-        theme={theme}
         variant="primary"
         label="Edit Profile"
         onPress={props.onPressEdit}
