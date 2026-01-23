@@ -1,7 +1,7 @@
 import { Theme } from "@/type";
 import { Pressable, Text, View } from "react-native";
 import { sectionHeaderStyles as styles } from "./SectionHeader.styles";
-import SmallButton from "../ui/SmallButton";
+import SmallButton from "../../ui/SmallButton";
 
 export default function SectionHeader(props: {
   theme: Theme;

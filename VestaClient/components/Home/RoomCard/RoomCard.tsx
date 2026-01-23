@@ -1,7 +1,7 @@
 import { Pressable, Text, View } from "react-native";
-import BulkActionButton from "../Room/BulkActionButton";
-import Card from "../ui/Card";
-import Pill from "../ui/Pill";
+import BulkActionButton from "../../Room/BulkActionButton";
+import Card from "../../ui/Card";
+import Pill from "../../ui/Pill";
 import { roomStyles as styles } from "./RoomCard.styles";
 import { Room } from "@/features/rooms/rooms.types";
 import { useTheme } from "@/contexts/theme/ThemeContext";
