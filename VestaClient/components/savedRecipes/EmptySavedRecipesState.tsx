@@ -8,12 +8,16 @@ interface EmptySavedRecipesStateProps {
   theme: Theme;
   onPressAction: () => void;
   actionLabel?: string;
+  title?: string;
+  description?: string;
 }
 
 export default function EmptySavedRecipesState({ 
   theme, 
   onPressAction,
-  actionLabel = "Explore Recipes"
+  actionLabel = "Explore Recipes",
+  title = "No saved recipes yet",
+  description = "Save recipes you love to find them easily later."
 }: EmptySavedRecipesStateProps) {
   return (
     <View
@@ -35,10 +39,10 @@ export default function EmptySavedRecipesState({
       </View>
       <View style={styles.textContainer}>
         <Text style={[styles.title, { color: theme.text }]}>
-          No saved recipes yet
+          {title}
         </Text>
         <Text style={[styles.subtitle, { color: theme.textMuted }]}>
-          Save recipes you love to find them easily later.
+          {description}
         </Text>
       </View>
       <TouchableOpacity
