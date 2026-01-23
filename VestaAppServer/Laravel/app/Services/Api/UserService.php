@@ -12,6 +12,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Throwable;
 
 class UserService
@@ -45,8 +46,8 @@ class UserService
         $oldAvatarUrl = $user->avatar_url;
 
         $storedAvatar = null;
-        if (($data['avatar'] ?? null) instanceof UploadedFile) {
-            $storedAvatar = $this->storeUserAvatar($user, $data['avatar']);
+        if (isset($data['avatar']) && is_string($data['avatar']) && str_starts_with($data['avatar'], 'data:image')) {
+            $storedAvatar = $this->storeBase64Avatar($user, $data['avatar']);
         }
 
         try {
@@ -80,7 +81,7 @@ class UserService
                 }
 
                 if ($storedAvatar) {
-                    $user->avatar_url = $storedAvatar['url'];
+                    $user->avatar_url = $storedAvatar;
                 }
 
                 if (array_key_exists('password', $data) && filled($data['password'])) {
@@ -90,15 +91,10 @@ class UserService
                 $user->save();
             });
         } catch (Throwable $e) {
-            if ($storedAvatar) {
-                Storage::disk('public')->delete($storedAvatar['path']);
-            }
             throw $e;
         }
 
-        if ($storedAvatar) {
-            $this->deleteOldAvatarIfLocal($oldAvatarUrl);
-        }
+
 
         $user->load(['diet', 'allergy']);
 
@@ -115,36 +111,16 @@ class UserService
         return $name === '' ? null : $name;
     }
 
-    private function storeUserAvatar(User $user, UploadedFile $file): array
+
+
+
+
+    private function storeBase64Avatar(User $user, string $base64String): string
     {
-        $path = $file->storePublicly(
-            "avatars/users/{$user->id}",
-            ['disk' => 'public']
-        );
-
-        /** @var FilesystemAdapter $disk */
-        $disk = Storage::disk('public');
-
-        return [
-            'path' => $path,
-            'url' => $disk->url($path),
-        ];
-    }
-
-    private function deleteOldAvatarIfLocal(?string $oldUrl): void
-    {
-        if (!$oldUrl) {
-            return;
+        if (!preg_match('/^data:image\/(\w+);base64,/', $base64String)) {
+             throw new \Exception('Invalid base64 string');
         }
 
-        $path = parse_url($oldUrl, PHP_URL_PATH) ?? '';
-        if (!str_starts_with($path, '/storage/')) {
-            return;
-        }
-
-        $relative = ltrim(str_replace('/storage/', '', $path), '/');
-        if ($relative !== '') {
-            Storage::disk('public')->delete($relative);
-        }
+        return $base64String;
     }
 }

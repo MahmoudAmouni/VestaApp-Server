@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Storage;
 
 class AuthService
 {
@@ -31,6 +32,12 @@ class AuthService
             $user->diet_id = $data['diet_id'] ?? null;
             $user->allergy_id = $data['allergy_id'] ?? null;
             $user->save();
+
+            if (isset($data['avatar_url']) && str_starts_with($data['avatar_url'], 'data:image')) {
+                 $stored = $this->storeBase64Avatar($user, $data['avatar_url']);
+                 $user->avatar_url = $stored['url'];
+                 $user->save();
+            }
 
             $home = new Home();
             $home->name = $data["home_name"];
@@ -184,6 +191,33 @@ class AuthService
         });
     }
 
+    private function storeBase64Avatar(User $user, string $base64String): array
+    {
+        if (preg_match('/^data:image\/(\w+);base64,/', $base64String, $type)) {
+            $data = substr($base64String, strpos($base64String, ',') + 1);
+            $type = strtolower($type[1]); 
 
+            $data = base64_decode($data);
+             if ($data === false) {
+                 throw new \Exception('base64_decode failed');
+             }
+
+        } else {
+             throw new \Exception('Invalid base64 string');
+        }
+
+        $filename = Str::random(40) . '.' . $type;
+        $path = "avatars/users/{$user->id}/{$filename}";
+
+        Storage::disk('public')->put($path, $data);
+
+        /** @var FilesystemAdapter $disk */
+        $disk = Storage::disk('public');
+
+        return [
+            'path' => $path,
+            'url' => $disk->url($path),
+        ];
+    }
 
 }

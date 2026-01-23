@@ -19,7 +19,7 @@ class RegisterRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'home_name' => ['required', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:50'],
-            'avatar_url' => ['nullable', 'string', 'max:1024'],
+            'avatar_url' => ['nullable', 'string'],
         ];
     }
 }
