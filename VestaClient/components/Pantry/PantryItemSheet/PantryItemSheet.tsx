@@ -72,11 +72,11 @@ const token = session?.token;
       setInputError(null);
     }
   }, [pantryItem, showModal]);
-// function normalizeExpiryDate(date: string | Date | null | undefined) {
-//   if (!date) return null;
-//   if (typeof date === "string") return date; 
-//   return date.toISOString().slice(0, 10);
-// }
+  function normalizeExpiryDate(date: string | Date | null | undefined) {
+    if (!date) return null;
+    if (typeof date === "string") return date; 
+    return date.toISOString().slice(0, 10);
+  }
 
 
   function onPressSave() {
@@ -86,7 +86,7 @@ const token = session?.token;
       location,
       unit,
       quantity: Number(quantity),
-      expiry_date: "2026-08-12",
+      expiry_date: normalizeExpiryDate(date),
     };
 
     if (!dto.item_name) {

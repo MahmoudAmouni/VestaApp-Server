@@ -16,7 +16,7 @@ export const roomsStyles = StyleSheet.create({
   content: {
     paddingHorizontal: 16,
     paddingTop: 10,
-    gap: 14,
+    gap: 24,
   },
 
   topBar: {

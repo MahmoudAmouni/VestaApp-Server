@@ -25,7 +25,7 @@ export const roomCardStyles = StyleSheet.create({
     marginTop: 12,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     gap: 12,
   },
   footerSolo: {
