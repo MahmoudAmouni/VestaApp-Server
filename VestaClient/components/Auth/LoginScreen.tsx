@@ -149,6 +149,7 @@ export default function LoginScreen() {
                 label="Login"
                 onPress={onLogin}
                 disabled={isLoggingIn}
+                loading={isLoggingIn}
                 style={{ width: "100%", opacity: canSubmit ? 1 : 0.75 }}
               />
 

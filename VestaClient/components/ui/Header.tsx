@@ -99,7 +99,7 @@ export default function Header(props: {
           accessibilityRole="button"
           accessibilityLabel="Notifications"
         >
-          <Ionicons name="notifications-outline" size={18} color={theme.text} />
+          <Ionicons name="cart-outline" size={18} color={theme.text} />
         </Pressable>
       </View>
     </View>

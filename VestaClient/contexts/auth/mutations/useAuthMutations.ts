@@ -1,4 +1,5 @@
 import { setAuthToken } from "@/api/http";
+import Toast from "react-native-toast-message";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { useCallback } from "react";
@@ -47,6 +48,12 @@ export function useAuthMutations() {
       qc.setQueryData(authSessionKey, session);
       await saveAuthSession(session);
       setAuthToken(session.token);
+
+      Toast.show({
+        type: "success",
+        text1: "Welcome back!",
+        text2: "Login successful"
+      });
 
       router.replace("/");
     },

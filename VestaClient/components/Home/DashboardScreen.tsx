@@ -79,7 +79,7 @@ export default function DashboardScreen() {
             theme={theme}
             title="Rooms"
             actionLabel="Manage"
-            onPressAction={() => setActiveTab("Rooms")}
+            onPressAction={() => router.replace("/rooms")}
           />
 
           <View style={styles.sectionGap}>
@@ -130,7 +130,7 @@ export default function DashboardScreen() {
                 theme={theme}
                 title="Expiring Soon"
                 actionLabel="Open Pantry"
-                onPressAction={() => setActiveTab("Pantry")}
+                onPressAction={() => router.replace("/pantry")}
               />
 
                 {isWorking ? (
