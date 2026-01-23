@@ -18,7 +18,7 @@ import { makePantryItemSheetStyles } from "./PantryItemSheet.styles";
 import { usePantryModal } from "@/contexts/PantryModalContext";
 import { usePantryMutations } from "@/hooks/pantry/usePantryMutations";
 import { useAuth } from "@/contexts/auth/AuthContext";
-import Button from "../ui/Button";
+import Button from "../../ui/Button";
 
 
 export default function PantryItemSheet(props: {

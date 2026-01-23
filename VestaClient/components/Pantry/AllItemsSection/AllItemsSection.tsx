@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 
 import { PantryItem } from "@/features/pantry/pantry.types";
 import { allItemsSectionStyles as styles } from "./AllItemsSection.styles";
-import PantryItemCard from "./PantryItemCard";
+import PantryItemCard from "../PantryItemCard/PantryItemCard";
 import { usePantryModal } from "@/contexts/PantryModalContext";
 
 export default function AllItemsSection(props: {
@@ -24,7 +24,6 @@ export default function AllItemsSection(props: {
           <Text style={[styles.title, { color: theme.text }]}>All items</Text>
 
           <Button
-            theme={theme}
             variant="primary"
             label="Add item"
             onPress={()=>setShowModal(true)}

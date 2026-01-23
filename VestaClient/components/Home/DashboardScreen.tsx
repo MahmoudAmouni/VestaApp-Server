@@ -19,7 +19,7 @@ import {
   StatusBar,
   View,
 } from "react-native";
-import ExpiringSoonSection from "../Pantry/ExpiringSoonSection";
+import ExpiringSoonSection from "../Pantry/ExpiringSoonSection/ExpiringSoonSection";
 import { indexStyles as styles } from "./Dashboard.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
