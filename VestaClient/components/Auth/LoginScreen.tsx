@@ -74,7 +74,7 @@ export default function LoginScreen() {
                 Pick up where you left off.
               </Text>
               <Text style={[styles.sub, { color: theme.textMuted }]}>
-                Your home, recipes, and assistant — ready anytime.
+                Your home, recipes, and assistant ready anytime.
               </Text>
 
               <View style={styles.form}>

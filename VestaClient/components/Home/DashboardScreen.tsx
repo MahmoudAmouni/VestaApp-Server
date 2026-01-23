@@ -64,7 +64,7 @@ export default function DashboardScreen() {
           <HeroCard
             theme={theme}
             title="Calm & ready."
-            sub="A quick snapshot of your space — lights, pantry, and what’s coming up."
+            sub="A quick snapshot of your space lights, pantry, and what’s coming up."
             loading={isWorking}
             kpis={[
               { label: "Devices ON", value: "3" },
