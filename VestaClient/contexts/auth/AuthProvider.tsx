@@ -24,7 +24,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (sessionQuery.data?.token) {
       setAuthToken(sessionQuery.data.token);
     } else if (!sessionQuery.isLoading) {
-      // Only clear if we are sure we are not loading (though usually null data means no session)
       setAuthToken(null);
     }
   }, [sessionQuery.data?.token, sessionQuery.isLoading]);

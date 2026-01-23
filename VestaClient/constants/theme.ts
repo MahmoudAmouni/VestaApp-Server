@@ -48,16 +48,16 @@ export const Fonts = Platform.select({
 
 
 export const lightTheme: Theme = {
-  bg: "#F5F7FA", // Premium Cool Grey Background
-  surface: "#FFFFFF", // Pure White Cards
-  surface2: "#EDF2F7", // Very Light Cool Grey for secondary elements
-  text: "#1A202C", // Deep Navy-Black for high contrast & readability
-  textMuted: "#64748B", // Cool Slate Grey for subtle text
-  border: "#E2E8F0", // Subtle Cool Grey Border
-  borderStrong: "#CBD5E1", // Slightly darker border for distinction
-  primary: "#E7523C", // Brand Primary (Unchanged)
-  navBg: "rgba(255, 255, 255, 0.90)", // Frosted glass effect
-  shadow1: "rgba(148, 163, 184, 0.15)", // Colored shadow (slate blueish) for depth
+  bg: "#F5F7FA", 
+  surface: "#FFFFFF", 
+  surface2: "#EDF2F7", 
+  text: "#1A202C", 
+  textMuted: "#64748B",
+  border: "#E2E8F0", 
+  borderStrong: "#CBD5E1", 
+  primary: "#E7523C", 
+  navBg: "rgba(255, 255, 255, 0.90)", 
+  shadow1: "rgba(148, 163, 184, 0.15)", 
   statusError: "#EF4444",
 };
 

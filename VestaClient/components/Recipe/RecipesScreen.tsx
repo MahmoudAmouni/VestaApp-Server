@@ -13,8 +13,8 @@ import Header from "@/components/ui/Header";
 import HeroCard from "@/components/ui/HeroCard";
 import Skeleton from "@/components/ui/Skeleton";
 
-import RecipesSection from "@/components/Recipe/RecipeSection";
-import { recipesScreenStyles as styles } from "./recipe.styles";
+import RecipesSection from "./RecipesSection/RecipesSection";
+import { recipesScreenStyles as styles } from "./RecipesScreen.styles";
 import { useRecipesRag } from "@/features/recipes/useRecipesRag";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";

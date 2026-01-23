@@ -1,7 +1,7 @@
 import DashboardScreen from '@/components/Home/DashboardScreen'
 import React from 'react'
 
-export default function Dashbord() {
+export default function Home() {
   return (
     <DashboardScreen />
   )

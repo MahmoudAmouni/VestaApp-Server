@@ -38,7 +38,6 @@ export default function RecipeDetailRoute() {
     [pantryItems]
   );
 
-  // Only fetch recipes if we don't have recipe data from params
   const { primaryResults, secondaryResults, isLoading: recipesLoading } = useRecipesRag({
     token,
     pantryItems: pantryItemNames,
@@ -51,12 +50,10 @@ export default function RecipeDetailRoute() {
   });
 
   const recipe = useMemo(() => {
-    // If we have recipe from params, use it
     if (recipeFromParams) {
       return recipeFromParams;
     }
 
-    // Otherwise, search for it
     console.log("[RecipeDetail] Primary results count:", primaryResults.length);
     console.log("[RecipeDetail] Secondary results count:", secondaryResults.length);
     console.log("[RecipeDetail] Saved recipes count:", savedRecipes.length);
@@ -91,7 +88,6 @@ export default function RecipeDetailRoute() {
     return null;
   }, [id, recipeFromParams, primaryResults, secondaryResults, savedRecipes]);
 
-  // Only show loading if we don't have recipe from params
   if (!recipeFromParams && (recipesLoading || savedLoading)) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

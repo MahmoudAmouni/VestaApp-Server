@@ -25,7 +25,7 @@ export default function TabsLayout() {
       <Tabs.Screen name="profile" />
       <Tabs.Screen name="settings" />
       <Tabs.Screen name="ai" />
-      <Tabs.Screen name="vesta-test" />
+
     </Tabs>
   );
 }

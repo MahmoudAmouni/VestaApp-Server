@@ -37,7 +37,6 @@ export function GoogleButton() {
       if (idToken) {
         googleLogin(idToken);
       } else if (accessToken) {
-        // Fallback: send access_token instead
         googleLogin(accessToken, true);
       } else {
         console.error("No id_token or access_token returned from Google");

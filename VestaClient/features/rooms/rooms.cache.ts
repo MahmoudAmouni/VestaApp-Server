@@ -6,7 +6,7 @@ export function getRoomFromCache(
   homeId: number,
   roomId: number
 ): Room | undefined {
-  const rooms = queryClient.getQueryData<Room[]>(roomsKey(homeId));//redirect urls missing scope
+  const rooms = queryClient.getQueryData<Room[]>(roomsKey(homeId));
   return rooms?.find((r) => r.id === roomId);
 }
 

@@ -109,7 +109,6 @@ export default function RecipeCard(props: {
               pathname: "/(tabs)/ai",
               params: { recipeData: JSON.stringify(recipe) }
             });
-            // Reset after a delay in case navigation is slow or they come back
             setTimeout(() => setIsAskingAi(false), 2000);
           }}
           style={styles.askAiBtn}
