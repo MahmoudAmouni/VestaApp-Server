@@ -14,7 +14,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { makeAuthSheetStyles } from "./AuthSheet.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
-import Button from "../ui/Button";
+import Button from "../../ui/Button";
 
 
 

@@ -26,8 +26,8 @@ export default function ShoppingListScreen() {
   const insets = useSafeAreaInsets();
   const {homeId,session} = useAuth()
   const token = session?.token;
-  const { data: shoppingListItems = [], isLoading } = useShoppingListQuery({ homeId, token });
-  const { updateMutation, createMutation, clearCheckedMutation } = useShoppingListMutations({ homeId, token }); 
+  const { data: shoppingListItems = [], isLoading } = useShoppingListQuery({ homeId: homeId ?? undefined, token });
+  const { updateMutation, createMutation, clearCheckedMutation } = useShoppingListMutations({ homeId: homeId ?? undefined, token }); 
   const [confirmClear, setConfirmClear] = useState(false);
 
   function onToggle(id: number, item: ShoppingListItem) {

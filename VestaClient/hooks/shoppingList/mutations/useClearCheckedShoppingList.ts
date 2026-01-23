@@ -28,7 +28,7 @@ export function useClearCheckedShoppingList(args: { homeId: number; token?: stri
         shoppingListKey(homeId),
         (current) => {
           if (!current) return current;
-          return current.filter((x) => !x.checked);
+          return current.filter((x) => !x.is_checked);
         }
       );
 

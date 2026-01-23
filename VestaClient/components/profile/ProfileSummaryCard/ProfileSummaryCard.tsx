@@ -4,8 +4,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 
 import { Theme } from "@/type";
-import Card from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
+import Card from "../../ui/Card";
+import Button from "../../ui/Button";
 
 import { profileSummaryStyles as styles } from "./ProfileSummaryCard.styles";
 

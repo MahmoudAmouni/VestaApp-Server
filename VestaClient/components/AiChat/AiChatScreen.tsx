@@ -33,8 +33,8 @@ export default function AiChatScreen(props: { recipeData?: string }) {
     isFetchingNextPage: isFetchingOlder,
     hasNextPage: hasOlder,
     fetchNextPage: fetchOlder,
-  } = useAiChatQuery({ homeId, token });
-  const { sendMutation, isSending } = useAiChatMutations({ homeId, token });
+  } = useAiChatQuery({ homeId: homeId ?? undefined, token });
+  const { sendMutation, isSending } = useAiChatMutations({ homeId: homeId ?? undefined, token });
 
   const messages = data?.pages.flatMap((p) => p.messages) ?? [];
   const sendMessage = (msg: string) => sendMutation.mutate({ message: msg });

@@ -54,7 +54,7 @@ const token = session?.token;
     [theme, insets.bottom]
   );
 
-  const { updateMutation, createMutation } = usePantryMutations({ homeId, token });
+  const { updateMutation, createMutation } = usePantryMutations({ homeId: homeId ?? undefined, token });
   useEffect(() => {
     if (pantryItem) {
       setName(pantryItem?.item_name?.name || "");
@@ -153,11 +153,11 @@ const token = session?.token;
               }}
               style={[
                 styles.selectBox,
-                {
-                  color: "white",
-                  borderColor: inputError ? theme.statusError : "transparent",
-                  borderWidth: inputError ? 1 : 0,
-                },
+                  {
+                    color: "white",
+                    borderColor: inputError ? "#EF4444" : "transparent",
+                    borderWidth: inputError ? 1 : 0,
+                  },
               ]}
               placeholder="e.g. Carrots"
               placeholderTextColor={theme.textMuted}

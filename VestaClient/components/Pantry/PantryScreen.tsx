@@ -32,7 +32,7 @@ export default function PantryScreen() {
   const { homeId, session } = useAuth();
   const token = session?.token;
   const { data: pantryItems = [], isLoading, error } = usePantryQuery({
-    homeId,
+    homeId: homeId ?? undefined,
     token,
   });
   const { deleteMutation } = usePantryMutations({ homeId, token });

@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { Theme } from "@/type";
 
-import Button from "../ui/Button";
+import Button from "../../ui/Button";
 
 
 import { dangerZoneStyles as styles } from "./DangerZoneActions.styles";

@@ -5,7 +5,7 @@ import { Theme } from "@/type";
 import Card from "@/components/ui/Card";
 
 import { settingsSectionStyles as styles } from "./SettingsSection.styles";
-import SettingsRow from "./SettingsRow";
+import SettingsRow from "../SettingsRow/SettingsRow";
 
 export type SettingsItem = {
   title: string;

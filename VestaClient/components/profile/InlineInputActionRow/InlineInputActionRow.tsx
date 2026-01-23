@@ -2,7 +2,7 @@ import React from "react";
 import { TextInput, View } from "react-native";
 
 import { Theme } from "@/type";
-import SmallButton from "@/components/ui/SmallButton";
+import SmallButton from "../../ui/SmallButton";
 
 import { inlineInputActionRowStyles as styles } from "./InlineInputActionRow.styles";
 

@@ -6,7 +6,7 @@ import { pantryKey } from "../usePantryQuery";
 
 import Toast from "react-native-toast-message";
 
-export function useDeletePantryItem(args: { homeId: number; token?: string }) {
+export function useDeletePantryItem(args: { homeId: number | undefined; token?: string }) {
   const { homeId, token } = args;
 
   return useMutation<
@@ -15,10 +15,13 @@ export function useDeletePantryItem(args: { homeId: number; token?: string }) {
     { pantryItemId: number },
     { prev?: PantryItem[] }
   >({
-    mutationFn: async ({ pantryItemId }) =>
-      apiDeletePantryItem({ homeId, pantryItemId, token }),
+    mutationFn: async ({ pantryItemId }) => {
+      if (!homeId) throw new Error("No home ID");
+      return apiDeletePantryItem({ homeId, pantryItemId, token });
+    },
 
     onMutate: async ({ pantryItemId }) => {
+      if (!homeId) return {};
       await queryClient.cancelQueries({ queryKey: pantryKey(homeId) });
       const prev = queryClient.getQueryData<PantryItem[]>(pantryKey(homeId));
 
@@ -31,7 +34,7 @@ export function useDeletePantryItem(args: { homeId: number; token?: string }) {
     },
 
     onError: (_err, _vars, ctx) => {
-      if (ctx?.prev) queryClient.setQueryData(pantryKey(homeId), ctx.prev);
+      if (homeId && ctx?.prev) queryClient.setQueryData(pantryKey(homeId), ctx.prev);
     },
 
     onSuccess: () => {
@@ -43,7 +46,7 @@ export function useDeletePantryItem(args: { homeId: number; token?: string }) {
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: pantryKey(homeId) });
+      if (homeId) queryClient.invalidateQueries({ queryKey: pantryKey(homeId) });
     },
   });
 }
