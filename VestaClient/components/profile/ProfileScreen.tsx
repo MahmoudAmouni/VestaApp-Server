@@ -17,7 +17,7 @@ import ProfileSheet from "./ProfileSheet";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 import InlineInputActionRow from "../Settings/InlineInputActionRow";
-import ThemeToggle from "../Settings/ThemeToggle";
+import ThemeToggle from "./ThemeToggle";
 
 
 export default function ProfileScreen() {
