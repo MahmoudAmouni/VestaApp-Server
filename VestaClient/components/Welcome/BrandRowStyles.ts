@@ -8,13 +8,11 @@ export const brandRowStyles = StyleSheet.create({
     marginBottom: 16,
   },
   mark: {
-    width: 22,
-    height: 22,
-    borderRadius: 6,
-    borderWidth: 1,
+    width: 60,
+    height: 60,
   },
   text: {
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: "800",
     letterSpacing: 0.2,
   },

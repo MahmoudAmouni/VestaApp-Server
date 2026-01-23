@@ -15,7 +15,6 @@ export const signupStyles = StyleSheet.create({
   },
 
   content: {
-    paddingHorizontal: 16,
     flexGrow: 1,
   },
 
@@ -23,7 +22,6 @@ export const signupStyles = StyleSheet.create({
     width: "100%",
     maxWidth: 430,
     alignSelf: "center",
-    marginTop: 14,
   },
 
   h1: {
