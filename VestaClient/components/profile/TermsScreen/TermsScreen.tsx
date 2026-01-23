@@ -6,7 +6,7 @@ import {
 import { router } from "expo-router";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 import { termsStyles as styles } from "./TermsScreen.styles";
-import HeaderSecondary from "../ui/HeaderSecondary";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
 
 export default function TermsScreen() {
   const { theme } = useTheme();

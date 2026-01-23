@@ -108,8 +108,8 @@ export default function SavedRecipesScreen() {
                         cuisines: [],
                       };
                       router.push({
-                        pathname: `/recipes/${id}`,
-                        params: { recipeData: JSON.stringify(recipeData) }
+                        pathname: "/recipes/[id]",
+                        params: { id: id, recipeData: JSON.stringify(recipeData) },
                       });
                     }
                   }}

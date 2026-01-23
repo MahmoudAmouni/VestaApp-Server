@@ -155,7 +155,7 @@ const token = session?.token;
                 styles.selectBox,
                   {
                     color: "white",
-                    borderColor: inputError ? "#EF4444" : "transparent",
+                    borderColor: inputError ? theme.statusError : "transparent",
                     borderWidth: inputError ? 1 : 0,
                   },
               ]}
