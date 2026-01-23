@@ -16,7 +16,7 @@ import DangerZoneActions from "@/components/profile/DangerZoneActions";
 import ProfileSheet from "./ProfileSheet";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
-import InlineInputActionRow from "../Settings/InlineInputActionRow";
+import InlineInputActionRow from "./InlineInputActionRow";
 import ThemeToggle from "./ThemeToggle";
 
 
