@@ -9,7 +9,7 @@ import {
 
 import { useTheme } from "@/contexts/theme/ThemeContext";
 import type { ChatMessage } from "@/features/aiChat/aiChat.types";
-import ChatMessageBubble from "./ChatMessageBubble";
+import ChatMessageBubble from "../ChatMessageBubble/ChatMessageBubble";
 import { chatThreadStyles as styles } from "./ChatThread.styles";
 
 type Props = {

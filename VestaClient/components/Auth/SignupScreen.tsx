@@ -15,7 +15,7 @@ import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import { signupStyles as styles } from "./Signup.styles";
 import HeaderSecondary from "@/components/ui/HeaderSecondary";
-import TextField from "@/components/Auth/TextField";
+import TextField from "@/components/Auth/TextField/TextField";
 import SocialButton from "@/components/Welcome/SocialButton";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { GoogleButton } from "../Welcome/GoogleButton";
@@ -165,7 +165,6 @@ export default function SignupScreen() {
               </Pressable>
 
               <Button
-                theme={theme}
                 variant="primary"
                 label="Create account"
                 onPress={onCreateAccount}
@@ -178,7 +177,6 @@ export default function SignupScreen() {
               <View style={styles.socialRow}>
                 <GoogleButton />
                 <SocialButton
-                  theme={theme}
                   label="Facebook"
                   icon="logo-facebook"
                   onPress={() => {}}
