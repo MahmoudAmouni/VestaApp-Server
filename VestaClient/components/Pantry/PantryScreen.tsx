@@ -136,6 +136,17 @@ export default function PantryScreen() {
                 theme={theme}
                 onPressAction={() => setShowModal(true)}
               />
+            ) : filteredItems.length === 0 ? (
+              <EmptyPantryState
+                theme={theme}
+                title="No items found"
+                description={`No items match "${query}"`}
+                actionLabel="Clear Search"
+                onPressAction={() => {
+                  setQuery("");
+                  setFilter(null);
+                }}
+              />
             ) : (
               <AllItemsSection
                 theme={theme}

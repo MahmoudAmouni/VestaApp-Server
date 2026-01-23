@@ -8,12 +8,16 @@ interface EmptyPantryStateProps {
   theme: Theme;
   onPressAction: () => void;
   actionLabel?: string;
+  title?: string;
+  description?: string;
 }
 
 export default function EmptyPantryState({ 
   theme, 
   onPressAction,
-  actionLabel = "Add Item"
+  actionLabel = "Add Item",
+  title = "Your pantry is empty",
+  description = "Add items to track expiration dates and get recipe suggestions."
 }: EmptyPantryStateProps) {
   return (
     <View
@@ -35,10 +39,10 @@ export default function EmptyPantryState({
       </View>
       <View style={styles.textContainer}>
         <Text style={[styles.title, { color: theme.text }]}>
-          Your pantry is empty
+          {title}
         </Text>
         <Text style={[styles.subtitle, { color: theme.textMuted }]}>
-          Add items to track expiration dates and get recipe suggestions.
+          {description}
         </Text>
       </View>
       <TouchableOpacity
