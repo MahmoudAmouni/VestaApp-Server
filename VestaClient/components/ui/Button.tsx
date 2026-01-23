@@ -1,5 +1,5 @@
 import { useTheme } from "@/contexts/theme/ThemeContext";
-import { Pressable, StyleSheet, Text, ViewStyle, TextStyle, View } from "react-native";
+import { Pressable, StyleSheet, Text, ViewStyle, TextStyle, View, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 type ButtonVariant = "primary" | "secondary";
@@ -9,13 +9,14 @@ export default function Button(props: {
   label: string;
   onPress: () => void;
   disabled?: boolean;
+  loading?: boolean;
   style?: ViewStyle;
   textStyle?: TextStyle;
   icon?: keyof typeof Ionicons.glyphMap;
   flex?: boolean;
 }) {
   const { theme } = useTheme();
-  const { disabled, variant = "primary", icon, flex } = props;
+  const { disabled, loading, variant = "primary", icon, flex } = props;
 
   
   const bg = variant === "primary" ? theme.primary : theme.surface;
@@ -30,24 +31,30 @@ export default function Button(props: {
         {
           backgroundColor: bg,
           borderColor: border,
-          opacity: pressed || disabled ? 0.7 : 1,
+          opacity: pressed || disabled || loading ? 0.7 : 1,
           flex: flex ? 1 : undefined,
         },
         props.style,
       ]}
       accessibilityRole="button"
-      disabled={disabled}
+      disabled={disabled || loading}
     >
       <View style={styles.content}>
-        {icon && (
-          <Ionicons
-            name={icon}
-            size={18}
-            color={textColor}
-            style={{ marginRight: 6 }}
-          />
+        {loading ? (
+             <ActivityIndicator size="small" color={textColor} style={{ marginRight: 8 }} />
+        ) : ( 
+            <>
+            {icon && (
+            <Ionicons
+                name={icon}
+                size={18}
+                color={textColor}
+                style={{ marginRight: 6 }}
+            />
+            )}
+            <Text style={[styles.btnText, { color: textColor }, props.textStyle]}>{props.label}</Text>
+            </>
         )}
-        <Text style={[styles.btnText, { color: textColor }, props.textStyle]}>{props.label}</Text>
       </View>
     </Pressable>
   );
@@ -66,6 +73,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    minHeight: 20, 
   },
   btnText: {
     fontSize: 14,

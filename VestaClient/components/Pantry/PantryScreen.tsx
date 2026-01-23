@@ -6,15 +6,15 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "@/components/ui/Header";
 import HeroCard from "@/components/ui/HeroCard";
 
-import AllItemsSection from "@/components/Pantry/AllItemsSection";
-import ExpiringSoonSection from "@/components/Pantry/ExpiringSoonSection";
+import AllItemsSection from "@/components/Pantry/AllItemsSection/AllItemsSection";
+import ExpiringSoonSection from "@/components/Pantry/ExpiringSoonSection/ExpiringSoonSection";
 import PantryFilterRow, {
   PantryFilterKey,
-} from "@/components/Pantry/PantryFilterRow";
-import PantrySearchBar from "@/components/Pantry/PantrySearchBar";
+} from "@/components/Pantry/PantryFilterRow/PantryFilterRow";
+import PantrySearchBar from "@/components/Pantry/PantrySearchBar/PantrySearchBar";
 import { usePantryQuery } from "@/hooks/pantry/usePantryQuery";
 import { pantryScreenStyles as styles } from "./pantry.styles";
-import PantryItemSheet from "./PantryItemSheet";
+import PantryItemSheet from "./PantryItemSheet/PantryItemSheet";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 import { getExpiringSoon } from "@/utils/dateHelpers";
@@ -24,7 +24,7 @@ import Skeleton from "@/components/ui/Skeleton";
 
 import ConfirmDeleteModal from "@/components/Room/ConfirmDeleteModal";
 import { usePantryMutations } from "@/hooks/pantry/usePantryMutations";
-import EmptyPantryState from "@/components/Pantry/EmptyPantryState";
+import EmptyPantryState from "@/components/Pantry/EmptyPantryState/EmptyPantryState";
 import { usePantryModal } from "@/contexts/PantryModalContext";
 
 export default function PantryScreen() {
@@ -35,7 +35,7 @@ export default function PantryScreen() {
     homeId,
     token,
   });
-  const { deleteMutation } = usePantryMutations({ homeId, token });
+  const { deleteMutation } = usePantryMutations({ homeId: homeId ?? undefined, token });
   const { setShowModal } = usePantryModal();
   const insets = useSafeAreaInsets();
 
@@ -135,6 +135,17 @@ export default function PantryScreen() {
               <EmptyPantryState
                 theme={theme}
                 onPressAction={() => setShowModal(true)}
+              />
+            ) : filteredItems.length === 0 ? (
+              <EmptyPantryState
+                theme={theme}
+                title="No items found"
+                description={`No items match "${query}"`}
+                actionLabel="Clear Search"
+                onPressAction={() => {
+                  setQuery("");
+                  setFilter(null);
+                }}
               />
             ) : (
               <AllItemsSection

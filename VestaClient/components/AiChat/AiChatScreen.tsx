@@ -12,8 +12,8 @@ const BG_IMAGE = require("@/assets/images/image.png");
 
 import Header from "@/components/ui/Header";
 import { aiChatStyles as styles } from "./ai.styles";
-import ChatThread from "@/components/AiChat/ChatThread";
-import ChatComposer from "@/components/AiChat/ChatComposer";
+import ChatThread from "@/components/AiChat/ChatThread/ChatThread";
+import ChatComposer from "@/components/AiChat/ChatComposer/ChatComposer";
 import { useAiChatQuery } from "@/hooks/aiChat/useAiChatQuery";
 import { useAiChatMutations } from "@/hooks/aiChat/useAiChatMutations";
 import { useAuth } from "@/contexts/auth/AuthContext";
@@ -33,8 +33,8 @@ export default function AiChatScreen(props: { recipeData?: string }) {
     isFetchingNextPage: isFetchingOlder,
     hasNextPage: hasOlder,
     fetchNextPage: fetchOlder,
-  } = useAiChatQuery({ homeId, token });
-  const { sendMutation, isSending } = useAiChatMutations({ homeId, token });
+  } = useAiChatQuery({ homeId: homeId ?? undefined, token });
+  const { sendMutation, isSending } = useAiChatMutations({ homeId: homeId ?? undefined, token });
 
   const messages = data?.pages.flatMap((p) => p.messages) ?? [];
   const sendMessage = (msg: string) => sendMutation.mutate({ message: msg });

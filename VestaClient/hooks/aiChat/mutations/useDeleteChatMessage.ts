@@ -4,15 +4,21 @@ import type { ChatPage } from "../../../features/aiChat/aiChat.types";
 import { apiDeleteChatMessage } from "../../../features/aiChat/aiChat.api";
 import { aiChatKey } from "../useAiChatQuery";
 
-export function useDeleteChatMessage(args: { homeId: number; token?: string }) {
+export function useDeleteChatMessage(args: {
+  homeId: number | undefined;
+  token?: string;
+}) {
   const { homeId, token } = args;
-  const key = aiChatKey(homeId);
+  const key = homeId ? aiChatKey(homeId) : [];
 
   return useMutation<void, Error, { messageId: number }>({
-    mutationFn: ({ messageId }) =>
-      apiDeleteChatMessage({ homeId, messageId, token }),
+    mutationFn: ({ messageId }) => {
+      if (!homeId) throw new Error("No homeId");
+      return apiDeleteChatMessage({ homeId, messageId, token });
+    },
 
     onMutate: async ({ messageId }) => {
+      if (!homeId) return;
       await queryClient.cancelQueries({ queryKey: key });
 
       queryClient.setQueryData<InfiniteData<ChatPage> | undefined>(

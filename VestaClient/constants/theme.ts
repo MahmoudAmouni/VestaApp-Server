@@ -58,6 +58,7 @@ export const lightTheme: Theme = {
   primary: "#E7523C",
   navBg: "rgba(255, 255, 255, 0.82)",
   shadow1: "rgba(0,0,0,0.15)",
+  statusError: "#EF4444",
 };
 
 export const darkTheme: Theme = {
@@ -71,6 +72,7 @@ export const darkTheme: Theme = {
   primary: "#E7523C",
   navBg: "#0F0F12",
   shadow1: "rgba(0,0,0,0.35)",
+  statusError: "#EF4444",
 };
 
 export const theme: Theme = darkTheme;

@@ -8,7 +8,7 @@ import { getShoppingListItemFromCache } from "../../../features/shoppingList/sho
 
 import Toast from "react-native-toast-message";
 
-export function useUpdateShoppingListItem(args: { homeId: number; token?: string }) {
+export function useUpdateShoppingListItem(args: { homeId: number | undefined; token?: string }) {
   const { homeId, token } = args;
 
   return useMutation<
@@ -18,6 +18,7 @@ export function useUpdateShoppingListItem(args: { homeId: number; token?: string
     { prev?: ShoppingListItem[]; nextOptimistic?: ShoppingListItem }
   >({
     mutationFn: async ({ shoppingListItemId, patch }) => {
+      if (!homeId) throw new Error("Home ID is required");
       const current = getShoppingListItemFromCache(homeId, shoppingListItemId);
       if (!current) {
         throw new Error("Shopping list item not found in cache. Try refetch.");
@@ -33,6 +34,7 @@ export function useUpdateShoppingListItem(args: { homeId: number; token?: string
     },
 
     onMutate: async ({ shoppingListItemId, patch }) => {
+      if (!homeId) return {};
       await queryClient.cancelQueries({ queryKey: shoppingListKey(homeId) });
       const prev = queryClient.getQueryData<ShoppingListItem[]>(
         shoppingListKey(homeId)

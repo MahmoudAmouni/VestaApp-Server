@@ -18,9 +18,12 @@ function mergeDedupeNewestFirst(base: ChatMessage[], incoming: ChatMessage[]) {
   return Array.from(byId.values()).sort(sortNewestFirst);
 }
 
-export function useSendChatMessage(args: { homeId: number; token?: string }) {
+export function useSendChatMessage(args: {
+  homeId: number | undefined;
+  token?: string;
+}) {
   const { homeId, token } = args;
-  const key = aiChatKey(homeId);
+  const key = homeId ? aiChatKey(homeId) : [];
 
   return useMutation<
     ChatMessage[],
@@ -28,10 +31,13 @@ export function useSendChatMessage(args: { homeId: number; token?: string }) {
     { message: string },
     { tempUserId: number; tempTypingId: number }
   >({
-    mutationFn: ({ message }) =>
-      apiSendChatMessage({ homeId, message, token }),
+    mutationFn: ({ message }) => {
+      if (!homeId) throw new Error("No homeId");
+      return apiSendChatMessage({ homeId, message, token });
+    },
 
     onMutate: async ({ message }) => {
+      if (!homeId) return { tempUserId: 0, tempTypingId: 0 };
       await queryClient.cancelQueries({ queryKey: key });
 
       const tempUserId = Date.now() * -1;

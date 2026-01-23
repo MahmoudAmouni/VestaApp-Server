@@ -9,4 +9,5 @@ export type Theme = {
   primary: string;
   navBg: string;
   shadow1: string;
+  statusError: string;
 };

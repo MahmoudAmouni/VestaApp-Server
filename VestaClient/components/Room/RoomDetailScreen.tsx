@@ -3,9 +3,6 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { roomDetailsStyles as styles } from "./RoomDetailsScreen.styles";
-
-import BottomNav from "@/components/ui/BottomNav";
-import Card from "@/components/ui/Card";
 import HeroCard from "@/components/ui/HeroCard";
 import RoomActions from "@/components/Room/RoomActions";
 import BulkActionButton from "@/components/Room/BulkActionButton";
@@ -27,6 +24,7 @@ export default function RoomDetailsScreen() {
   const [openModal, setOpenModal] = useState(false);
   const [openDeviceModal, setOpenDeviceModal] = useState(false);
   const [device, setDevice] = useState<Device | null>();
+  const [deviceToDelete, setDeviceToDelete] = useState<Device | null>(null);
 
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -169,9 +167,7 @@ export default function RoomDetailsScreen() {
                   onEdit={() => {
                     setShowDeviceModal(true, device);
                   }}
-                  onDelete={() =>
-                    deleteDeviceMutation.mutate({ deviceId: device.id, roomId })
-                  }
+                  onDelete={() => setDeviceToDelete(device)}
                 />
               ))
             )}
@@ -200,6 +196,19 @@ export default function RoomDetailsScreen() {
             setIsDeleting(false);
             deleteRoomMutation.mutate({ roomId });
             router.back();
+          }}
+        />
+
+        <ConfirmDeleteModal
+          visible={!!deviceToDelete}
+          theme={theme}
+          message={`Are you sure you want to delete ${deviceToDelete?.device_name.name}?`}
+          onCancel={() => setDeviceToDelete(null)}
+          onConfirm={() => {
+            if (deviceToDelete) {
+             deleteDeviceMutation.mutate({ deviceId: deviceToDelete.id, roomId })
+             setDeviceToDelete(null);
+            }
           }}
         />
 

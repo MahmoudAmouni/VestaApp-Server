@@ -3,7 +3,7 @@ import { useUpdateShoppingListItem } from "./mutations/useUpdateShoppingListItem
 import { useClearCheckedShoppingList } from "./mutations/useClearCheckedShoppingList";
 
 export function useShoppingListMutations(args: {
-  homeId: number;
+  homeId: number | undefined;
   token?: string;
 }) {
   const createMutation = useCreateShoppingListItem(args);

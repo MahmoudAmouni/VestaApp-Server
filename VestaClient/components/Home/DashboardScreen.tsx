@@ -1,16 +1,15 @@
-import BottomNav from "@/components/ui/BottomNav";
 import Header from "@/components/ui/Header";
 import HeroCard from "@/components/ui/HeroCard";
-import RoomCard from "@/components/Home/RoomCard";
+import RoomCard from "@/components/Home/RoomCard/RoomCard";
 import EmptyRoomState from "@/components/Rooms/EmptyRoomState";
 
-import SectionHeader from "@/components/Home/SectionHeader";
+import SectionHeader from "@/components/Home/SectionHeader/SectionHeader";
 
 import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
 import { usePantryQuery } from "@/hooks/pantry/usePantryQuery";
 import { getExpiringSoon } from "@/utils/dateHelpers";
 import { useRouter } from "expo-router";
-import ShoppingListPreview from "@/components/Home/ShoppingListPreview";
+import ShoppingListPreview from "@/components/Home/ShoppingListPreview/ShoppingListPreview";
 import { useShoppingListQuery } from "@/hooks/shoppingList/useShoppingListQuery";
 import RoomSheet from "@/components/Rooms/RoomSheet";
 import React, { useState } from "react";
@@ -20,7 +19,7 @@ import {
   StatusBar,
   View,
 } from "react-native";
-import ExpiringSoonSection from "../Pantry/ExpiringSoonSection";
+import ExpiringSoonSection from "../Pantry/ExpiringSoonSection/ExpiringSoonSection";
 import { indexStyles as styles } from "./Dashboard.styles";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
@@ -79,7 +78,7 @@ export default function DashboardScreen() {
             theme={theme}
             title="Rooms"
             actionLabel="Manage"
-            onPressAction={() => setActiveTab("Rooms")}
+            onPressAction={() => router.replace("/rooms")}
           />
 
           <View style={styles.sectionGap}>
@@ -130,7 +129,7 @@ export default function DashboardScreen() {
                 theme={theme}
                 title="Expiring Soon"
                 actionLabel="Open Pantry"
-                onPressAction={() => setActiveTab("Pantry")}
+                onPressAction={() => router.replace("/pantry")}
               />
 
                 {isWorking ? (

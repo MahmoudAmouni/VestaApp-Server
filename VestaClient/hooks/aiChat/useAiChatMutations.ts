@@ -2,7 +2,7 @@ import { useSendChatMessage } from "./mutations/useSendChatMessage";
 import { useDeleteChatMessage } from "./mutations/useDeleteChatMessage";
 
 export function useAiChatMutations(args: {
-  homeId: number;
+  homeId: number | undefined;
   token?: string;
 }) {
   const sendMutation = useSendChatMessage(args);

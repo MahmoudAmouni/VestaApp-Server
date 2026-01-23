@@ -2,11 +2,11 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { apiGetChatPage } from "../../features/aiChat/aiChat.api";
 import type { ChatPage } from "../../features/aiChat/aiChat.types";
 
-export const aiChatKey = (homeId: number) =>
+export const aiChatKey = (homeId: number | undefined) =>
   ["aiChat", "home", homeId, "thread"] as const;
 
 export function useAiChatQuery(args: {
-  homeId: number;
+  homeId: number | undefined;
   token?: string;
   enabled?: boolean;
 }) {
@@ -18,7 +18,7 @@ export function useAiChatQuery(args: {
     initialPageParam: 1,
     queryFn: ({ pageParam, signal }) =>
       apiGetChatPage({
-        homeId,
+        homeId: homeId!,
         page: Number(pageParam),
         token,
         signal,

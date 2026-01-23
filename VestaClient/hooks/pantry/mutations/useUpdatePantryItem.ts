@@ -8,7 +8,7 @@ import { getPantryItemFromCache } from "../../../features/pantry/pantry.cache";
 
 import Toast from "react-native-toast-message";
 
-export function useUpdatePantryItem(args: { homeId: number; token?: string }) {
+export function useUpdatePantryItem(args: { homeId: number | undefined; token?: string }) {
   const { homeId, token } = args;
 
   return useMutation<
@@ -18,6 +18,7 @@ export function useUpdatePantryItem(args: { homeId: number; token?: string }) {
     { prev?: PantryItem[]; nextOptimistic?: PantryItem }
   >({
     mutationFn: async ({ pantryItemId, patch }) => {
+      if (!homeId) throw new Error("No home ID");
       const current = getPantryItemFromCache(homeId, pantryItemId);
       if (!current)
         throw new Error("Pantry item not found in cache. Try refetch.");
@@ -27,6 +28,7 @@ export function useUpdatePantryItem(args: { homeId: number; token?: string }) {
     },
 
     onMutate: async ({ pantryItemId, patch }) => {
+      if (!homeId) return {};
       await queryClient.cancelQueries({ queryKey: pantryKey(homeId) });
       const prev = queryClient.getQueryData<PantryItem[]>(pantryKey(homeId));
 
@@ -71,11 +73,11 @@ export function useUpdatePantryItem(args: { homeId: number; token?: string }) {
     },
 
     onError: (_err, _vars, ctx) => {
-      if (ctx?.prev) queryClient.setQueryData(pantryKey(homeId), ctx.prev);
+      if (homeId && ctx?.prev) queryClient.setQueryData(pantryKey(homeId), ctx.prev);
     },
 
     onSuccess: (updated, vars) => {
-      if (!updated) return;
+      if (!updated || !homeId) return;
 
       Toast.show({
         type: "success",
@@ -90,7 +92,7 @@ export function useUpdatePantryItem(args: { homeId: number; token?: string }) {
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: pantryKey(homeId) });
+      if (homeId) queryClient.invalidateQueries({ queryKey: pantryKey(homeId) });
     },
   });
 }

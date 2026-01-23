@@ -7,17 +7,16 @@ import {
 import { router } from "expo-router";
 import * as ImagePicker from 'expo-image-picker';
 
-import BottomNav from "@/components/ui/BottomNav";
 import { profileStyles as styles } from "./ProfileScreen.styles";
-import SettingsSection, { SettingsItem } from "@/components/profile/SettingsSection";
+import SettingsSection, { SettingsItem } from "@/components/profile/SettingsSection/SettingsSection";
 import HeaderSecondary from "@/components/ui/HeaderSecondary";
-import ProfileSummaryCard from "@/components/profile/ProfileSummaryCard";
-import DangerZoneActions from "@/components/profile/DangerZoneActions";
-import ProfileSheet from "./ProfileSheet";
+import ProfileSummaryCard from "@/components/profile/ProfileSummaryCard/ProfileSummaryCard";
+import DangerZoneActions from "@/components/profile/DangerZoneActions/DangerZoneActions";
+import ProfileSheet from "./ProfileSheet/ProfileSheet";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
-import InlineInputActionRow from "../Settings/InlineInputActionRow";
-import ThemeToggle from "../Settings/ThemeToggle";
+import InlineInputActionRow from "./InlineInputActionRow/InlineInputActionRow";
+import ThemeToggle from "./ThemeToggle/ThemeToggle";
 
 
 export default function ProfileScreen() {
