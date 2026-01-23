@@ -18,6 +18,7 @@ export default function SectionHeader(props: {
       <SmallButton
         label={props.actionLabel}
         onPress={props.onPressAction}
+        variant="text"
       />
     </View>
   );
