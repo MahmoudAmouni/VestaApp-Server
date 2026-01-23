@@ -6,7 +6,7 @@ import { shoppingListKey } from "../useShoppingListQuery";
 
 import Toast from "react-native-toast-message";
 
-export function useCreateShoppingListItem(args: { homeId: number; token?: string }) {
+export function useCreateShoppingListItem(args: { homeId: number | undefined; token?: string }) {
   const { homeId, token } = args;
 
   return useMutation<
@@ -15,10 +15,13 @@ export function useCreateShoppingListItem(args: { homeId: number; token?: string
     { dto: ShoppingListItemWriteDto },
     { prev?: ShoppingListItem[]; tempId: number }
   >({
-    mutationFn: async ({ dto }) =>
-      apiCreateShoppingListItem({ homeId, body: dto, token }),
+    mutationFn: async ({ dto }) => {
+      if (!homeId) throw new Error("Home ID is required");
+      return apiCreateShoppingListItem({ homeId, body: dto, token });
+    },
 
     onMutate: async ({ dto }) => {
+      if (!homeId) return { tempId: 0 };
       await queryClient.cancelQueries({ queryKey: shoppingListKey(homeId) });
       const prev = queryClient.getQueryData<ShoppingListItem[]>(
         shoppingListKey(homeId)

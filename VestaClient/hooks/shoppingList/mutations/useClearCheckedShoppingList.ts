@@ -6,7 +6,7 @@ import { shoppingListKey } from "../useShoppingListQuery";
 
 import Toast from "react-native-toast-message";
 
-export function useClearCheckedShoppingList(args: { homeId: number; token?: string }) {
+export function useClearCheckedShoppingList(args: { homeId: number | undefined; token?: string }) {
   const { homeId, token } = args;
 
   return useMutation<
@@ -15,10 +15,13 @@ export function useClearCheckedShoppingList(args: { homeId: number; token?: stri
     void,
     { prev?: ShoppingListItem[] }
   >({
-    mutationFn: async () =>
-      apiClearCheckedShoppingList({ homeId, token }),
+    mutationFn: async () => {
+        if (!homeId) throw new Error("Home ID is required");
+        return apiClearCheckedShoppingList({ homeId, token });
+    },
 
     onMutate: async () => {
+      if (!homeId) return {};
       await queryClient.cancelQueries({ queryKey: shoppingListKey(homeId) });
       const prev = queryClient.getQueryData<ShoppingListItem[]>(
         shoppingListKey(homeId)

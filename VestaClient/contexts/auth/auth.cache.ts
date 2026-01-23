@@ -1,7 +1,8 @@
 import { queryClient } from "@/lib/reactQuery";
-import type { AuthUser } from "@/features/auth/auth.types";
-import { meKey } from "./auth.query";
+import type { AuthUser, AuthSession } from "@/features/auth/auth.types";
+import { authSessionKey } from "./auth.query";
 
 export function getMeFromCache() {
-  return queryClient.getQueryData<AuthUser>(meKey());
+  const session = queryClient.getQueryData<AuthSession>(authSessionKey);
+  return session?.user;
 }
