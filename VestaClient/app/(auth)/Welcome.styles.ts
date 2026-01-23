@@ -26,6 +26,7 @@ export const welcomeStyles = StyleSheet.create({
   content: {
     alignItems: "center",
     paddingHorizontal: 16,
+    flexGrow: 1,
   },
 
   mainCard: {

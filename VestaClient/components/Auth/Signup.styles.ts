@@ -16,6 +16,7 @@ export const signupStyles = StyleSheet.create({
 
   content: {
     paddingHorizontal: 16,
+    flexGrow: 1,
   },
 
   card: {

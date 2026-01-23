@@ -16,6 +16,7 @@ export const loginStyles = StyleSheet.create({
 
   content: {
     paddingHorizontal: 16,
+    flexGrow: 1,
   },
 
   card: {
