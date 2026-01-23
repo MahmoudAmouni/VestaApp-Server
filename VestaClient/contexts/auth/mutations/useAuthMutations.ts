@@ -175,11 +175,9 @@ export function useAuthMutations() {
     onError: (err) => console.error("[auth] google onError:", err),
   });
 
-  // Use stable mutate references directly from React Query
   const login = loginMutation.mutate;
   const googleLogin = useCallback(
     (token: string, isAccessToken?: boolean) => googleMutation.mutate({ token, isAccessToken }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
   const register = registerMutation.mutate;

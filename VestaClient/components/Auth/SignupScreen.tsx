@@ -68,7 +68,7 @@ export default function SignupScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={[
             styles.content,
-            { paddingTop: 8, paddingBottom: insets.bottom + 18 },
+            { paddingBottom: insets.bottom + 18 },
           ]}
           keyboardShouldPersistTaps="handled"
         >
@@ -78,7 +78,7 @@ export default function SignupScreen() {
             onBack={() => router.replace("/")}
           />
 
-          <View style={{ flex: 1, justifyContent: "center" }}>
+          <View style={{ flex: 1, justifyContent: "center", paddingHorizontal: 16, marginTop: 14 }}>
             <Card theme={theme} radius={22} style={styles.card}>
               <Text style={[styles.h1, { color: theme.text }]}>
                 Let’s set up your home.

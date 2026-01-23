@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { useTheme } from "@/contexts/theme/ThemeContext";
-import RecipeCard from "./RecipeCard";
+import RecipeCard from "../RecipeCard/RecipeCard";
 import { recipesSectionStyles as styles } from "./RecipesSection.styles";
 import { RagRecipeResult } from "@/features/recipes/recipes.rag.types";
 

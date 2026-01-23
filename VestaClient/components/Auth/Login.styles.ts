@@ -15,7 +15,6 @@ export const loginStyles = StyleSheet.create({
   },
 
   content: {
-    paddingHorizontal: 16,
     flexGrow: 1,
   },
 
@@ -23,7 +22,6 @@ export const loginStyles = StyleSheet.create({
     width: "100%",
     maxWidth: 430,
     alignSelf: "center",
-    marginTop: 14,
   },
 
   h1: {
@@ -63,11 +61,6 @@ export const loginStyles = StyleSheet.create({
   rememberText: {
     fontSize: 11,
     fontWeight: "800",
-  },
-  forgotText: {
-    fontSize: 11,
-    fontWeight: "900",
-    textDecorationLine: "underline",
   },
 
   dividerText: {

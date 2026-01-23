@@ -58,7 +58,7 @@ export default function LoginScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={[
             styles.content,
-            { paddingTop: 8, paddingBottom: insets.bottom + 18 },
+            { paddingBottom: insets.bottom + 18 },
           ]}
           keyboardShouldPersistTaps="handled"
         >
@@ -68,7 +68,7 @@ export default function LoginScreen() {
             onBack={() => router.replace("/")}
           />
 
-          <View style={{ flex: 1, justifyContent: "center" }}>
+          <View style={{ flex: 1, justifyContent: "center", paddingHorizontal: 16, marginTop: 14 }}>
             <Card theme={theme} radius={22} style={styles.card}>
               <Text style={[styles.h1, { color: theme.text }]}>
                 Pick up where you left off.
@@ -132,15 +132,6 @@ export default function LoginScreen() {
                     </Text>
                   </Pressable>
 
-                  <Pressable
-                    style={({ pressed }) => [{ opacity: pressed ? 0.85 : 1 }]}
-                    accessibilityRole="button"
-                    accessibilityLabel="Forgot password"
-                  >
-                    <Text style={[styles.forgotText, { color: theme.textMuted }]}>
-                      Forgot password?
-                    </Text>
-                  </Pressable>
                 </View>
 
                 <Button

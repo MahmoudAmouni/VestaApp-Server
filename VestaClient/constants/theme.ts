@@ -48,16 +48,16 @@ export const Fonts = Platform.select({
 
 
 export const lightTheme: Theme = {
-  bg: "#ffffff",
-  surface: "#f9f9fb",
-  surface2: "#f0f0f4",
-  text: "#11181C",
-  textMuted: "rgba(17, 24, 28, 0.68)",
-  border: "rgba(0,0,0,0.10)",
-  borderStrong: "rgba(0,0,0,0.16)",
-  primary: "#E7523C",
-  navBg: "rgba(255, 255, 255, 0.82)",
-  shadow1: "rgba(0,0,0,0.15)",
+  bg: "#F5F7FA", 
+  surface: "#FFFFFF", 
+  surface2: "#EDF2F7", 
+  text: "#1A202C", 
+  textMuted: "#64748B",
+  border: "#E2E8F0", 
+  borderStrong: "#CBD5E1", 
+  primary: "#E7523C", 
+  navBg: "rgba(255, 255, 255, 0.90)", 
+  shadow1: "rgba(148, 163, 184, 0.15)", 
   statusError: "#EF4444",
 };
 

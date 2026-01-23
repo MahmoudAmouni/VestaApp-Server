@@ -7,14 +7,14 @@ import {
 } from "react-native-safe-area-context";
 
 
-import BottomNav from "@/components/ui/BottomNav";
+
 import Button from "@/components/ui/Button";
 import Header from "@/components/ui/Header";
 import HeroCard from "@/components/ui/HeroCard";
 import Skeleton from "@/components/ui/Skeleton";
 
-import RecipesSection from "@/components/Recipe/RecipeSection";
-import { recipesScreenStyles as styles } from "./recipe.styles";
+import RecipesSection from "./RecipesSection/RecipesSection";
+import { recipesScreenStyles as styles } from "./RecipesScreen.styles";
 import { useRecipesRag } from "@/features/recipes/useRecipesRag";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTheme } from "@/contexts/theme/ThemeContext";
@@ -145,8 +145,8 @@ export default function RecipesScreen() {
                 const recipe = allRecipes.find(r => r.id === id);
                 if (recipe) {
                   router.push({
-                    pathname: `/recipes/${id}`,
-                    params: { recipeData: JSON.stringify(recipe) }
+                    pathname: "/recipes/[id]",
+                    params: { id, recipeData: JSON.stringify(recipe) }
                   });
                 }
               }}
