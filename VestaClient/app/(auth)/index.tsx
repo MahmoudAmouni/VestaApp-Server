@@ -85,7 +85,7 @@ export default function WelcomeScreen() {
               By continuing, you agree to our{" "}
               <Text
                 style={[styles.legalLink, { color: theme.text }]}
-                //   onPress={() => router.push("/terms")}
+                  onPress={() => router.push("/terms")}
               >
                 Terms
               </Text>{" "}

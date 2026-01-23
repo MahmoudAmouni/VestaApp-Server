@@ -35,7 +35,18 @@ export default function SignupScreen() {
 
   
 
+  const canSubmit = useMemo(() => {
+    return (
+      name.trim().length > 0 &&
+      email.trim().length > 0 &&
+      password.length >= 8 &&
+      homeName.trim().length > 0 &&
+      agree
+    );
+  }, [name, email, password, homeName, agree]);
+
   function onCreateAccount(){
+    if (!canSubmit) return;
     register({name,email,password,home_name:homeName})
   }
 
@@ -150,14 +161,14 @@ export default function SignupScreen() {
                     I agree to the{" "}
                     <Text
                       style={[styles.termsLink, { color: theme.text }]}
-                      // onPress={() => router.push("/terms")}
+                      onPress={() => router.push("/terms")}
                     >
                       Terms
                     </Text>{" "}
                     and{" "}
                     <Text
                       style={[styles.termsLink, { color: theme.text }]}
-                      // onPress={() => router.push("/privacy")}
+                      onPress={() => router.push("/privacy")}
                     >
                       Privacy
                     </Text>
@@ -168,6 +179,8 @@ export default function SignupScreen() {
                   variant="primary"
                   label="Create account"
                   onPress={onCreateAccount}
+                  disabled={!canSubmit}
+                  style={{ opacity: canSubmit ? 1 : 0.5 }}
                 />
 
                 <Text style={[styles.dividerText, { color: theme.textMuted }]}>
