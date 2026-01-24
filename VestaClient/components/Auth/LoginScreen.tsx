@@ -42,13 +42,7 @@ export default function LoginScreen() {
 
   return (
     <View style={[styles.screen, { backgroundColor: theme.bg }]}>
-      <View
-        pointerEvents="none"
-        style={[
-          styles.glow,
-          {  borderColor: theme.border },
-        ]}
-      />
+
 
       <KeyboardAvoidingView
         style={{ flex: 1 }}

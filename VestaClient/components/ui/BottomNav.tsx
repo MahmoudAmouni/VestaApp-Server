@@ -74,6 +74,9 @@ export default function BottomNav(props: { theme: Theme }) {
             backgroundColor: theme.navBg ?? theme.bg,
             borderColor: theme.border,
             paddingBottom: 8,
+            maxWidth: 430,
+            alignSelf: "center",
+            width: "100%",
           },
         ]}
       >

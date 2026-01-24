@@ -10,7 +10,7 @@ export const VESTA_CONFIG = {
   DOT_BOUNCE_DURATION: 400,
   
   COLORS: {
-    primary: '#c45b3d',
+    primary: '#E7523C',
   },
   
   RECORDER_POLL_INTERVAL: 200, 

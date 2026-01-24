@@ -62,6 +62,9 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     borderBottomWidth: 1,
     justifyContent: "space-between",
+    width: "100%",
+    maxWidth: 430,
+    alignSelf: "center",
   },
   backBtn: {
     width: 40,
