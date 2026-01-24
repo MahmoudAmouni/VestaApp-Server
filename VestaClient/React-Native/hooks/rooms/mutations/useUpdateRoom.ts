@@ -1,0 +1,63 @@
+import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "../../../lib/reactQuery";
+import type { Room } from "../../../features/rooms/rooms.types";
+import { apiUpdateRoom } from "../../../features/rooms/rooms.api";
+
+import { roomsKey } from "../useRoomsQuery";
+import { getRoomFromCache } from "../../../features/rooms/rooms.cache";
+import { buildRoomUpdateDto, RoomUpdatePatch } from "@/React-Native/features/rooms/rooms.write.types";
+
+import Toast from "react-native-toast-message";
+
+export function useUpdateRoom(args: { homeId: number; token?: string }) {
+  const { homeId, token } = args;
+
+  return useMutation({
+    mutationFn: async (vars: { roomId: number; patch: RoomUpdatePatch }) => {
+      const current = getRoomFromCache(homeId, vars.roomId);
+      if (!current)
+        throw new Error("Room not found in cache. Try refetching rooms.");
+
+      const body = buildRoomUpdateDto(current, vars.patch);
+      return apiUpdateRoom({ roomId: vars.roomId, homeId, body, token });
+    },
+    onMutate: async ({ roomId, patch }) => {
+      await queryClient.cancelQueries({ queryKey: roomsKey(homeId) });
+      const prev = queryClient.getQueryData<Room[]>(roomsKey(homeId));
+
+      queryClient.setQueryData<Room[]>(roomsKey(homeId), (current) => {
+        if (!current) return current;
+
+        return current.map((r) => {
+          if (r.id !== roomId) return r;
+          return {
+            ...r,
+            room_name: patch.name
+              ? { ...r.room_name, name: patch.name }
+              : r.room_name,
+          };
+        });
+      });
+
+      return { prev };
+    },
+    onError: (_err, _vars, ctx) => {
+      if (ctx?.prev) queryClient.setQueryData(roomsKey(homeId), ctx.prev);
+    },
+    onSuccess: (updatedRoom) => {
+      Toast.show({
+        type: "success",
+        text1: "Room Updated",
+        text2: `${updatedRoom.room_name.name} has been updated successfully.`,
+      });
+
+      queryClient.setQueryData<Room[]>(roomsKey(homeId), (current) => {
+        if (!current) return current;
+        return current.map((r) => (r.id === updatedRoom.id ? updatedRoom : r));
+      });
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: roomsKey(homeId) });
+    },
+  });
+}
