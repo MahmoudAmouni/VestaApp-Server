@@ -22,7 +22,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <img src="./readme/titles/title3.svg"/>
 
 ### System Design
-<img src="./readme/system-design/system design.png"/>
+<img src="./readme/system-design/system design.png" style="width: 100%;"/>
+
+### Database Schema
+[View Interactive Diagram](https://dbdiagram.io/d/VestaDB-696f74f5bd82f5fce2052481)
+<img src="./readme/database/VestaDB.png" style="width: 100%;" />
 
 <br><br>
 
@@ -41,6 +45,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <img src="./readme/features/vestaF-features.png"/>
 
 ### Vesta AI Demo
+> This is your home assistant Vesta, she is here to help you with whatever you need.
 <img src="./readme/vesta/vesta.gif" style="width: 100%;" />
 
 
