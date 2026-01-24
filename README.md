@@ -1,118 +1,125 @@
-<img src="./readme/title1.svg"/>
+<img src="./readme/titles/title1.svg"/>
+
+<br><br>
+
+## License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 <br><br>
 
 <!-- project overview -->
-<img src="./readme/title2.svg"/>
+<img src="./readme/titles/title2.svg"/>
 
-> A comprehensive smart home assistant that integrates inventory management, device control, and AI-driven insights.
->
-> VestaApp unifies your home experience by connecting your pantry, recipes, and electrical devices into a single, intelligent interface.
+> VestaApp is a comprehensive smart home assistant that integrates inventory management, device control, and AI-driven insights. 
+> Unify your home experience by connecting your pantry, recipes, and electrical devices into a single, intelligent interface.
 
 <br><br>
 
 <!-- System Design -->
-<img src="./readme/title3.svg"/>
+<img src="./readme/titles/title3.svg"/>
 
-### Architecture
-
-- **Monorepo Structure**: Unified repository managing Server, AI, and Client services.
-- **Backend (Laravel)**:
-  - Handles Authentication (Sanctum).
-  - Manages Business Logic for Rooms, Devices, Pantry, and Shopping Lists.
-  - SQLite Database for lightweight, portable data storage.
-- **AI Service (Django)**:
-  - **Conversational AI**: Context-aware agent for home queries using LangChain.
-  - **RAG System**: Vector database (ChromaDB) for recipe and instruction retrieval.
-  - **Electrical Device Integration**: Direct control of ESP devices via API.
-- **Client (React Native)**:
-  - Built with Expo & TypeScript.
-  - Android Application.
-  - Modern, dark-themed UI with custom components.
+### System Design
+<img src="./readme/system-design/system design.png"/>
 
 <br><br>
 
 <!-- Project Highlights -->
-<img src="./readme/title4.svg"/>
+<img src="./readme/titles/title4.svg"/>
 
 ### Key Features
 
 - **Smart Pantry**: Track inventory, expiry dates, and categorize items.
 - **Recipe Intelligence**: Generate recipes based on available ingredients (RAG-powered).
-- **Home Control**:
-  - Add and manage Rooms and Devices.
-  - Real-time status toggling for electrical devices.
-- **Shopping Assistant**:
-  - Automatic shopping list generation.
-  - Item checking and management.
-- **Personalized AI**:
-  - Chat with Vesta for home assistance.
-  - Context-aware responses based on your home's state.
-- **Secure Authentication**: Robust user management and session handling.
+- **Home Control**: Real-time status toggling for electrical devices.
+- **Personalized AI**: Context-aware chat with Vesta for home assistance.
+
+<br>
+
+<img src="./readme/features/vestaF-features.png"/>
+
+### Vesta AI Demo
+<video src="./readme/vesta/vesta.mp4" controls="controls" style="max-width: 100%;">
+</video>
+
 
 <br><br>
 
 <!-- Demo -->
-<img src="./readme/title5.svg"/>
+<img src="./readme/titles/title5.svg"/>
 
-### Mobile Interface
+### User Screens
 
-| Login & Auth                            | Smart Home Dashboard                       | Pantry & Inventory                       |
+| Login | Signup | Google Verification |
 | --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Login](./readme/demo/1440x1024.png) | ![Dashboard](./readme/demo/1440x1024.png) | ![Pantry](./readme/demo/1440x1024.png) |
+| ![Login](./readme/demo/screenshots/login.png) | ![Signup](./readme/demo/screenshots/signup.png) | ![Google](./readme/demo/screenshots/google verification.png) |
 
-
-### Key Workflows
-
-| AI Chat Assistant                            | Recipe Details                       |
+| Welcome | Saved Recipes |
 | --------------------------------------- | ------------------------------------- |
-| ![Chat](./readme/demo/1440x1024.png) | ![Recipe](./readme/demo/1440x1024.png) |
+| ![Welcome](./readme/demo/screenshots/welcome.png) | ![Saved Recipes](./readme/demo/screenshots/savedrecipes.png) |
 
+### Feature Demos
+
+| Dashboard (Dark) | Dashboard (Light) |
+| --------------------------------------- | ------------------------------------- |
+| ![Dark](./readme/demo/gif/dashboard-ezgif.com-video-to-gif-converter.gif) | ![Light](./readme/demo/gif/dashboard-light-ezgif.com-video-to-gif-converter (2).gif) |
+
+| Pantry | Saved Recipes |
+| --------------------------------------- | ------------------------------------- |
+| ![Pantry](./readme/demo/gif/pantry-ezgif.com-video-to-gif-converter.gif) | ![Recipes](./readme/demo/gif/recipe-ezgif.com-video-to-gif-converter.gif) |
+
+| Profile | Rooms |
+| --------------------------------------- | ------------------------------------- |
+| ![Profile](./readme/demo/gif/profile-ezgif.com-video-to-gif-converter.gif) | ![Rooms](./readme/demo/gif/rooms-ezgif.com-video-to-gif-converter.gif) |
+
+### IoT Control Demo
+<video src="./readme/IoT/iot.mp4" controls="controls" style="max-width: 100%;">
+</video>
 
 <br><br>
 
 <!-- Development & Testing -->
-<img src="./readme/title6.svg"/>
+<img src="./readme/titles/title6.svg"/>
 
-### Getting Started
+### Development
 
-- **Prerequisites**:
-  - Node.js & NPM
-  - PHP 8.4 & Composer
-  - Python 3.11 & Pip
-- **Installation**:
-  1. Clone the repository.
-  2. **Laravel**: `cd VestaServer/Laravel` -> `composer install` -> `php artisan migrate`.
-  3. **Django**: `cd VestaServer/Django/Ai` -> `pip install -r requirements.txt`.
-  4. **Client**: `cd VestaClient` -> `npm install`.
+- **Server**: `VestaAppServer` (Laravel & Django)
+- **Client**: `VestaClient` (React Native/Expo)
 
-### Testing
+### Testing & CI/CD
 
-| Backend Tests                            | Client Validation                       | AI Model Checks                        |
+| Frontend Tests | Backend Tests | CI/CD |
 | --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Backend](./readme/demo/1440x1024.png) | ![Client](./readme/demo/1440x1024.png) | ![AI](./readme/demo/1440x1024.png) |
-
+| ![Frontend](./readme/demo/1440x1024.png) | ![Backend](./readme/demo/1440x1024.png) | ![CICD](./readme/demo/1440x1024.png) |
 
 <br><br>
 
-<!-- Deployment -->
-<img src="./readme/title7.svg"/>
+### Dataset & Machine Learning
 
-### CI/CD Pipeline
+- **RAG System**: Vector database for recipe retrieval.
+- **Context Awareness**: Intelligent home queries using LangChain.
 
-- **GitHub Actions**:
-  - **CI Backend**: Runs PHPUnit (Laravel) and Python checks (Django) on `VestaServer/**` changes.
-  - **CI Client**: Runs Type Checking and Linting on `VestaClient/**` changes.
-  - **CD Production**: Automatically deploys `main` branch to EC2.
-- **Deployment Strategy**:
-  - Automated `git pull`.
-  - Service-specific dependency updates (`composer` / `pip`).
-  - Database migrations (`php artisan migrate`).
-  - Service restarts.
+| Dataset | Training |
+| --------------------------------------- | ------------------------------------- |
+| ![Dataset](./readme/dataset/image.png) | ![Training](./readme/demo/1440x1024.png) |
 
+<br><br>
 
-| Pipeline Status                            | Deployment Logs                       | API Health Check                        |
-| --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Status](./readme/demo/1440x1024.png) | ![Logs](./readme/demo/1440x1024.png) | ![Health](./readme/demo/1440x1024.png) |
+<!-- APIs -->
+<img src="./readme/titles/title7.svg"/>
+
+### API & Postman
+
+| Postman Collection | API Documentation |
+| --------------------------------------- | ------------------------------------- |
+| ![Postman](./readme/demo/1440x1024.png) | ![API](./readme/demo/1440x1024.png) |
+
+<br><br>
+
+### AI Agent Workflow
+
+<img src="./readme/ai-agent-workflow/ai-agent-flow.jpg"/>
 
 <br><br>
