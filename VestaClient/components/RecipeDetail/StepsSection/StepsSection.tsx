@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 
 import { Theme } from "@/type";
-import StepCard from "./StepCard";
+import StepCard from "../StepCard/StepCard";
 
 import { stepsSectionStyles as styles } from "./StepsSection.styles";
 

@@ -42,13 +42,7 @@ export default function LoginScreen() {
 
   return (
     <View style={[styles.screen, { backgroundColor: theme.bg }]}>
-      <View
-        pointerEvents="none"
-        style={[
-          styles.glow,
-          {  borderColor: theme.border },
-        ]}
-      />
+
 
       <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -74,7 +68,7 @@ export default function LoginScreen() {
                 Pick up where you left off.
               </Text>
               <Text style={[styles.sub, { color: theme.textMuted }]}>
-                Your home, recipes, and assistant — ready anytime.
+                Your home, recipes, and assistant ready anytime.
               </Text>
 
               <View style={styles.form}>

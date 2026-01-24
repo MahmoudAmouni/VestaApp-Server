@@ -47,16 +47,29 @@ export default function RoomCard(props: {
             <Text style={{ color: theme.textMuted, fontSize: 14 }}>No devices added yet</Text>
           </View>
         ) : (
-          room.devices?.slice(0, 2).map((d) => (
-            <DeviceRow key={d.id} theme={theme} device={d} roomId={room.id} />
+          room.devices?.slice(0, 2).map((device) => (
+            <DeviceRow
+              key={device.id}
+              theme={theme}
+              device={device}
+              roomId={room.id}
+            />
           ))
         )}
       </View>
 
       <View style={styles.footer}>
+        {room.devices && room.devices.length > 2 ? (
+             <View style={{ paddingVertical: 4 }}>
+                <Text style={{ color: theme.textMuted, fontSize: 13, fontWeight: '600' }}>
+                   +{room.devices.length - 2} more device{room.devices.length - 2 === 1 ? '' : 's'}
+                </Text>
+             </View>
+        ) : <View />}
+
         <Button
           variant="secondary"
-          label="Open"
+          label="Open Room"
           onPress={props.onPressOpen}
           style={styles.openBtn}
         />

@@ -6,6 +6,10 @@ export const brandRowStyles = StyleSheet.create({
     alignItems: "center",
     gap: 10,
     marginBottom: 16,
+    width: "100%",
+    maxWidth: 430,
+    alignSelf: "center",
+    justifyContent: "center",
   },
   mark: {
     width: 60,

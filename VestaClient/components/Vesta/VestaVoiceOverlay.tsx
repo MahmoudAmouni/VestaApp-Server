@@ -51,12 +51,21 @@ export function VestaVoiceOverlay() {
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
+    position: 'absolute',
+    bottom: 0,
+    top: 0,
+    left: '50%',
+    width: '100%',
+    maxWidth: 430,
+    transform: [
+      { translateX: '-50%' }
+    ],
     zIndex: 9999,
-    justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    padding: 20,
-    paddingBottom: 100,
-    pointerEvents: 'box-none', 
+    justifyContent: 'flex-end',
+    pointerEvents: 'box-none',
+    padding: 0,
+    paddingHorizontal: 20,
+    paddingBottom: 100, 
   },
 });

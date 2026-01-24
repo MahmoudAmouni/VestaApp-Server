@@ -11,6 +11,7 @@ import { getExpiringSoon } from "@/utils/dateHelpers";
 import { useRouter } from "expo-router";
 import ShoppingListPreview from "@/components/Home/ShoppingListPreview/ShoppingListPreview";
 import { useShoppingListQuery } from "@/hooks/shoppingList/useShoppingListQuery";
+import { useSavedRecipesQuery } from "@/hooks/savedRecipes/useSavedRecipesQuery";
 import RoomSheet from "@/components/Rooms/RoomSheet";
 import React, { useState } from "react";
 import {
@@ -39,9 +40,14 @@ export default function DashboardScreen() {
   const { data: pantryItems = [], isLoading } = usePantryQuery({ homeId, token });
   const { data: rooms = [], isLoading: isGettingRooms } = useRoomsQuery({ homeId, token });
   const { data: shoppingList = [], isLoading: isGettingList } = useShoppingListQuery({ homeId, token });
+  const { data: savedRecipes = [], isLoading: isGettingRecipes } = useSavedRecipesQuery({ homeId, token });
   
-  const isWorking = isLoading || isGettingRooms || isGettingList;
+  const isWorking = isLoading || isGettingRooms || isGettingList || isGettingRecipes;
   const expiringSoon = getExpiringSoon(pantryItems);
+  
+  const devicesOn = rooms.reduce((acc, room) => acc + (room.devices?.filter(d => d.is_on).length || 0), 0);
+  const totalDevices = rooms.reduce((acc, room) => acc + (room.devices?.length || 0), 0);
+  const devicesOff = totalDevices - devicesOn;
   const router = useRouter();
 
   return (
@@ -64,13 +70,13 @@ export default function DashboardScreen() {
           <HeroCard
             theme={theme}
             title="Calm & ready."
-            sub="A quick snapshot of your space — lights, pantry, and what’s coming up."
+            sub="A quick snapshot of your space lights, pantry, and what’s coming up."
             loading={isWorking}
             kpis={[
-              { label: "Devices ON", value: "3" },
-              { label: "Offline", value: "0" },
-              { label: "Expiring soon", value: "2" },
-              { label: "Saved Recipes", value: "12" },
+              { label: "Devices ON", value: String(devicesOn) },
+              { label: "Offline", value: String(devicesOff) },
+              { label: "Expiring soon", value: String(expiringSoon.length) },
+              { label: "Saved Recipes", value: String(savedRecipes.length) },
             ]}
           />
 

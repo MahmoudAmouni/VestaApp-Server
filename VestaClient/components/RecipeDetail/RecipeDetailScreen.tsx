@@ -10,10 +10,10 @@ import { router } from "expo-router";
 import BottomNav from "@/components/ui/BottomNav";
 import { recipeDetailStyles as styles } from "./RecipeDetailScreen.styles";
 import HeaderSecondary from "@/components/ui/HeaderSecondary";
-import QuickStatsCard, { QuickStat } from "@/components/RecipeDetail/QuickStatsCard";
-import DescriptionSection from "@/components/RecipeDetail/DescriptionSection";
-import IngredientsSection   from "@/components/RecipeDetail/IngredientSection";
-import StepsSection from "@/components/RecipeDetail/StepsSection";
+import QuickStatsCard, { QuickStat } from "@/components/RecipeDetail/QuickStatsCard/QuickStatsCard";
+import DescriptionSection from "@/components/RecipeDetail/DescriptionSection/DescriptionSection";
+import IngredientsSection   from "@/components/RecipeDetail/IngredientsSection/IngredientsSection";
+import StepsSection from "@/components/RecipeDetail/StepsSection/StepsSection";
 import { useTheme } from "@/contexts/theme/ThemeContext";
 import { RagRecipeResult } from "@/features/recipes/recipes.rag.types";
 

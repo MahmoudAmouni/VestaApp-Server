@@ -21,7 +21,7 @@ class StoreUpdateUserRequest extends FormRequest
             'phone' => ['sometimes', 'nullable', 'string', 'max:50'],
             'diet' => ['sometimes', 'nullable', 'string', 'max:255'],
             'allergy' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'avatar' => ['sometimes',"nullable", 'file', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
+            'avatar' => ['sometimes', 'nullable'], 
             'password' => ['sometimes', 'nullable', 'string', 'min:8', 'max:255'],
         ];
     }

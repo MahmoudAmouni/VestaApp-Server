@@ -6,6 +6,7 @@ import {
 } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system/legacy';
 
 import { profileStyles as styles } from "./ProfileScreen.styles";
 import SettingsSection, { SettingsItem } from "@/components/profile/SettingsSection/SettingsSection";
@@ -37,7 +38,7 @@ export default function ProfileScreen() {
   const handlePickImage = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        mediaTypes: ['images'],
         allowsEditing: true,
         aspect: [1, 1],
         quality: 0.5,
@@ -48,15 +49,13 @@ export default function ProfileScreen() {
         
         setAvatar(asset.uri);
 
-        const formData = new FormData();
-        // @ts-ignore
-        formData.append('avatar', {
-          uri: asset.uri,
-          name: 'avatar.jpg',
-          type: 'image/jpeg',
+        const base64 = await FileSystem.readAsStringAsync(asset.uri, {
+          encoding: FileSystem.EncodingType.Base64,
         });
+        const mimeType = asset.mimeType ?? "image/jpeg";
+        const avatarData = `data:${mimeType};base64,${base64}`;
 
-        updateUser(formData as any); 
+        updateUser({ avatar: avatarData } as any); 
       }
     } catch (e) {
       Alert.alert("Error", "Failed to update profile picture");

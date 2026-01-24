@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 
 import { Theme } from "@/type";
-import IngredientRow from "./IngredientRow";
+import IngredientRow from "../IngredientRow/IngredientRow";
 import { ingredientsSectionStyles as styles } from "./IngredientsSection.styles";
 
 export default function IngredientsSection(props: {

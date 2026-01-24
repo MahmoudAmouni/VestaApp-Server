@@ -69,6 +69,7 @@ export type UpdateUserDto = {
   phone?: string | null;
   diet?: string | null;
   allergy?: string | null;
+  avatar?: string | null;
 
   password?: string | null;
   passwordConfirmation?: string | null;

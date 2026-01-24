@@ -93,7 +93,7 @@ export default function RoomsScreen() {
               style={{ marginTop: 14 }}
             />
 
-            <View>
+            <View style={styles.cardList}>
               {isLoading ? (
                 <View style={{ gap: 14 }}>
                    <Skeleton height={140} borderRadius={18} />
