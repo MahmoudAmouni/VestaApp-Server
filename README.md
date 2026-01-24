@@ -123,10 +123,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### API & Postman
 
-| Postman Collection | API Documentation |
-| --------------------------------------- | ------------------------------------- |
-| ![Postman](./readme/demo/1440x1024.png) | ![API](./readme/demo/1440x1024.png) |
-
 | AI Chat | Rooms | Saved Recipes |
 | :---: | :---: | :---: |
 | <img src="./readme/postman/aichat.png" width="280" /> | <img src="./readme/postman/rooms.png" width="280" /> | <img src="./readme/postman/savedRecipes.png" width="280" /> |
