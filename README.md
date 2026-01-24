@@ -41,8 +41,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <img src="./readme/features/vestaF-features.png"/>
 
 ### Vesta AI Demo
-<video src="./readme/vesta/vesta.mp4" controls="controls" style="max-width: 100%;">
-</video>
+<img src="./readme/vesta/vesta.gif" style="width: 100%;" />
 
 
 <br><br>
@@ -81,8 +80,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 | <img src="./readme/demo/screenshots/profile.png" width="200" /> | <img src="./readme/demo/screenshots/about.png" width="200" /> | <img src="./readme/demo/screenshots/privacy.png" width="200" /> | <img src="./readme/demo/screenshots/terms.png" width="200" /> |
 
 ### IoT Control Demo
-<video src="./readme/IoT/iot.mp4" controls="controls" style="max-width: 100%;">
-</video>
+<img src="./readme/IoT/iot.gif" style="width: 100%;" />
 
 <br><br>
 
