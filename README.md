@@ -35,16 +35,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Key Features
 
-- **Smart Pantry**: Track inventory, expiry dates, and categorize items.
-- **Recipe Intelligence**: Generate recipes based on available ingredients (RAG-powered).
-- **Home Control**: Real-time status toggling for electrical devices.
-- **Personalized AI**: Context-aware chat with Vesta for home assistance.
 
 <br>
 
+- **IoT Devices**: Connects directly to ESP32 hardware to monitor physical inventory and control home devices based on your environment.
+- **RAG: Intelligent Memory**: Retrieves context from your personal logs to provide grounded, accurate suggestions based on your data.
+- **Ai-Agent: Vesta Assistant**: An autonomous voice agent that controls your electrical devices and manages your pantry and shopping list through natural conversation.
+
+
 <img src="./readme/features/vesta-features.png"/>
 
-### Vesta AI Demo
+### Vesta 
 > This is your home assistant Vesta, she is here to help you with whatever you need.
 <img src="./readme/vesta/vesta.gif" style="width: 100%;" />
 
@@ -108,11 +109,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ### Dataset & Machine Learning
 
 - **RAG System**: Vector database for recipe retrieval.
-- **Context Awareness**: Intelligent home queries using LangChain.
 
-| Dataset | Training |
-| --------------------------------------- | ------------------------------------- |
-| ![Dataset](./readme/dataset/image.png) | ![Training](./readme/demo/1440x1024.png) |
+![Dataset](./readme/dataset/image.png)
+
+### AI Agent Workflow
+
+<img src="./readme/ai-agent-workflow/ai-agent-flow.jpg"/>
 
 <br><br>
 
@@ -125,10 +127,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 | --------------------------------------- | ------------------------------------- |
 | ![Postman](./readme/demo/1440x1024.png) | ![API](./readme/demo/1440x1024.png) |
 
-<br><br>
-
-### AI Agent Workflow
-
-<img src="./readme/ai-agent-workflow/ai-agent-flow.jpg"/>
+| AI Chat | Rooms | Saved Recipes |
+| :---: | :---: | :---: |
+| <img src="./readme/postman/aichat.png" width="280" /> | <img src="./readme/postman/rooms.png" width="280" /> | <img src="./readme/postman/savedRecipes.png" width="280" /> |
 
 <br><br>
+
+
