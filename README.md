@@ -54,25 +54,25 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 | Login | Signup | Google Verification |
 | --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Login](./readme/demo/screenshots/login.png) | ![Signup](./readme/demo/screenshots/signup.png) | ![Google](./readme/demo/screenshots/google verification.png) |
+| <img src="./readme/demo/screenshots/login.png" width="280" /> | <img src="./readme/demo/screenshots/signup.png" width="280" /> | <img src="./readme/demo/screenshots/google verification.png" width="280" /> |
 
 | Welcome | Saved Recipes |
 | --------------------------------------- | ------------------------------------- |
-| ![Welcome](./readme/demo/screenshots/welcome.png) | ![Saved Recipes](./readme/demo/screenshots/savedrecipes.png) |
+| <img src="./readme/demo/screenshots/welcome.png" width="280" /> | <img src="./readme/demo/screenshots/savedrecipes.png" width="280" /> |
 
 ### Feature Demos
 
 | Dashboard (Dark) | Dashboard (Light) |
 | --------------------------------------- | ------------------------------------- |
-| ![Dark](./readme/demo/gif/dashboard-ezgif.com-video-to-gif-converter.gif) | ![Light](./readme/demo/gif/dashboard-light-ezgif.com-video-to-gif-converter (2).gif) |
+| <img src="./readme/demo/gif/dashboard-ezgif.com-video-to-gif-converter.gif" width="280" /> | <img src="./readme/demo/gif/dashboard-light-ezgif.com-video-to-gif-converter (2).gif" width="280" /> |
 
 | Pantry | Saved Recipes |
 | --------------------------------------- | ------------------------------------- |
-| ![Pantry](./readme/demo/gif/pantry-ezgif.com-video-to-gif-converter.gif) | ![Recipes](./readme/demo/gif/recipe-ezgif.com-video-to-gif-converter.gif) |
+| <img src="./readme/demo/gif/pantry-ezgif.com-video-to-gif-converter.gif" width="280" /> | <img src="./readme/demo/gif/recipe-ezgif.com-video-to-gif-converter.gif" width="280" /> |
 
 | Profile | Rooms |
 | --------------------------------------- | ------------------------------------- |
-| ![Profile](./readme/demo/gif/profile-ezgif.com-video-to-gif-converter.gif) | ![Rooms](./readme/demo/gif/rooms-ezgif.com-video-to-gif-converter.gif) |
+| <img src="./readme/demo/gif/profile-ezgif.com-video-to-gif-converter.gif" width="280" /> | <img src="./readme/demo/gif/rooms-ezgif.com-video-to-gif-converter.gif" width="280" /> |
 
 ### IoT Control Demo
 <video src="./readme/IoT/iot.mp4" controls="controls" style="max-width: 100%;">
