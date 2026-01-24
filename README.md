@@ -42,7 +42,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <br>
 
-<img src="./readme/features/vestaF-features.png"/>
+<img src="./readme/features/vesta-features.png"/>
 
 ### Vesta AI Demo
 > This is your home assistant Vesta, she is here to help you with whatever you need.
