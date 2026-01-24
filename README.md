@@ -50,29 +50,35 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <!-- Demo -->
 <img src="./readme/titles/title5.svg"/>
 
-### User Screens
+### User Screens & Demos
 
-| Login | Signup | Google Verification |
-| --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| <img src="./readme/demo/screenshots/login.png" width="280" /> | <img src="./readme/demo/screenshots/signup.png" width="280" /> | <img src="./readme/demo/screenshots/google verification.png" width="280" /> |
+| Welcome | Login | Signup | Google Verification |
+| :---: | :---: | :---: | :---: |
+| <img src="./readme/demo/screenshots/welcome.png" width="200" /> | <img src="./readme/demo/screenshots/login.png" width="200" /> | <img src="./readme/demo/screenshots/signup.png" width="200" /> | <img src="./readme/demo/screenshots/google verification.png" width="200" /> |
 
-| Welcome | Saved Recipes |
-| --------------------------------------- | ------------------------------------- |
-| <img src="./readme/demo/screenshots/welcome.png" width="280" /> | <img src="./readme/demo/screenshots/savedrecipes.png" width="280" /> |
+| Dashboard (Dark) | Dashboard (Light) | Room Details (Empty) |
+| :---: | :---: | :---: |
+| <img src="./readme/demo/gif/dashboard-ezgif.com-video-to-gif-converter.gif" width="280" /> | <img src="./readme/demo/gif/dashboard-light-ezgif.com-video-to-gif-converter (2).gif" width="280" /> | <img src="./readme/demo/screenshots/roomdetailsempty.png" width="280" /> |
 
-### Feature Demos
+| Pantry (Full) | Pantry (Empty) | Pantry (Light) |
+| :---: | :---: | :---: |
+| <img src="./readme/demo/screenshots/pantryfull.png" width="280" /> | <img src="./readme/demo/screenshots/pantryempty.png" width="280" /> | <img src="./readme/demo/screenshots/pantryemptylight.png" width="280" /> |
 
-| Dashboard (Dark) | Dashboard (Light) |
-| --------------------------------------- | ------------------------------------- |
-| <img src="./readme/demo/gif/dashboard-ezgif.com-video-to-gif-converter.gif" width="280" /> | <img src="./readme/demo/gif/dashboard-light-ezgif.com-video-to-gif-converter (2).gif" width="280" /> |
+| Shopping List (Full) | Shopping List (Empty) | Shopping List (Light) |
+| :---: | :---: | :---: |
+| <img src="./readme/demo/screenshots/shoppinglistfull.png" width="280" /> | <img src="./readme/demo/screenshots/shoppinglistempty.png" width="280" /> | <img src="./readme/demo/screenshots/shoppinglistemptylight.png" width="280" /> |
 
-| Pantry | Saved Recipes |
-| --------------------------------------- | ------------------------------------- |
-| <img src="./readme/demo/gif/pantry-ezgif.com-video-to-gif-converter.gif" width="280" /> | <img src="./readme/demo/gif/recipe-ezgif.com-video-to-gif-converter.gif" width="280" /> |
+| Recipe Creation | Saved Recipes | No Saved Recipes |
+| :---: | :---: | :---: |
+| <img src="./readme/demo/gif/recipe-ezgif.com-video-to-gif-converter.gif" width="280" /> | <img src="./readme/demo/screenshots/savedrecipes.png" width="280" /> | <img src="./readme/demo/screenshots/savedrecipesempty.png" width="280" /> |
 
-| Profile | Rooms |
-| --------------------------------------- | ------------------------------------- |
-| <img src="./readme/demo/gif/profile-ezgif.com-video-to-gif-converter.gif" width="280" /> | <img src="./readme/demo/gif/rooms-ezgif.com-video-to-gif-converter.gif" width="280" /> |
+| Room Control | Rooms (Empty) | Rooms (Light) |
+| :---: | :---: | :---: |
+| <img src="./readme/demo/gif/rooms-ezgif.com-video-to-gif-converter.gif" width="280" /> | <img src="./readme/demo/screenshots/roomsempty.png" width="280" /> | <img src="./readme/demo/screenshots/roomsemptylight.png" width="280" /> |
+
+| Profile | About | Privacy Policy | Terms & Conditions |
+| :---: | :---: | :---: | :---: |
+| <img src="./readme/demo/screenshots/profile.png" width="200" /> | <img src="./readme/demo/screenshots/about.png" width="200" /> | <img src="./readme/demo/screenshots/privacy.png" width="200" /> | <img src="./readme/demo/screenshots/terms.png" width="200" /> |
 
 ### IoT Control Demo
 <video src="./readme/IoT/iot.mp4" controls="controls" style="max-width: 100%;">
