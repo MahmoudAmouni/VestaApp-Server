@@ -1,6 +1,3 @@
-.downloadSection {
-    /* styles passed via className if needed, though Section handles padding */
-}
 
 .downloadContent {
     display: flex;
@@ -92,7 +89,6 @@
     transform: rotate(0deg) scale(1.05);
 }
 
-/* Background decoration */
 .downloadContent::after {
     content: '';
     position: absolute;

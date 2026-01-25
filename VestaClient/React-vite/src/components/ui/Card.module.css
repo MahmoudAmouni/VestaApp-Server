@@ -28,7 +28,6 @@
     line-height: 1.6;
 }
 
-/* Glass effect highlight */
 .card::before {
     content: '';
     position: absolute;

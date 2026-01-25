@@ -105,7 +105,6 @@
     margin-bottom: 80px;
 }
 
-/* Bento Grid Visual */
 .imageContainer {
     position: relative;
     width: 100%;
@@ -127,7 +126,6 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: 160px;
-    /* Use auto-rows instead of fixed template */
     gap: 16px;
     width: 100%;
     padding: 16px;
@@ -200,7 +198,6 @@
     margin-top: 4px;
 }
 
-/* Specific Card Styles */
 .cardRecipes {
     grid-column: span 2;
     background: rgba(21, 23, 27, 0.6);
@@ -327,7 +324,6 @@
     display: block;
 }
 
-/* Background Elements */
 .bgGlow {
     position: absolute;
     top: 0;
