@@ -1,7 +1,6 @@
-import React from 'react';
 import styles from './Footer.module.css';
 
-export const Footer: React.FC = () => {
+export function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
@@ -45,4 +44,4 @@ export const Footer: React.FC = () => {
       </div>
     </footer>
   );
-};
+}

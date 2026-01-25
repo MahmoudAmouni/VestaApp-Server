@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '../ui/Button';
 import styles from './Navbar.module.css';
 
-export const Navbar: React.FC = () => {
+export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -42,4 +42,4 @@ export const Navbar: React.FC = () => {
       </div>
     </nav>
   );
-};
+}
