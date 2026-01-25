@@ -1,0 +1,22 @@
+services:
+  vesta-client:
+    image: ghcr.io/mahmoudamouni/vesta-client:latest
+    container_name: vesta-client
+    ports:
+      - "80:80"
+    restart: always
+
+  vesta-server:
+    image: ghcr.io/mahmoudamouni/vesta-server:latest
+    container_name: vesta-server
+    ports:
+      - "8000:80"
+    restart: always
+    environment:
+      APP_ENV: production
+      APP_DEBUG: false
+      APP_KEY: base64:your_generated_key_here_or_in_env_file
+      DB_CONNECTION: sqlite
+    volumes:
+      - ./server-storage:/var/www/html/storage
+      - ./server-db:/var/www/html/database
