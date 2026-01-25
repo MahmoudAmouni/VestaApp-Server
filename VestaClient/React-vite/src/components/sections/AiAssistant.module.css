@@ -1,0 +1,124 @@
+.section {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 100% 50%, rgba(231, 82, 60, 0.05) 0%, transparent 50%);
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 64px;
+}
+
+.text {
+    flex: 1;
+    max-width: 600px;
+}
+
+.label {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(231, 82, 60, 0.1);
+    color: var(--color-primary);
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+    border: 1px solid rgba(231, 82, 60, 0.2);
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+    line-height: 1.2;
+}
+
+.description {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: 32px;
+}
+
+.features {
+    display: grid;
+    gap: 20px;
+}
+
+.featureItem {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-weight: 500;
+    color: var(--color-text);
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+:global([data-theme="light"]) .featureItem {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: var(--color-text);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.icon {
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
+.imageContainer {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.image {
+    max-width: 100%;
+    width: 450px;
+    height: auto;
+}
+
+@keyframes float-slow {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@media (max-width: 900px) {
+    .content {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .featureItem {
+        justify-content: center;
+        text-align: left;
+    }
+
+    .image {
+        width: 300px;
+    }
+}
