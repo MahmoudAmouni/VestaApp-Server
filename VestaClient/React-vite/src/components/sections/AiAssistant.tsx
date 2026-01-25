@@ -1,9 +1,8 @@
-import React from 'react';
 import { Mic, MessageSquare, Home } from 'lucide-react';
 import { Section } from '../ui/Section';
 import styles from './AiAssistant.module.css';
 
-export const AiAssistant: React.FC = () => {
+export function AiAssistant() {
   return (
     <Section id="ai-assistant" className={styles.section}>
       <div className={styles.content}>
@@ -41,4 +40,4 @@ export const AiAssistant: React.FC = () => {
       </div>
     </Section>
   );
-};
+}

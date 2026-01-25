@@ -1,4 +1,3 @@
-import React from 'react';
 import { Bot, Zap, Apple, ChefHat, Brain, Smartphone } from 'lucide-react';
 import { Section } from '../ui/Section';
 import { Card } from '../ui/Card';
@@ -37,7 +36,7 @@ const featuresList = [
   }
 ];
 
-export const Features: React.FC = () => {
+export function Features() {
   return (
     <Section 
       id="features" 
@@ -54,4 +53,4 @@ export const Features: React.FC = () => {
       </div>
     </Section>
   );
-};
+}

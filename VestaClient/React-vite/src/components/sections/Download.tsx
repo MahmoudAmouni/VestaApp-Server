@@ -1,7 +1,7 @@
 import { Section } from '../ui/Section';
 import styles from './Download.module.css';
 
-export const Download: React.FC = () => {
+export function Download() {
   return (
     <Section id="download" className={styles.downloadSection}>
       <div className={styles.downloadContent}>

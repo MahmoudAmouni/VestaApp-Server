@@ -1,9 +1,8 @@
-import React from 'react';
 import { Section } from '../ui/Section';
 import { useTheme } from '../../context/ThemeContext';
 import styles from './Screenshots.module.css';
 
-export const Screenshots: React.FC = () => {
+export function Screenshots() {
   const { isDarkMode } = useTheme();
 
   return (
@@ -46,4 +45,4 @@ export const Screenshots: React.FC = () => {
       </div>
     </Section>
   );
-};
+}

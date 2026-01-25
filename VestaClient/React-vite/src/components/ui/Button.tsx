@@ -1,4 +1,4 @@
-import React, { type ButtonHTMLAttributes } from 'react';
+import { type ButtonHTMLAttributes } from 'react';
 import styles from './Button.module.css';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -6,13 +6,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({ 
+export function Button({ 
   children, 
   variant = 'primary', 
   fullWidth = false,
   className = '',
   ...props 
-}) => {
+}: ButtonProps) {
   const buttonClasses = [
     styles.button,
     styles[variant],
@@ -28,4 +28,4 @@ export const Button: React.FC<ButtonProps> = ({
       {children}
     </button>
   );
-};
+}

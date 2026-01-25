@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Section.module.css';
 
 interface SectionProps {
@@ -9,13 +8,13 @@ interface SectionProps {
   className?: string;
 }
 
-export const Section: React.FC<SectionProps> = ({ 
+export function Section({ 
   id, 
   title, 
   subtitle, 
   children, 
   className = '' 
-}) => {
+}: SectionProps) {
   return (
     <section id={id} className={`${styles.section} ${className}`}>
       <div className={styles.container}>
@@ -25,4 +24,4 @@ export const Section: React.FC<SectionProps> = ({
       </div>
     </section>
   );
-};
+}

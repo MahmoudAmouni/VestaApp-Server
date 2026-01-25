@@ -1,25 +1,9 @@
-import React, { useState, useEffect } from 'react';
 import { ChefHat, Zap, Calendar, Bot, ClipboardList, Rocket } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useTheme } from '../../context/ThemeContext';
 import styles from './Hero.module.css';
 
-export const Hero: React.FC = () => {
-  const [activeCommand, setActiveCommand] = useState(0);
-  
-  const commands = [
-    "\"Hey Vesta, find spicy taco recipes\"",
-    "\"Add organic milk to pantry\"",
-    "\"What expires this week?\"",
-    "\"Turn on kitchen lights\""
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveCommand((prev) => (prev + 1) % commands.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [commands.length]);
+export function Hero() {
 
   const { isDarkMode, toggleTheme } = useTheme();
 
@@ -126,5 +110,5 @@ export const Hero: React.FC = () => {
       </div>
     </section>
   );
-};
+}
 
