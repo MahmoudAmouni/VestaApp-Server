@@ -1,13 +1,15 @@
 import { Theme } from "@/type";
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View as RNView, ViewProps } from "react-native";
 
-import Button from "@/React-Native/components/ui/Button";
+const View = RNView as unknown as React.ComponentType<ViewProps>;
 
-import { PantryItem } from "@/React-Native/features/pantry/pantry.types";
+import Button from "@/components/ui/Button";
+
+import { PantryItem } from "@/features/pantry/pantry.types";
 import { allItemsSectionStyles as styles } from "./AllItemsSection.styles";
 import PantryItemCard from "../PantryItemCard/PantryItemCard";
-import { usePantryModal } from "@/React-Native/contexts/PantryModalContext";
+import { usePantryModal } from "@/contexts/PantryModalContext";
 
 export default function AllItemsSection(props: {
   theme: Theme;

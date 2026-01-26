@@ -1,4 +1,4 @@
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 import { Pressable, ViewStyle, Text } from "react-native";
 import { smallButtonStyles as styles } from "./SmallButton.styles";
 

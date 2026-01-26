@@ -7,8 +7,8 @@ import {
   View,
 } from "react-native";
 
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
-import type { ChatMessage } from "@/React-Native/features/aiChat/aiChat.types";
+import { useTheme } from "@/contexts/theme/ThemeContext";
+import type { ChatMessage } from "@/features/aiChat/aiChat.types";
 import ChatMessageBubble from "../ChatMessageBubble/ChatMessageBubble";
 import { chatThreadStyles as styles } from "./ChatThread.styles";
 

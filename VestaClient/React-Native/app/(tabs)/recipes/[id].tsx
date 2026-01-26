@@ -1,12 +1,12 @@
-import RecipeDetailScreen from "@/React-Native/components/RecipeDetail/RecipeDetailScreen";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import { useRecipesRag } from "@/React-Native/features/recipes/useRecipesRag";
-import { usePantryQuery } from "@/React-Native/hooks/pantry/usePantryQuery";
-import { useSavedRecipesQuery } from "@/React-Native/hooks/savedRecipes/useSavedRecipesQuery";
+import RecipeDetailScreen from "@/components/RecipeDetail/RecipeDetailScreen";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useRecipesRag } from "@/features/recipes/useRecipesRag";
+import { usePantryQuery } from "@/hooks/pantry/usePantryQuery";
+import { useSavedRecipesQuery } from "@/hooks/savedRecipes/useSavedRecipesQuery";
 import { useLocalSearchParams } from "expo-router";
 import React, { useMemo } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
-import { RagRecipeResult } from "@/React-Native/features/recipes/recipes.rag.types";
+import { RagRecipeResult } from "@/features/recipes/recipes.rag.types";
 
 export default function RecipeDetailRoute() {
   const { id, recipeData } = useLocalSearchParams<{ id: string; recipeData?: string }>();

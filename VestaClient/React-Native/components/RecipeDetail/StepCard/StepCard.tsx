@@ -1,9 +1,9 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-import Card from "@/React-Native/components/ui/Card";
+import Card from "@/components/ui/Card";
 import { stepCardStyles as styles } from "./StepCard.styles";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function StepCard(props: {
   index: number;

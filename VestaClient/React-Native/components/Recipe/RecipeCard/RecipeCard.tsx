@@ -3,12 +3,12 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 
-import Button from "@/React-Native/components/ui/Button";
-import Card from "@/React-Native/components/ui/Card";
+import Button from "@/components/ui/Button";
+import Card from "@/components/ui/Card";
 
-import { RagRecipeResult } from "@/React-Native/features/recipes/recipes.rag.types";
+import { RagRecipeResult } from "@/features/recipes/recipes.rag.types";
 import { recipeCardStyles as styles } from "./RecipeCard.styles";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function RecipeCard(props: {
   recipe: RagRecipeResult;

@@ -1,4 +1,4 @@
-import { shoppingListKey } from "@/React-Native/hooks/shoppingList/useShoppingListQuery";
+import { shoppingListKey } from "@/hooks/shoppingList/useShoppingListQuery";
 import { queryClient } from "../../lib/reactQuery";
 import type { ShoppingListItem } from "./shoppingList.types";
 

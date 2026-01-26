@@ -61,13 +61,13 @@ const toastConfig: ToastConfig = {
 import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { QueryClientProvider } from "@tanstack/react-query";
 
-import { AuthProvider } from "@/React-Native/contexts/auth/AuthProvider";
-import { ThemeProvider as AppThemeProvider } from "@/React-Native/contexts/theme/ThemeProvider";
+import { AuthProvider } from "@/contexts/auth/AuthProvider";
+import { ThemeProvider as AppThemeProvider } from "@/contexts/theme/ThemeProvider";
 
-import { queryClient, setupReactQueryFocus } from "@/React-Native/lib/reactQuery";
+import { queryClient, setupReactQueryFocus } from "@/lib/reactQuery";
 
-import { VestaVoiceOverlay } from "@/React-Native/components/Vesta/VestaVoiceOverlay";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
+import { VestaVoiceOverlay } from "@/components/Vesta/VestaVoiceOverlay";
+import { useAuth } from "@/contexts/auth/AuthContext";
 
 const BG = "#0f0f12";
 

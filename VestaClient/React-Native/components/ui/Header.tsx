@@ -7,7 +7,7 @@ import { Theme } from "@/type";
 
 import { headerStyles as styles } from "./Header.styles";
 import { router } from "expo-router";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
+import { useAuth } from "@/contexts/auth/AuthContext";
 
 export default function Header(props: {
   theme: Theme;

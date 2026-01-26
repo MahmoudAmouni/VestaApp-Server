@@ -3,21 +3,21 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { roomDetailsStyles as styles } from "./RoomDetailsScreen.styles";
-import HeroCard from "@/React-Native/components/ui/HeroCard";
-import RoomActions from "@/React-Native/components/Room/RoomActions";
-import BulkActionButton from "@/React-Native/components/Room/BulkActionButton";
-import ConfirmDeleteModal from "@/React-Native/components/Room/ConfirmDeleteModal";
-import HeaderSecondary from "@/React-Native/components/ui/HeaderSecondary";
-import { useRoomsQuery } from "@/React-Native/hooks/rooms/useRoomsQuery";
-import { useRoomsMutations } from "@/React-Native/hooks/rooms/useRoomsMutations";
-import { Device } from "@/React-Native/features/rooms/rooms.types";
+import HeroCard from "@/components/ui/HeroCard";
+import RoomActions from "@/components/Room/RoomActions";
+import BulkActionButton from "@/components/Room/BulkActionButton";
+import ConfirmDeleteModal from "@/components/Room/ConfirmDeleteModal";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
+import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
+import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
+import { Device } from "@/features/rooms/rooms.types";
 import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import RoomSheet from "../Rooms/RoomSheet";
 import DeviceRow from "./DeviceRow";
 import DeviceSheet from "./DeviceSheet";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function RoomDetailsScreen() {
   const { theme } = useTheme();

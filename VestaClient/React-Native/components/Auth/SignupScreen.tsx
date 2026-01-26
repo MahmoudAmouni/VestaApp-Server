@@ -11,14 +11,14 @@ import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 
-import Card from "@/React-Native/components/ui/Card";
-import Button from "@/React-Native/components/ui/Button";
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
 import { signupStyles as styles } from "./Signup.styles";
-import HeaderSecondary from "@/React-Native/components/ui/HeaderSecondary";
-import TextField from "@/React-Native/components/Auth/TextField/TextField";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
+import TextField from "@/components/Auth/TextField/TextField";
+import { useAuth } from "@/contexts/auth/AuthContext";
 import { GoogleButton } from "../Welcome/GoogleButton";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 
 

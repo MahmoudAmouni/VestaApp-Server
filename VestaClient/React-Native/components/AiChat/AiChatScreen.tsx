@@ -10,14 +10,14 @@ import {
 
 const BG_IMAGE = require("@/assets/images/image.png");
 
-import Header from "@/React-Native/components/ui/Header";
+import Header from "@/components/ui/Header";
 import { aiChatStyles as styles } from "./ai.styles";
-import ChatThread from "@/React-Native/components/AiChat/ChatThread/ChatThread";
-import ChatComposer from "@/React-Native/components/AiChat/ChatComposer/ChatComposer";
-import { useAiChatQuery } from "@/React-Native/hooks/aiChat/useAiChatQuery";
-import { useAiChatMutations } from "@/React-Native/hooks/aiChat/useAiChatMutations";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import ChatThread from "@/components/AiChat/ChatThread/ChatThread";
+import ChatComposer from "@/components/AiChat/ChatComposer/ChatComposer";
+import { useAiChatQuery } from "@/hooks/aiChat/useAiChatQuery";
+import { useAiChatMutations } from "@/hooks/aiChat/useAiChatMutations";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 import { router } from "expo-router";
 
 export default function AiChatScreen(props: { recipeData?: string }) {

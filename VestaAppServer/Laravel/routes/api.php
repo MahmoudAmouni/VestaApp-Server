@@ -11,6 +11,8 @@ use App\Http\Controllers\Api\SavedRecipeController;
 use App\Http\Controllers\Api\ShoppingListController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\EspController;
+use App\Http\Controllers\Api\RagController;
+use App\Http\Controllers\Api\VestaController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -74,5 +76,13 @@ Route::group(["prefix" => "v1", "middleware" => "auth:api"], function () {
     Route::post('messages/{home}', [AiChatController::class, 'sendMessage']);
 
     Route::post('/users', [UserController::class, 'update']);
+
+    Route::prefix('/rag')->group(function () {
+        Route::post('/search', [RagController::class, 'search']);
+    });
+
+    Route::prefix('/vesta')->group(function () {
+        Route::post('/voice', [VestaController::class, 'voice']);
+    });
 });
 

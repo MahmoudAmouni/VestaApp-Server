@@ -1,4 +1,4 @@
-import { fetchJson } from "@/React-Native/api/http";
+import { fetchJson } from "@/api/http";
 import type {
   ApiEnvelope,
   GoogleAuthData,

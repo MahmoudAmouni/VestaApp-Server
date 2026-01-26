@@ -2,20 +2,20 @@ import React, { useMemo, useState } from "react";
 import { SafeAreaView, ScrollView, StatusBar, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import BottomNav from "@/React-Native/components/ui/BottomNav";
-import RoomCard from "@/React-Native/components/Rooms/RoomCard";
-import EmptyRoomState from "@/React-Native/components/Rooms/EmptyRoomState";
-import RoomsSectionHeader from "@/React-Native/components/Rooms/RoomSectionHeader";
-import HeroCard from "@/React-Native/components/ui/HeroCard";
+import BottomNav from "@/components/ui/BottomNav";
+import RoomCard from "@/components/Rooms/RoomCard";
+import EmptyRoomState from "@/components/Rooms/EmptyRoomState";
+import RoomsSectionHeader from "@/components/Rooms/RoomSectionHeader";
+import HeroCard from "@/components/ui/HeroCard";
 
-import Header from "@/React-Native/components/ui/Header";
+import Header from "@/components/ui/Header";
 import { useRouter } from "expo-router";
 import { roomsStyles as styles } from "./rooms.styles";
 import RoomSheet from "./RoomSheet";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
-import { useRoomsMutations } from "@/React-Native/hooks/rooms/useRoomsMutations";
-import { useRoomsQuery } from "@/React-Native/hooks/rooms/useRoomsQuery";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
+import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
+import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
 import Skeleton from "../ui/Skeleton";
 
 export default function RoomsScreen() {

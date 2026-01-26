@@ -1,4 +1,4 @@
-import AiChatScreen from '@/React-Native/components/AiChat/AiChatScreen'
+import AiChatScreen from '@/components/AiChat/AiChatScreen'
 import { useLocalSearchParams } from 'expo-router'
 import React from 'react'
 

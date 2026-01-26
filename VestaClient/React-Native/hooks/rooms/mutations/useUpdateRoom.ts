@@ -5,7 +5,7 @@ import { apiUpdateRoom } from "../../../features/rooms/rooms.api";
 
 import { roomsKey } from "../useRoomsQuery";
 import { getRoomFromCache } from "../../../features/rooms/rooms.cache";
-import { buildRoomUpdateDto, RoomUpdatePatch } from "@/React-Native/features/rooms/rooms.write.types";
+import { buildRoomUpdateDto, RoomUpdatePatch } from "@/features/rooms/rooms.write.types";
 
 import Toast from "react-native-toast-message";
 

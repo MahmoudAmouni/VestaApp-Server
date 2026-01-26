@@ -8,20 +8,20 @@ import {
 
 
 
-import Button from "@/React-Native/components/ui/Button";
-import Header from "@/React-Native/components/ui/Header";
-import HeroCard from "@/React-Native/components/ui/HeroCard";
-import Skeleton from "@/React-Native/components/ui/Skeleton";
+import Button from "@/components/ui/Button";
+import Header from "@/components/ui/Header";
+import HeroCard from "@/components/ui/HeroCard";
+import Skeleton from "@/components/ui/Skeleton";
 
 import RecipesSection from "./RecipesSection/RecipesSection";
 import { recipesScreenStyles as styles } from "./RecipesScreen.styles";
-import { useRecipesRag } from "@/React-Native/features/recipes/useRecipesRag";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
-import { useSavedRecipesQuery } from "@/React-Native/hooks/savedRecipes/useSavedRecipesQuery";
-import { useCreateSavedRecipe } from "@/React-Native/hooks/savedRecipes/mutations/useCreateSavedRecipe";
-import { useDeleteSavedRecipe } from "@/React-Native/hooks/savedRecipes/mutations/useDeleteSavedRecipe";
-import { usePantryQuery } from "@/React-Native/hooks/pantry/usePantryQuery";
+import { useRecipesRag } from "@/features/recipes/useRecipesRag";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
+import { useSavedRecipesQuery } from "@/hooks/savedRecipes/useSavedRecipesQuery";
+import { useCreateSavedRecipe } from "@/hooks/savedRecipes/mutations/useCreateSavedRecipe";
+import { useDeleteSavedRecipe } from "@/hooks/savedRecipes/mutations/useDeleteSavedRecipe";
+import { usePantryQuery } from "@/hooks/pantry/usePantryQuery";
 
 export default function RecipesScreen() {
   const { theme } = useTheme();

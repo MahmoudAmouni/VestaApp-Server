@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 
 import { Theme } from "@/type";
-import Card from "@/React-Native/components/ui/Card";
+import Card from "@/components/ui/Card";
 
 import { descriptionSectionStyles as styles } from "./DescriptionSection.styles";
 

@@ -9,13 +9,13 @@ import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system/legacy';
 
 import { profileStyles as styles } from "./ProfileScreen.styles";
-import SettingsSection, { SettingsItem } from "@/React-Native/components/profile/SettingsSection/SettingsSection";
-import HeaderSecondary from "@/React-Native/components/ui/HeaderSecondary";
-import ProfileSummaryCard from "@/React-Native/components/profile/ProfileSummaryCard/ProfileSummaryCard";
-import DangerZoneActions from "@/React-Native/components/profile/DangerZoneActions/DangerZoneActions";
+import SettingsSection, { SettingsItem } from "@/components/profile/SettingsSection/SettingsSection";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
+import ProfileSummaryCard from "@/components/profile/ProfileSummaryCard/ProfileSummaryCard";
+import DangerZoneActions from "@/components/profile/DangerZoneActions/DangerZoneActions";
 import ProfileSheet from "./ProfileSheet/ProfileSheet";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 import InlineInputActionRow from "./InlineInputActionRow/InlineInputActionRow";
 import ThemeToggle from "./ThemeToggle/ThemeToggle";
 

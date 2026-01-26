@@ -3,13 +3,13 @@ import { Pressable, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Theme } from "@/type";
 
-import Card from "@/React-Native/components/ui/Card";
-import Pill from "@/React-Native/components/ui/Pill";
+import Card from "@/components/ui/Card";
+import Pill from "@/components/ui/Pill";
 
 import { pantryItemCardStyles as styles } from "./PantryItemCard.styles";
-import { PantryItem } from "@/React-Native/features/pantry/pantry.types";
-import { daysFromToday } from "@/React-Native/utils/dateHelpers";
-import { usePantryModal } from "@/React-Native/contexts/PantryModalContext";
+import { PantryItem } from "@/features/pantry/pantry.types";
+import { daysFromToday } from "@/utils/dateHelpers";
+import { usePantryModal } from "@/contexts/PantryModalContext";
 
 export default function PantryItemCard(props: {
   theme: Theme;

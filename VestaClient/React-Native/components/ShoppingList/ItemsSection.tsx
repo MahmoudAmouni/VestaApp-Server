@@ -1,12 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 
-import Button from "@/React-Native/components/ui/Button";
-import Card from "@/React-Native/components/ui/Card";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import Button from "@/components/ui/Button";
+import Card from "@/components/ui/Card";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 import { itemsSectionStyles as styles } from "./ItemsSection.styles";
 import ShoppingItemRow from "./ShoppingItemRow";
-import { ShoppingListItem } from "@/React-Native/features/shoppingList/shoppingList.types";
+import { ShoppingListItem } from "@/features/shoppingList/shoppingList.types";
 
 function ClearCheckedButton(props: {
   disabled?: boolean;

@@ -2,13 +2,13 @@ import { Theme } from "@/type";
 import React from "react";
 import { Text, View } from "react-native";
 
-import Card from "@/React-Native/components/ui/Card";
-import Pill from "@/React-Native/components/ui/Pill";
+import Card from "@/components/ui/Card";
+import Pill from "@/components/ui/Pill";
 
 import { expiringSoonSectionStyles as styles } from "./ExpiringSoonSection.styles";
-import { PantryItem } from "@/React-Native/features/pantry/pantry.types";
-import { daysFromToday } from "@/React-Native/utils/dateHelpers";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { PantryItem } from "@/features/pantry/pantry.types";
+import { daysFromToday } from "@/utils/dateHelpers";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 
 export default function ExpiringSoonSection(props: {

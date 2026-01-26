@@ -11,12 +11,12 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useRoomsMutations } from "@/React-Native/hooks/rooms/useRoomsMutations";
-import { Device } from "@/React-Native/features/rooms/rooms.types";
+import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
+import { Device } from "@/features/rooms/rooms.types";
 import { makeRoomSheetStyles } from "../Rooms/RoomSheet.styles";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
-import Button from "@/React-Native/components/ui/Button";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
+import Button from "@/components/ui/Button";
 
 type Props = {
   visible: boolean;

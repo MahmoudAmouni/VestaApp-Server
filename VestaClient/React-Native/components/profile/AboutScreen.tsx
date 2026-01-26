@@ -5,7 +5,7 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { router } from "expo-router";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 import { profileStyles as styles } from "./ProfileScreen.styles";
 import BrandRow from "../Welcome/BrandRow";
 import HeaderSecondary from "../ui/HeaderSecondary";

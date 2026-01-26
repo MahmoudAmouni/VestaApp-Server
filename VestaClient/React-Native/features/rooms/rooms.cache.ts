@@ -1,4 +1,4 @@
-import { roomsKey } from "@/React-Native/hooks/rooms/useRoomsQuery";
+import { roomsKey } from "@/hooks/rooms/useRoomsQuery";
 import { queryClient } from "../../lib/reactQuery";
 import type { Room, Device } from "./rooms.types";
 

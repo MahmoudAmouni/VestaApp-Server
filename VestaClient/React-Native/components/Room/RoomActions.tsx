@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { Theme } from "@/type";
-import Button from "@/React-Native/components/ui/Button";
+import Button from "@/components/ui/Button";
 import { roomActionsStyles as styles } from "./RoomActions.styles";
 
 export default function RoomActions(props: {

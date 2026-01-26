@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { Theme } from "@/type";
-import Button from "@/React-Native/components/ui/Button";
+import Button from "@/components/ui/Button";
 
 export default function ConfirmDeleteCard(props: {
   theme: Theme;

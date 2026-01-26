@@ -1,4 +1,4 @@
-import { PantryItem } from "@/React-Native/features/pantry/pantry.types";
+import { PantryItem } from "@/features/pantry/pantry.types";
 
 function parseYyyyMmDdLocal(s: string) {
   if (!s) return null;
@@ -25,12 +25,11 @@ export function daysFromToday(dateStr: string | null | undefined) {
   return Math.round((targetStart.getTime() - todayStart.getTime()) / msPerDay);
 }
 
-export function getExpiringSoon(pantry :PantryItem[]){
-  const expiringSoon=pantry.filter(item=> {
+export function getExpiringSoon(pantry: PantryItem[]) {
+  const expiringSoon = pantry.filter((item) => {
     if (!item.expiry_date) return false;
-    const exp = daysFromToday(item.expiry_date)
-    return exp < 7 && exp > 0
-  } )
-  return expiringSoon
-  
+    const exp = daysFromToday(item.expiry_date);
+    return exp < 7 && exp > 0;
+  });
+  return expiringSoon;
 }

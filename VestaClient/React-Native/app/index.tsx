@@ -1,5 +1,5 @@
 import { Redirect } from 'expo-router';
-import { useAuth } from '@/React-Native/contexts/auth/AuthContext';
+import { useAuth } from '@/contexts/auth/AuthContext';
 import { Text, View } from 'react-native';
 
 import LoadingScreen from './(auth)/loading';

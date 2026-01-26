@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from "react";
-import { setAuthToken } from "@/React-Native/api/http";
+import { setAuthToken } from "@/api/http";
 import { AuthContext, type AuthContextValue } from "./AuthContext";
 import { useAuthSessionQuery } from "./auth.query";
 import { useAuthMutations } from "./mutations/useAuthMutations";

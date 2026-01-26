@@ -1,4 +1,4 @@
-import { setAuthToken } from "@/React-Native/api/http";
+import { setAuthToken } from "@/api/http";
 import Toast from "react-native-toast-message";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";

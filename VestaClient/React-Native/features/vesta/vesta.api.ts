@@ -2,7 +2,11 @@ import { VESTA_CONFIG } from '@/constants/vesta.constants';
 import * as FileSystem from 'expo-file-system/legacy';
 import { Platform } from 'react-native';
 import type { TTSRequest, VestaApiResponse } from './vesta.types';
+import { fetchJson } from '@/api/http';
 
+const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL
+  ? `${process.env.EXPO_PUBLIC_API_URL}/api/v1`
+  : "http://127.0.0.1:8000/api/v1";
 
 export async function apiSendVoiceMessage(params: {
   audioUri: string;
@@ -27,20 +31,12 @@ export async function apiSendVoiceMessage(params: {
     } as any);
   }
 
-  const response = await fetch(VESTA_CONFIG.API_URL, {
+
+  const data = await fetchJson<VestaApiResponse>('/vesta/voice', {
     method: 'POST',
     body: formData,
-    headers: {
-      Accept: 'application/json',
-    },
+    token: token 
   });
-
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`API Error: ${response.status} - ${text}`);
-  }
-
-  const data: VestaApiResponse = await response.json();
   
   return data.response || data.answer || data.message || data.text || JSON.stringify(data);
 }

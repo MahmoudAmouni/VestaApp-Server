@@ -1,4 +1,4 @@
-import { useAuth } from '@/React-Native/contexts/auth/AuthContext';
+import { useAuth } from '@/contexts/auth/AuthContext';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Alert } from 'react-native';
 import { useDotAnimations, useSilenceDetection, useVisualizerAnimations } from './vesta.animations';

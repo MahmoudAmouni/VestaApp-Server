@@ -1,4 +1,4 @@
-import TermsScreen from "@/React-Native/components/profile/TermsScreen/TermsScreen";
+import TermsScreen from "@/components/profile/TermsScreen/TermsScreen";
 
 export default function Page() {
   return <TermsScreen />;

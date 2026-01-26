@@ -2,9 +2,9 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { shoppingListPreviewStyles as styles } from "./ShoppingListPreview.styles";
 import { Theme } from "@/type";
-import { ShoppingListItem } from "@/React-Native/features/shoppingList/shoppingList.types";
+import { ShoppingListItem } from "@/features/shoppingList/shoppingList.types";
 import { Ionicons } from "@expo/vector-icons";
-import EmptyShoppingListState from "@/React-Native/components/ShoppingList/EmptyShoppingListState";
+import EmptyShoppingListState from "@/components/ShoppingList/EmptyShoppingListState";
 
 interface ShoppingListPreviewProps {
   theme: Theme;

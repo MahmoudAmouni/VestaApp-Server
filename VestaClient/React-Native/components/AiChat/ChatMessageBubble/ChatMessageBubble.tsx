@@ -3,7 +3,7 @@ import { ActivityIndicator, Text, View } from "react-native";
 
 import type { Theme } from "@/type";
 import { chatMessageBubbleStyles as styles } from "./ChatMessageBubble.styles";
-import type { ChatMessage } from "@/React-Native/features/aiChat/aiChat.types";
+import type { ChatMessage } from "@/features/aiChat/aiChat.types";
 
 export default function ChatMessageBubble(props: {
   theme: Theme;

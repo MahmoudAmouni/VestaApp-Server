@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, DimensionValue, Easing, ViewStyle } from "react-native";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function Skeleton(props: {
   width?: DimensionValue;

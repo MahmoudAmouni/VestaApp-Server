@@ -1,5 +1,5 @@
-import { fetchJson } from "@/React-Native/api/http";
-import type { ApiResponse } from "@/React-Native/features/rooms/rooms.types";
+import { fetchJson } from "@/api/http";
+import type { ApiResponse } from "@/features/rooms/rooms.types";
 import type {
   ChatMessage,
   ChatMessageRaw,
