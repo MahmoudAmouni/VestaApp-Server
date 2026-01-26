@@ -197,4 +197,51 @@ class PantryTest extends TestCase
         $response->assertStatus(404)
             ->assertJsonFragment(['message' => 'Pantry item not found in this home.']);
     }
+
+    public function test_can_delete_pantry_item_successfully()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $itemName = PantryItemName::create(['name' => 'Milk']);
+        $location = PantryLocation::create(['name' => 'Fridge']);
+        $unit = Unit::create(['name' => 'Liters']);
+
+        $pantryItem = PantryItem::create([
+            'home_id' => $home->id,
+            'owner_user_id' => $user->id,
+            'item_name_id' => $itemName->id,
+            'location_id' => $location->id,
+            'unit_id' => $unit->id,
+            'quantity' => 2,
+        ]);
+
+        $response = $this->actingAs($user, 'api')
+            ->getJson("/api/v1/pantry/{$home->id}/{$pantryItem->id}");
+
+        $response->assertStatus(200)
+            ->assertJsonFragment(['deleted' => true]);
+
+        $this->assertSoftDeleted('pantry_items', [
+            'id' => $pantryItem->id,
+        ]);
+    }
+
+    public function test_fails_to_delete_non_existent_pantry_item()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $response = $this->actingAs($user, 'api')
+            ->getJson("/api/v1/pantry/{$home->id}/99999");
+
+        $response->assertStatus(404)
+            ->assertJsonFragment(['message' => 'Pantry item not found in this home.']);
+    }
 }
