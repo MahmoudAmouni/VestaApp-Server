@@ -74,4 +74,56 @@ class PantryTest extends TestCase
         $response->assertStatus(404)
             ->assertJsonFragment(['message' => 'Home not found.']);
     }
+
+    public function test_can_create_pantry_item_successfully()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $payload = [
+            'item_name' => 'Eggs',
+            'location' => 'Fridge',
+            'unit' => 'Dozen',
+            'quantity' => 2,
+            'expiry_date' => '2026-02-15',
+        ];
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/pantry/{$home->id}", $payload);
+
+        $response->assertStatus(201)
+            ->assertJsonStructure([
+                'data' => [
+                    'pantry_item' => [
+                        'id',
+                        'home_id',
+                        'quantity',
+                        'expiry_date',
+                    ]
+                ]
+            ]);
+
+        $this->assertDatabaseHas('pantry_items', [
+            'home_id' => $home->id,
+            'quantity' => 2,
+        ]);
+    }
+
+    public function test_fails_to_create_pantry_item_with_missing_required_fields()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/pantry/{$home->id}", []);
+
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['item_name', 'quantity']);
+    }
 }
