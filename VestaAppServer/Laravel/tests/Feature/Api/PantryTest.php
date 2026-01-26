@@ -126,4 +126,75 @@ class PantryTest extends TestCase
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['item_name', 'quantity']);
     }
+
+    public function test_can_update_pantry_item_successfully()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $itemName = PantryItemName::create(['name' => 'Milk']);
+        $location = PantryLocation::create(['name' => 'Fridge']);
+        $unit = Unit::create(['name' => 'Liters']);
+
+        $pantryItem = PantryItem::create([
+            'home_id' => $home->id,
+            'owner_user_id' => $user->id,
+            'item_name_id' => $itemName->id,
+            'location_id' => $location->id,
+            'unit_id' => $unit->id,
+            'quantity' => 2,
+            'expiry_date' => '2026-02-01',
+        ]);
+
+        $payload = [
+            'item_name' => 'Milk',
+            'location' => 'Fridge',
+            'unit' => 'Liters',
+            'quantity' => 5,
+            'expiry_date' => '2026-02-15',
+        ];
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/pantry/{$home->id}/{$pantryItem->id}", $payload);
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'pantry_item' => [
+                        'id',
+                        'quantity',
+                    ]
+                ]
+            ]);
+
+        $this->assertDatabaseHas('pantry_items', [
+            'id' => $pantryItem->id,
+            'quantity' => 5,
+        ]);
+    }
+
+    public function test_fails_to_update_non_existent_pantry_item()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $payload = [
+            'item_name' => 'Milk',
+            'location' => 'Fridge',
+            'unit' => 'Liters',
+            'quantity' => 5,
+        ];
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/pantry/{$home->id}/99999", $payload);
+
+        $response->assertStatus(404)
+            ->assertJsonFragment(['message' => 'Pantry item not found in this home.']);
+    }
 }
