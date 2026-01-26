@@ -109,4 +109,65 @@ class ShoppingListTest extends TestCase
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['item_name', 'unit', 'quantity']);
     }
+
+    public function test_can_update_shopping_list_item_successfully()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $item = ShoppingListItem::create([
+            'home_id' => $home->id,
+            'item' => 'Milk',
+            'is_checked' => false,
+        ]);
+
+        $payload = [
+            'item_name' => 'Whole Milk',
+            'unit' => 'Liters',
+            'quantity' => 2,
+            'is_checked' => true,
+        ];
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/shoppinglist/{$home->id}/{$item->id}", $payload);
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'shopping_list_item' => [
+                        'id',
+                        'is_checked',
+                    ]
+                ]
+            ]);
+
+        $this->assertDatabaseHas('shopping_list_items', [
+            'id' => $item->id,
+            'is_checked' => true,
+        ]);
+    }
+
+    public function test_fails_to_update_non_existent_shopping_list_item()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $payload = [
+            'item_name' => 'Milk',
+            'unit' => 'Liters',
+            'quantity' => 1,
+        ];
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/shoppinglist/{$home->id}/99999", $payload);
+
+        $response->assertStatus(404)
+            ->assertJsonFragment(['message' => 'Shopping list item not found in this home.']);
+    }
 }
