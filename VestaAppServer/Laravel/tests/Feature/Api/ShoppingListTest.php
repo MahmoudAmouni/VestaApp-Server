@@ -61,4 +61,52 @@ class ShoppingListTest extends TestCase
         $response->assertStatus(404)
             ->assertJsonFragment(['message' => 'Home not found.']);
     }
+
+    public function test_can_create_shopping_list_item_successfully()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $payload = [
+            'item_name' => 'Eggs',
+            'unit' => 'Dozen',
+            'quantity' => 2,
+            'is_checked' => false,
+        ];
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/shoppinglist/{$home->id}", $payload);
+
+        $response->assertStatus(201)
+            ->assertJsonStructure([
+                'data' => [
+                    'shopping_list_item' => [
+                        'id',
+                        'home_id',
+                    ]
+                ]
+            ]);
+
+        $this->assertDatabaseHas('shopping_list_items', [
+            'home_id' => $home->id,
+        ]);
+    }
+
+    public function test_fails_to_create_shopping_list_item_with_missing_required_fields()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/shoppinglist/{$home->id}", []);
+
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['item_name', 'unit', 'quantity']);
+    }
 }
