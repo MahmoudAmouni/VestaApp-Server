@@ -87,4 +87,44 @@ class SavedRecipeTest extends TestCase
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['recipe_name']);
     }
+
+    public function test_can_delete_saved_recipe_by_name_successfully()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        SavedRecipe::create([
+            'home_id' => $home->id,
+            'recipe_name' => 'Pasta Recipe',
+        ]);
+
+        $response = $this->actingAs($user, 'api')
+            ->getJson("/api/v1/savedrecipe/{$home->id}/Pasta Recipe");
+
+        $response->assertStatus(200)
+            ->assertJsonFragment(['deleted' => true]);
+
+        $this->assertDatabaseMissing('saved_recipes', [
+            'home_id' => $home->id,
+            'recipe_name' => 'Pasta Recipe',
+            'deleted_at' => null,
+        ]);
+    }
+
+    public function test_fails_to_delete_non_existent_saved_recipe()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $response = $this->actingAs($user, 'api')
+            ->getJson("/api/v1/savedrecipe/{$home->id}/NonExistent");
+
+        $response->assertStatus(404);
+    }
 }
