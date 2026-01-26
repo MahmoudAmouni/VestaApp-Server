@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "vesta_agent",
     "corsheaders",
+    "rag",
 ]
 
 MIDDLEWARE = [
@@ -91,3 +92,24 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 LARAVEL_BASE_URL = os.getenv("LARAVEL_BASE_URL", "http://localhost:8000/api")
 LARAVEL_TIMEOUT_SECONDS = float(os.getenv("LARAVEL_TIMEOUT_SECONDS", "15"))
+
+# --- RAG ---
+def env_bool(name: str, default: bool = False) -> bool:
+    val = os.getenv(name)
+    if val is None:
+        return default
+    return val.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+CHROMA_COLLECTION_NAME = os.getenv("CHROMA_COLLECTION_NAME", "recipes")
+CHROMA_DISTANCE = os.getenv("CHROMA_DISTANCE", "cosine")
+CHROMA_MODE = os.getenv("CHROMA_MODE", "embedded")
+CHROMA_PERSIST_DIR = os.getenv("CHROMA_PERSIST_DIR", str(BASE_DIR / ".chroma"))
+CHROMA_HOST = os.getenv("CHROMA_HOST", "127.0.0.1")
+CHROMA_PORT = int(os.getenv("CHROMA_PORT", "8000"))
+CHROMA_SSL = env_bool("CHROMA_SSL", False)
+CHROMA_EMBEDDING_PROVIDER = os.getenv("CHROMA_EMBEDDING_PROVIDER", "default")
+SENTENCE_TRANSFORMER_MODEL = os.getenv("SENTENCE_TRANSFORMER_MODEL", "all-MiniLM-L6-v2")
+LLM_BASE_URL = os.getenv("LLM_BASE_URL", "").strip()
+LLM_API_KEY = os.getenv("LLM_API_KEY", "").strip()
+LLM_MODEL = os.getenv("LLM_MODEL", "").strip()
+LLM_TIMEOUT_SECONDS = int(os.getenv("LLM_TIMEOUT_SECONDS", "30"))
