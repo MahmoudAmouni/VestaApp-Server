@@ -118,4 +118,59 @@ class RoomTest extends TestCase
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['room_name']);
     }
+
+    public function test_can_update_room_successfully()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $roomName = RoomName::create(['name' => 'Living Room']);
+        $room = Room::create([
+            'home_id' => $home->id,
+            'room_name_id' => $roomName->id,
+        ]);
+
+        $payload = [
+            'room_name' => 'Master Bedroom',
+        ];
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/room/{$home->id}/{$room->id}", $payload);
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'room' => [
+                        'id',
+                        'home_id',
+                    ]
+                ]
+            ]);
+
+        $this->assertDatabaseHas('room_names', [
+            'name' => 'Master Bedroom',
+        ]);
+    }
+
+    public function test_fails_to_update_non_existent_room()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $payload = [
+            'room_name' => 'Bedroom',
+        ];
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/room/{$home->id}/99999", $payload);
+
+        $response->assertStatus(404)
+            ->assertJsonFragment(['message' => 'Room not found for this home.']);
+    }
 }
