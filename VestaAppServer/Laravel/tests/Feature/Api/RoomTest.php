@@ -213,4 +213,53 @@ class RoomTest extends TestCase
         $response->assertStatus(404)
             ->assertJsonFragment(['message' => 'Room not found for this home.']);
     }
+
+    public function test_can_turn_all_devices_on_successfully()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $roomName = RoomName::create(['name' => 'Living Room']);
+        $room = Room::create([
+            'home_id' => $home->id,
+            'room_name_id' => $roomName->id,
+        ]);
+
+        $deviceName = DeviceName::create(['name' => 'Light']);
+        $device = Device::create([
+            'home_id' => $home->id,
+            'room_id' => $room->id,
+            'device_name_id' => $deviceName->id,
+            'is_on' => false,
+        ]);
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/room/{$home->id}/{$room->id}/on");
+
+        $response->assertStatus(200)
+            ->assertJsonFragment(['success' => true]);
+
+        $this->assertDatabaseHas('devices', [
+            'id' => $device->id,
+            'is_on' => true,
+        ]);
+    }
+
+    public function test_fails_to_turn_all_devices_on_for_non_existent_room()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/room/{$home->id}/99999/on");
+
+        $response->assertStatus(404)
+            ->assertJsonFragment(['message' => 'Room not found for this home.']);
+    }
 }
