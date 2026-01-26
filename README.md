@@ -102,7 +102,22 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 | Frontend Tests | Backend Tests | CI/CD |
 | --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Frontend](./readme/demo/1440x1024.png) | ![Backend](./readme/demo/1440x1024.png) | ![CICD](./readme/demo/1440x1024.png) |
+| ![Frontend](./readme/tests/frontend-tests.png) | ![Backend](./readme/tests/backend-tests.png) | ![CICD](./readme/tests/deployment.png) |
+
+#### How to Run Tests
+
+**Frontend (React Native)**
+```bash
+cd VestaClient/React-Native
+npm test
+```
+
+**Backend (Laravel)**
+```bash
+cd VestaAppServer/Laravel
+php artisan test
+```
+
 
 <br><br>
 
