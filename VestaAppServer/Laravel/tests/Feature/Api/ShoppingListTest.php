@@ -170,4 +170,44 @@ class ShoppingListTest extends TestCase
         $response->assertStatus(404)
             ->assertJsonFragment(['message' => 'Shopping list item not found in this home.']);
     }
+
+    public function test_can_clear_checked_items_successfully()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        ShoppingListItem::create([
+            'home_id' => $home->id,
+            'item' => 'Milk',
+            'is_checked' => true,
+        ]);
+
+        ShoppingListItem::create([
+            'home_id' => $home->id,
+            'item' => 'Eggs',
+            'is_checked' => false,
+        ]);
+
+        $response = $this->actingAs($user, 'api')
+            ->getJson("/api/v1/shoppinglist/{$home->id}/checked");
+
+        $response->assertStatus(200)
+            ->assertJsonFragment(['deleted' => true]);
+
+        $this->assertEquals(1, ShoppingListItem::where('home_id', $home->id)->count());
+    }
+
+    public function test_fails_to_clear_checked_for_non_existent_home()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+
+        $response = $this->actingAs($user, 'api')
+            ->getJson('/api/v1/shoppinglist/99999/checked');
+
+        $response->assertStatus(404)
+            ->assertJsonFragment(['message' => 'Home not found.']);
+    }
 }
