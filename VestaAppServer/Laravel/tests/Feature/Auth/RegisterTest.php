@@ -9,6 +9,12 @@ class RegisterTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        \App\Models\Role::create(['id' => 1, 'role' => 'user']);
+    }
+
     public function test_user_can_register_successfully()
     {
         $payload = [
@@ -19,10 +25,6 @@ class RegisterTest extends TestCase
         ];
 
         $response = $this->postJson('/api/register', $payload);
-
-        if ($response->status() !== 201) {
-             fwrite(STDERR, print_r($response->json(), true));
-        }
 
         $response->assertStatus(201)
                  ->assertJsonStructure([
