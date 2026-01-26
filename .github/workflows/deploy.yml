@@ -5,6 +5,15 @@ on:
     branches: [ main ]
     paths:
       - 'VestaClient/**'
+      - 'VestaAppServer/**'
+      - 'docker-compose.yml'
+      - '.github/workflows/deploy.yml'
+
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'VestaClient/**'
+      - 'VestaAppServer/**'
       - 'docker-compose.yml'
       - '.github/workflows/deploy.yml'
 
@@ -43,7 +52,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./VestaClient/React-vite
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
@@ -60,11 +69,12 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./VestaAppServer/Laravel
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta-backend.outputs.tags }}
           labels: ${{ steps.meta-backend.outputs.labels }}
 
   deploy:
+    if: github.event_name == 'push'
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
