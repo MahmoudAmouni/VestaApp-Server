@@ -75,4 +75,76 @@ class DeviceTest extends TestCase
         $response->assertStatus(404)
             ->assertJsonFragment(['message' => 'Device not found in this room.']);
     }
+
+    public function test_can_update_device_successfully()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $roomName = RoomName::create(['name' => 'Living Room']);
+        $room = Room::create([
+            'home_id' => $home->id,
+            'room_name_id' => $roomName->id,
+        ]);
+
+        $deviceName = DeviceName::create(['name' => 'Light']);
+        $device = Device::create([
+            'home_id' => $home->id,
+            'room_id' => $room->id,
+            'device_name_id' => $deviceName->id,
+            'is_on' => false,
+        ]);
+
+        $payload = [
+            'device_name' => 'Smart Light',
+            'is_on' => true,
+        ];
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/device/{$home->id}/{$room->id}/{$device->id}", $payload);
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'device' => [
+                        'id',
+                        'is_on',
+                    ]
+                ]
+            ]);
+
+        $this->assertDatabaseHas('devices', [
+            'id' => $device->id,
+            'is_on' => true,
+        ]);
+    }
+
+    public function test_fails_to_update_non_existent_device()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $roomName = RoomName::create(['name' => 'Living Room']);
+        $room = Room::create([
+            'home_id' => $home->id,
+            'room_name_id' => $roomName->id,
+        ]);
+
+        $payload = [
+            'device_name' => 'Light',
+            'is_on' => true,
+        ];
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/device/{$home->id}/{$room->id}/99999", $payload);
+
+        $response->assertStatus(404)
+            ->assertJsonFragment(['message' => 'Device not found in this room.']);
+    }
 }
