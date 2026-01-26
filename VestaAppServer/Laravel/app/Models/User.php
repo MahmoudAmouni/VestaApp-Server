@@ -29,6 +29,7 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'avatar_url',
         'phone',
+        'role_id',
     ];
 
     public function diet(): BelongsTo
@@ -80,7 +81,6 @@ class User extends Authenticatable implements JWTSubject
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }

@@ -16,9 +16,9 @@ class SavedRecipeService
             throw ApiException::notFound('Home not found.');
         }
 
-        if (auth()->check() && $home->owner_id !== auth()->id()) {
-            throw ApiException::unauthorized('You are not allowed to modify this home.');
-        }
+        // if (auth()->check() && $home->owner_id !== auth()->id()) {
+        //     throw ApiException::unauthorized('You are not allowed to modify this home.');
+        // }
 
         $existing = SavedRecipe::query()
             ->where('home_id', $homeId)
@@ -52,9 +52,9 @@ class SavedRecipeService
             throw ApiException::notFound('Home not found.');
         }
 
-        if (auth()->check() && $home->owner_id !== auth()->id()) {
-            throw ApiException::unauthorized('You are not allowed to view this home.');
-        }
+        // if (auth()->check() && $home->owner_id !== auth()->id()) {
+        //     throw ApiException::unauthorized('You are not allowed to view this home.');
+        // }
 
         $savedRecipes = SavedRecipe::query()
             ->where('home_id', $homeId)
@@ -72,9 +72,9 @@ class SavedRecipeService
             throw ApiException::notFound('Home not found.');
         }
 
-        if (auth()->check() && $home->owner_id !== auth()->id()) {
-            throw ApiException::unauthorized('You are not allowed to modify this home.');
-        }
+        // if (auth()->check() && $home->owner_id !== auth()->id()) {
+        //     throw ApiException::unauthorized('You are not allowed to modify this home.');
+        // }
 
         $recipeName = trim($recipeName);
 
