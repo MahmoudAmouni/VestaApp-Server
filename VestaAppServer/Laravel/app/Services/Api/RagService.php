@@ -10,7 +10,7 @@ class RagService
 
     public function __construct()
     {
-        $this->baseUrl = 'http://192.168.0.107:8001';
+        $this->baseUrl = 'http://127.0.0.1:8002';
     }
 
     public function search(array $data)

@@ -23,5 +23,3 @@ class SearchRequestSerializer(serializers.Serializer):
         allow_empty=True,
     )
 
-class AnswerRequestSerializer(SearchRequestSerializer):
-    question = serializers.CharField(min_length=2, max_length=2000)

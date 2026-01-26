@@ -4,7 +4,6 @@ import json
 from typing import Any, Optional
 
 from rag.services.chroma_service import ChromaService
-from rag.services.llm_service import LLMService
 from rag.services.text_builders import normalize_space
 
 
@@ -136,71 +135,4 @@ class RagService:
 
         return {"query": query, "count": len(hits), "results": hits}
 
-    def answer(
-        self,
-        question: str,
-        query: str,
-        n_results: int = 10,
-        cuisines: Optional[list[str]] = None,
-        must_contain: Optional[list[str]] = None,
-        must_not_contain: Optional[list[str]] = None,
-    ) -> dict[str, Any]:
-        retrieval = self.search(
-            query=query,
-            n_results=n_results,
-            cuisines=cuisines,
-            must_contain=must_contain,
-            must_not_contain=must_not_contain,
-        )
-
-        context_lines: list[str] = []
-        for i, r in enumerate(retrieval["results"], start=1):
-            steps = r.get("directions") or []
-            steps_preview = " | ".join([normalize_space(x) for x in steps[:3]]) if steps else ""
-
-            ner = r.get("ner") or []
-            ner_preview = ", ".join([normalize_space(x) for x in ner[:12]]) if ner else ""
-
-            cuisines_list = r.get("cuisines") or []
-            cuisines_preview = ", ".join(cuisines_list) if cuisines_list else (r.get("cuisine_primary") or "unknown")
-
-            link = r.get("link") or ""
-            source = r.get("source") or ""
-
-            context_lines.append(
-                f"[{i}] name={r.get('recipe_name')} | cuisine={cuisines_preview}"
-                + (f" | ner={ner_preview}" if ner_preview else "")
-                + (f" | steps_preview={steps_preview}" if steps_preview else "")
-                + (f" | source={source}" if source else "")
-                + (f" | link={link}" if link else "")
-            )
-
-        system = (
-            "You are a cooking assistant. "
-            "Use ONLY the provided recipes. "
-            "If the provided recipes do not contain enough information, say: "
-            "'Not found in the provided dataset.' "
-            "Do not invent recipe details."
-        )
-        user = (
-            f"Question: {question}\n\n"
-            f"Retrieved recipes:\n" + "\n".join(context_lines) + "\n\n"
-            "Return:\n"
-            "1) Best matching recipe name (or top 2)\n"
-            "2) Why it matches (2-4 bullets)\n"
-            "3) Steps (short, based on provided steps only)\n"
-            "4) Optional substitutions (only if reasonable from ingredients/ner)\n"
-            "5) Include the recipe link if available\n"
-        )
-
-        llm = LLMService()
-        if not llm.is_configured():
-            return {
-                "answer": None,
-                "note": "LLM not configured. Returning retrieval + prepared prompt.",
-                "prompt": {"system": system, "user": user},
-                "retrieval": retrieval,
-            }
-
-        answer_text = llm.chat(system=system, user=user)
-        return {"answer": answer_text, "retrieval": retrieval}
+    
