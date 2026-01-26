@@ -47,4 +47,44 @@ class SavedRecipeTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_can_create_saved_recipe_successfully()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $payload = [
+            'recipe_name' => 'Spaghetti Carbonara',
+            'ingredients' => 'Pasta, Eggs, Bacon',
+            'directions' => 'Cook pasta, mix with eggs and bacon',
+        ];
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/savedrecipe/{$home->id}", $payload);
+
+        $response->assertStatus(201);
+
+        $this->assertDatabaseHas('saved_recipes', [
+            'home_id' => $home->id,
+            'recipe_name' => 'Spaghetti Carbonara',
+        ]);
+    }
+
+    public function test_fails_to_create_saved_recipe_with_missing_recipe_name()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/savedrecipe/{$home->id}", []);
+
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['recipe_name']);
+    }
 }
