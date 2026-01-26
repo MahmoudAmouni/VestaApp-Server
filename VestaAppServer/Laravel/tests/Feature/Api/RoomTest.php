@@ -173,4 +173,44 @@ class RoomTest extends TestCase
         $response->assertStatus(404)
             ->assertJsonFragment(['message' => 'Room not found for this home.']);
     }
+
+    public function test_can_delete_room_successfully()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $roomName = RoomName::create(['name' => 'Living Room']);
+        $room = Room::create([
+            'home_id' => $home->id,
+            'room_name_id' => $roomName->id,
+        ]);
+
+        $response = $this->actingAs($user, 'api')
+            ->getJson("/api/v1/room/{$home->id}/{$room->id}");
+
+        $response->assertStatus(200)
+            ->assertJsonFragment(['deleted' => true]);
+
+        $this->assertSoftDeleted('rooms', [
+            'id' => $room->id,
+        ]);
+    }
+
+    public function test_fails_to_delete_non_existent_room()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $response = $this->actingAs($user, 'api')
+            ->getJson("/api/v1/room/{$home->id}/99999");
+
+        $response->assertStatus(404)
+            ->assertJsonFragment(['message' => 'Room not found for this home.']);
+    }
 }
