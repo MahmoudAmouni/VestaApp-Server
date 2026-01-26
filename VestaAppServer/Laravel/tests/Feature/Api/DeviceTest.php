@@ -147,4 +147,64 @@ class DeviceTest extends TestCase
         $response->assertStatus(404)
             ->assertJsonFragment(['message' => 'Device not found in this room.']);
     }
+
+    public function test_can_create_device_successfully()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $roomName = RoomName::create(['name' => 'Living Room']);
+        $room = Room::create([
+            'home_id' => $home->id,
+            'room_name_id' => $roomName->id,
+        ]);
+
+        $payload = [
+            'device_name' => 'Smart Light',
+            'is_on' => false,
+        ];
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/device/{$home->id}/{$room->id}", $payload);
+
+        $response->assertStatus(201)
+            ->assertJsonStructure([
+                'data' => [
+                    'device' => [
+                        'id',
+                        'home_id',
+                        'room_id',
+                    ]
+                ]
+            ]);
+
+        $this->assertDatabaseHas('devices', [
+            'home_id' => $home->id,
+            'room_id' => $room->id,
+        ]);
+    }
+
+    public function test_fails_to_create_device_with_missing_device_name()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $roomName = RoomName::create(['name' => 'Living Room']);
+        $room = Room::create([
+            'home_id' => $home->id,
+            'room_name_id' => $roomName->id,
+        ]);
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/device/{$home->id}/{$room->id}", []);
+
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['device_name']);
+    }
 }
