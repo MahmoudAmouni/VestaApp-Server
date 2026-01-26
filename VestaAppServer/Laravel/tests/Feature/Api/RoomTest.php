@@ -73,4 +73,49 @@ class RoomTest extends TestCase
             ->assertJsonStructure(['data' => ['rooms']])
             ->assertJson(['data' => ['rooms' => []]]);
     }
+
+    public function test_can_create_room_successfully()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $payload = [
+            'room_name' => 'Bedroom',
+        ];
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/room/{$home->id}", $payload);
+
+        $response->assertStatus(201)
+            ->assertJsonStructure([
+                'data' => [
+                    'room' => [
+                        'id',
+                        'home_id',
+                    ]
+                ]
+            ]);
+
+        $this->assertDatabaseHas('rooms', [
+            'home_id' => $home->id,
+        ]);
+    }
+
+    public function test_fails_to_create_room_with_missing_room_name()
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $home = Home::create([
+            'name' => 'Test Home',
+            'owner_id' => $user->id
+        ]);
+
+        $response = $this->actingAs($user, 'api')
+            ->postJson("/api/v1/room/{$home->id}", []);
+
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['room_name']);
+    }
 }
