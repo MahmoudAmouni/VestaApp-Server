@@ -1,4 +1,4 @@
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 import { Pressable, StyleSheet, Text, ViewStyle, TextStyle, View, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 

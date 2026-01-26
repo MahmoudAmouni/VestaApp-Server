@@ -1,4 +1,4 @@
-import type { ApiResponse } from "@/React-Native/features/rooms/rooms.types";
+import type { ApiResponse } from "@/features/rooms/rooms.types";
 
 export type ChatRole = "user" | "assistant" | "system" | string;
 

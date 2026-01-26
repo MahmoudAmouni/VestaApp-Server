@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { Pressable, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { socialButtonStyles as styles } from "./SocialButton.styles";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
+import { useAuth } from "@/contexts/auth/AuthContext";
 import * as Google from "expo-auth-session/providers/google";
 import { makeRedirectUri } from "expo-auth-session";
 import * as WebBrowser from "expo-web-browser";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 WebBrowser.maybeCompleteAuthSession();
 

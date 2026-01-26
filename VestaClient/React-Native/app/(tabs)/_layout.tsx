@@ -1,8 +1,8 @@
 import React from "react";
 import { router, Tabs } from "expo-router";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import BottomNav from "@/React-Native/components/ui/BottomNav";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import BottomNav from "@/components/ui/BottomNav";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function TabsLayout() {
   const { session } = useAuth();

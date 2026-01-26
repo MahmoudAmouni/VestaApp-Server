@@ -4,9 +4,9 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { router } from "expo-router";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 import { termsStyles as styles } from "./TermsScreen.styles";
-import HeaderSecondary from "@/React-Native/components/ui/HeaderSecondary";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
 
 export default function TermsScreen() {
   const { theme } = useTheme();

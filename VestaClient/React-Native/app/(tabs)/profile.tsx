@@ -1,4 +1,4 @@
-import ProfileScreen from '@/React-Native/components/profile/ProfileScreen'
+import ProfileScreen from '@/components/profile/ProfileScreen'
 import React from 'react'
 
 export default function Profile() {

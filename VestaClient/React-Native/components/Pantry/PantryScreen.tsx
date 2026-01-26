@@ -3,29 +3,29 @@ import { SafeAreaView, ScrollView, StatusBar, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 
-import Header from "@/React-Native/components/ui/Header";
-import HeroCard from "@/React-Native/components/ui/HeroCard";
+import Header from "@/components/ui/Header";
+import HeroCard from "@/components/ui/HeroCard";
 
-import AllItemsSection from "@/React-Native/components/Pantry/AllItemsSection/AllItemsSection";
-import ExpiringSoonSection from "@/React-Native/components/Pantry/ExpiringSoonSection/ExpiringSoonSection";
+import AllItemsSection from "@/components/Pantry/AllItemsSection/AllItemsSection";
+import ExpiringSoonSection from "@/components/Pantry/ExpiringSoonSection/ExpiringSoonSection";
 import PantryFilterRow, {
   PantryFilterKey,
-} from "@/React-Native/components/Pantry/PantryFilterRow/PantryFilterRow";
-import PantrySearchBar from "@/React-Native/components/Pantry/PantrySearchBar/PantrySearchBar";
-import { usePantryQuery } from "@/React-Native/hooks/pantry/usePantryQuery";
+} from "@/components/Pantry/PantryFilterRow/PantryFilterRow";
+import PantrySearchBar from "@/components/Pantry/PantrySearchBar/PantrySearchBar";
+import { usePantryQuery } from "@/hooks/pantry/usePantryQuery";
 import { pantryScreenStyles as styles } from "./pantry.styles";
 import PantryItemSheet from "./PantryItemSheet/PantryItemSheet";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
-import { getExpiringSoon } from "@/React-Native/utils/dateHelpers";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
+import { getExpiringSoon } from "@/utils/dateHelpers";
 
-import Skeleton from "@/React-Native/components/ui/Skeleton";
+import Skeleton from "@/components/ui/Skeleton";
 
 
-import ConfirmDeleteModal from "@/React-Native/components/Room/ConfirmDeleteModal";
-import { usePantryMutations } from "@/React-Native/hooks/pantry/usePantryMutations";
-import EmptyPantryState from "@/React-Native/components/Pantry/EmptyPantryState/EmptyPantryState";
-import { usePantryModal } from "@/React-Native/contexts/PantryModalContext";
+import ConfirmDeleteModal from "@/components/Room/ConfirmDeleteModal";
+import { usePantryMutations } from "@/hooks/pantry/usePantryMutations";
+import EmptyPantryState from "@/components/Pantry/EmptyPantryState/EmptyPantryState";
+import { usePantryModal } from "@/contexts/PantryModalContext";
 
 export default function PantryScreen() {
   const { theme } = useTheme();

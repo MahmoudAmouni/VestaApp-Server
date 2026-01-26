@@ -1,5 +1,5 @@
 import { VESTA_IMAGES } from '@/constants/vesta.constants';
-import { VoiceRecordingState } from '@/React-Native/features/vesta/vesta.types';
+import { VoiceRecordingState } from '@/features/vesta/vesta.types';
 import React from 'react';
 import { Image, View } from 'react-native';
 import Animated, { SharedValue, useAnimatedStyle } from 'react-native-reanimated';

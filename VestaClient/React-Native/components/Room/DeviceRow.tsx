@@ -1,12 +1,12 @@
-import { Device } from "@/React-Native/features/rooms/rooms.types";
+import { Device } from "@/features/rooms/rooms.types";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { DeviceToggle } from "./DeviceToggle";
 import { roomDetailsStyles as styles } from "./RoomDetailsScreen.styles";
-import { useRoomsMutations } from "@/React-Native/hooks/rooms/useRoomsMutations";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function DeviceRow(p: {
   device: Device;

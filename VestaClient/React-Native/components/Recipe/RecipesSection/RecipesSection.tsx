@@ -1,9 +1,9 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import { recipesSectionStyles as styles } from "./RecipesSection.styles";
-import { RagRecipeResult } from "@/React-Native/features/recipes/recipes.rag.types";
+import { RagRecipeResult } from "@/features/recipes/recipes.rag.types";
 
 export default function RecipesSection(props: {
   recipes: RagRecipeResult[];

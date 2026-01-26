@@ -3,10 +3,10 @@ import BulkActionButton from "../../Room/BulkActionButton";
 import Card from "../../ui/Card";
 import Pill from "../../ui/Pill";
 import { roomStyles as styles } from "./RoomCard.styles";
-import { Room } from "@/React-Native/features/rooms/rooms.types";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import { useRoomsMutations } from "@/React-Native/hooks/rooms/useRoomsMutations";
+import { Room } from "@/features/rooms/rooms.types";
+import { useTheme } from "@/contexts/theme/ThemeContext";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
 import { useRouter } from "expo-router";
 
 export default function RoomCard(props: { room: Room }) {

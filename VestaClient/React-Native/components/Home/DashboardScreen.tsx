@@ -1,18 +1,18 @@
-import Header from "@/React-Native/components/ui/Header";
-import HeroCard from "@/React-Native/components/ui/HeroCard";
-import RoomCard from "@/React-Native/components/Home/RoomCard/RoomCard";
-import EmptyRoomState from "@/React-Native/components/Rooms/EmptyRoomState";
+import Header from "@/components/ui/Header";
+import HeroCard from "@/components/ui/HeroCard";
+import RoomCard from "@/components/Home/RoomCard/RoomCard";
+import EmptyRoomState from "@/components/Rooms/EmptyRoomState";
 
-import SectionHeader from "@/React-Native/components/Home/SectionHeader/SectionHeader";
+import SectionHeader from "@/components/Home/SectionHeader/SectionHeader";
 
-import { useRoomsQuery } from "@/React-Native/hooks/rooms/useRoomsQuery";
-import { usePantryQuery } from "@/React-Native/hooks/pantry/usePantryQuery";
-import { getExpiringSoon } from "@/React-Native/utils/dateHelpers";
+import { useRoomsQuery } from "@/hooks/rooms/useRoomsQuery";
+import { usePantryQuery } from "@/hooks/pantry/usePantryQuery";
+import { getExpiringSoon } from "@/utils/dateHelpers";
 import { useRouter } from "expo-router";
-import ShoppingListPreview from "@/React-Native/components/Home/ShoppingListPreview/ShoppingListPreview";
-import { useShoppingListQuery } from "@/React-Native/hooks/shoppingList/useShoppingListQuery";
-import { useSavedRecipesQuery } from "@/React-Native/hooks/savedRecipes/useSavedRecipesQuery";
-import RoomSheet from "@/React-Native/components/Rooms/RoomSheet";
+import ShoppingListPreview from "@/components/Home/ShoppingListPreview/ShoppingListPreview";
+import { useShoppingListQuery } from "@/hooks/shoppingList/useShoppingListQuery";
+import { useSavedRecipesQuery } from "@/hooks/savedRecipes/useSavedRecipesQuery";
+import RoomSheet from "@/components/Rooms/RoomSheet";
 import React, { useState } from "react";
 import {
   SafeAreaView,
@@ -22,8 +22,8 @@ import {
 } from "react-native";
 import ExpiringSoonSection from "../Pantry/ExpiringSoonSection/ExpiringSoonSection";
 import { indexStyles as styles } from "./Dashboard.styles";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 import Skeleton from "../ui/Skeleton";
 
 type NavKey = "Home" | "Rooms" | "Pantry" | "Recipes" | "AI";

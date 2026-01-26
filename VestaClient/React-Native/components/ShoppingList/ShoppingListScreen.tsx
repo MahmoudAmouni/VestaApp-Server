@@ -5,21 +5,21 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import ItemsSection from "@/React-Native/components/ShoppingList/ItemsSection";
-import EmptyShoppingListState from "@/React-Native/components/ShoppingList/EmptyShoppingListState";
-import HeaderSecondary from "@/React-Native/components/ui/HeaderSecondary";
+import ItemsSection from "@/components/ShoppingList/ItemsSection";
+import EmptyShoppingListState from "@/components/ShoppingList/EmptyShoppingListState";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
 
-import HeroCard from "@/React-Native/components/ui/HeroCard";
-import Skeleton from "@/React-Native/components/ui/Skeleton";
-import Button from "@/React-Native/components/ui/Button";
-import { ShoppingListItem } from "@/React-Native/features/shoppingList/shoppingList.types";
-import { useShoppingListQuery } from "@/React-Native/hooks/shoppingList/useShoppingListQuery";
-import { useShoppingListMutations } from "@/React-Native/hooks/shoppingList/useShoppingListMutations";
+import HeroCard from "@/components/ui/HeroCard";
+import Skeleton from "@/components/ui/Skeleton";
+import Button from "@/components/ui/Button";
+import { ShoppingListItem } from "@/features/shoppingList/shoppingList.types";
+import { useShoppingListQuery } from "@/hooks/shoppingList/useShoppingListQuery";
+import { useShoppingListMutations } from "@/hooks/shoppingList/useShoppingListMutations";
 import { shoppingStyles as styles } from "./ShoppingListScreen.styles";
 import ShoppingItemSheet from "./shoppingListSheet";
-import ConfirmDeleteModal from "@/React-Native/components/Room/ConfirmDeleteModal";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import ConfirmDeleteModal from "@/components/Room/ConfirmDeleteModal";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function ShoppingListScreen() {
   const { theme } = useTheme();

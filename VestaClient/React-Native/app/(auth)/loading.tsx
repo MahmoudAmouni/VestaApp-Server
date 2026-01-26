@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, Easing, Text, View } from "react-native";
 
-import Card from "@/React-Native/components/ui/Card";
+import Card from "@/components/ui/Card";
 
 import { loadingStyles as styles } from "./Loading.styles";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 
 export default function LoadingScreen() {

@@ -4,19 +4,19 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import HeroCard from "@/React-Native/components/ui/HeroCard";
+import HeroCard from "@/components/ui/HeroCard";
 
-import HeaderSecondary from "@/React-Native/components/ui/HeaderSecondary";
-import SavedRecipesSearchBar from "@/React-Native/components/savedRecipes/SavedRecipesSearchBar";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
+import SavedRecipesSearchBar from "@/components/savedRecipes/SavedRecipesSearchBar";
 import SavedRecipesSection, {
   SavedRecipe,
-} from "@/React-Native/components/savedRecipes/SavedRecipesSection";
-import EmptySavedRecipesState from "@/React-Native/components/savedRecipes/EmptySavedRecipesState";
+} from "@/components/savedRecipes/SavedRecipesSection";
+import EmptySavedRecipesState from "@/components/savedRecipes/EmptySavedRecipesState";
 import { savedRecipesStyles as styles } from "./SavedRecipes.styles";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import { useSavedRecipesQuery } from "@/React-Native/hooks/savedRecipes/useSavedRecipesQuery";
-import { useSavedRecipesMutations } from "@/React-Native/hooks/savedRecipes/useSavedRecipesMutations";
+import { useTheme } from "@/contexts/theme/ThemeContext";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useSavedRecipesQuery } from "@/hooks/savedRecipes/useSavedRecipesQuery";
+import { useSavedRecipesMutations } from "@/hooks/savedRecipes/useSavedRecipesMutations";
 import { router } from "expo-router";
 
 export default function SavedRecipesScreen() {

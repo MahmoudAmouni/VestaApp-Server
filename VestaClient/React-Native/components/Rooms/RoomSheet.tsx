@@ -11,11 +11,11 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useRoomsMutations } from "@/React-Native/hooks/rooms/useRoomsMutations";
-import { Room } from "@/React-Native/features/rooms/rooms.types";
+import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
+import { Room } from "@/features/rooms/rooms.types";
 import { makeRoomSheetStyles } from "./RoomSheet.styles";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 import Button from "../ui/Button";
 
 type Props = {

@@ -4,7 +4,7 @@ import { Theme } from "@/type";
 
 import { savedRecipesSectionStyles as styles } from "./SavedRecipesSection.styles";
 import RecipeCard from "../Recipe/RecipeCard/RecipeCard";
-import { SavedRecipe } from "@/React-Native/features/savedRecipes/savedRecipes.types";
+import { SavedRecipe } from "@/features/savedRecipes/savedRecipes.types";
 
 export type { SavedRecipe };
 

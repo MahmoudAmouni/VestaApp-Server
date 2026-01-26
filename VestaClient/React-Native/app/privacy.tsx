@@ -1,4 +1,4 @@
-import PrivacyScreen from "@/React-Native/components/profile/PrivacyScreen";
+import PrivacyScreen from "@/components/profile/PrivacyScreen";
 
 export default function Page() {
   return <PrivacyScreen />;

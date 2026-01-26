@@ -1,4 +1,4 @@
-import { pantryKey } from "@/React-Native/hooks/pantry/usePantryQuery";
+import { pantryKey } from "@/hooks/pantry/usePantryQuery";
 import { queryClient } from "../../lib/reactQuery";
 import type { PantryItem } from "./pantry.types";
 

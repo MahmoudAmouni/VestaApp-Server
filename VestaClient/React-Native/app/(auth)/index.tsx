@@ -3,13 +3,13 @@ import { ScrollView, Text, View } from "react-native";
 import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import Card from "@/React-Native/components/ui/Card";
-import Button from "@/React-Native/components/ui/Button";
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
 import { welcomeStyles as styles } from "./Welcome.styles";
-import BrandRow from "@/React-Native/components/Welcome/BrandRow";
-import FeatureRow from "@/React-Native/components/Welcome/FeatureRow";
-import { GoogleButton } from "@/React-Native/components/Welcome/GoogleButton";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
+import BrandRow from "@/components/Welcome/BrandRow";
+import FeatureRow from "@/components/Welcome/FeatureRow";
+import { GoogleButton } from "@/components/Welcome/GoogleButton";
+import { useTheme } from "@/contexts/theme/ThemeContext";
 
 export default function WelcomeScreen() {
   const { theme } = useTheme();

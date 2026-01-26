@@ -7,15 +7,15 @@ import {
 
 import { router } from "expo-router";
 
-import BottomNav from "@/React-Native/components/ui/BottomNav";
+import BottomNav from "@/components/ui/BottomNav";
 import { recipeDetailStyles as styles } from "./RecipeDetailScreen.styles";
-import HeaderSecondary from "@/React-Native/components/ui/HeaderSecondary";
-import QuickStatsCard, { QuickStat } from "@/React-Native/components/RecipeDetail/QuickStatsCard/QuickStatsCard";
-import DescriptionSection from "@/React-Native/components/RecipeDetail/DescriptionSection/DescriptionSection";
-import IngredientsSection   from "@/React-Native/components/RecipeDetail/IngredientsSection/IngredientsSection";
-import StepsSection from "@/React-Native/components/RecipeDetail/StepsSection/StepsSection";
-import { useTheme } from "@/React-Native/contexts/theme/ThemeContext";
-import { RagRecipeResult } from "@/React-Native/features/recipes/recipes.rag.types";
+import HeaderSecondary from "@/components/ui/HeaderSecondary";
+import QuickStatsCard, { QuickStat } from "@/components/RecipeDetail/QuickStatsCard/QuickStatsCard";
+import DescriptionSection from "@/components/RecipeDetail/DescriptionSection/DescriptionSection";
+import IngredientsSection   from "@/components/RecipeDetail/IngredientsSection/IngredientsSection";
+import StepsSection from "@/components/RecipeDetail/StepsSection/StepsSection";
+import { useTheme } from "@/contexts/theme/ThemeContext";
+import { RagRecipeResult } from "@/features/recipes/recipes.rag.types";
 
 
 export default function RecipeDetailScreen({recipe}:{recipe:RagRecipeResult}) {

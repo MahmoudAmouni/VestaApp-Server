@@ -8,9 +8,9 @@ import { roomCardStyles as styles } from "./RoomCard.styles";
 import Card from "../ui/Card";
 import Pill from "../ui/Pill";
 import Button from "../ui/Button";
-import BulkActionButton from "@/React-Native/components/Room/BulkActionButton";
+import BulkActionButton from "@/components/Room/BulkActionButton";
 import DeviceRow from "./DeviceRow";
-import { Room } from "@/React-Native/features/rooms/rooms.types";
+import { Room } from "@/features/rooms/rooms.types";
 
 
 

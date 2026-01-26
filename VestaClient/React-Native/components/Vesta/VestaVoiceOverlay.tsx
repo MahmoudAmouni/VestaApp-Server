@@ -1,4 +1,4 @@
-import { useVesta } from '@/React-Native/features/vesta/useVesta';
+import { useVesta } from '@/features/vesta/useVesta';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import VestaBackdrop from './VestaBackdrop';

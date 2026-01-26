@@ -1,10 +1,10 @@
 import { Pressable, Text, View } from "react-native";
 import { Theme } from "@/type";
 
-import Pill from "@/React-Native/components/ui/Pill";
+import Pill from "@/components/ui/Pill";
 
 import { shoppingItemRowStyles as styles } from "./ShoppingItemRow.styles";
-import { ShoppingListItem } from "@/React-Native/features/shoppingList/shoppingList.types";
+import { ShoppingListItem } from "@/features/shoppingList/shoppingList.types";
 
 export default function ShoppingItemRow(props: {
   theme: Theme;

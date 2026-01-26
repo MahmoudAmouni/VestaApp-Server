@@ -3,11 +3,11 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
 
-import { Device } from "@/React-Native/features/rooms/rooms.types";
+import { Device } from "@/features/rooms/rooms.types";
 import { deviceRowStyles as styles } from "./DeviceRow.styles";
 import { DeviceToggle } from "../Room/DeviceToggle";
-import { useRoomsMutations } from "@/React-Native/hooks/rooms/useRoomsMutations";
-import { useAuth } from "@/React-Native/contexts/auth/AuthContext";
+import { useRoomsMutations } from "@/hooks/rooms/useRoomsMutations";
+import { useAuth } from "@/contexts/auth/AuthContext";
 
 export default function DeviceRow(props: {
   theme: Theme;

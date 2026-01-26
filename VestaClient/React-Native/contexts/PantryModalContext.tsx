@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
-import type { PantryItem } from "@/React-Native/features/pantry/pantry.types";
+import type { PantryItem } from "@/features/pantry/pantry.types";
 
 type PantryModalContextValue = {
   showModal: boolean;
