@@ -106,9 +106,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Testing & CI/CD
 
-| Frontend Tests | Backend Tests | CI/CD |
-| --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Frontend](./readme/tests/frontend-tests.png) | ![Backend](./readme/tests/backend-tests.png) | ![CICD](./readme/tests/deployment.png) |
+| Frontend Tests | Backend Tests |
+| :---: | :---: |
+| <img src="./readme/tests/frontend-tests.png" width="400" /> | <img src="./readme/tests/backend-tests.png" width="400" /> |
+| **Frontend CI** | **Backend CI** |
+| <img src="./readme/ci/frontend.png" width="400" /> | <img src="./readme/ci/backend.png" width="400" /> |
 
 #### How to Run Tests
 
@@ -125,7 +127,7 @@ php artisan test
 ```
 
 
-<br><br>
+<br>
 
 ### Dataset 
 
@@ -144,9 +146,9 @@ php artisan test
 
 ### API & Postman
 
-| AI Chat | Rooms | Saved Recipes |
+| Register | Pantry | Room |
 | :---: | :---: | :---: |
-| <img src="./readme/postman/aichat.png" width="280" /> | <img src="./readme/postman/rooms.png" width="280" /> | <img src="./readme/postman/savedRecipes.png" width="280" /> |
+| <img src="./readme/postman/register.png" width="280" /> | <img src="./readme/postman/pantry.png" width="280" /> | <img src="./readme/postman/rooms.png" width="280" /> |
 
 <br><br>
 
