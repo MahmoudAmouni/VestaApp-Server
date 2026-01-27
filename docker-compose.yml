@@ -14,8 +14,9 @@ services:
     restart: always
     environment:
       APP_ENV: production
-      APP_DEBUG: "true"
-      APP_KEY: base64:QVX5ypB6m1OC9KxrOZ2veHlY4cxQQYYMppYJ7lpCwLw=
+      APP_DEBUG: "false"
+      APP_KEY: ${APP_KEY}
+      JWT_SECRET: ${JWT_SECRET}
       DB_CONNECTION: mysql
       DB_HOST: mysql
       DB_PORT: 3306

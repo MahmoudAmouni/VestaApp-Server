@@ -87,40 +87,22 @@ jobs:
           host: ${{ secrets.HOST_NAME }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: REGISTRY,IMAGE_NAME
+          envs: REGISTRY,IMAGE_NAME,APP_KEY,JWT_SECRET
           script: |
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             
-            docker pull ghcr.io/${{ env.IMAGE_NAME }}:latest
+            cd ~/VestaApp
+            git pull origin main
             
-            docker stop vesta-client || true
-            docker rm vesta-client || true
+            # Create a temporary .env file for docker-compose to pick up the secrets
+            echo "APP_KEY=$APP_KEY" > .env
+            echo "JWT_SECRET=$JWT_SECRET" >> .env
             
-            docker run -d \
-              --name vesta-client \
-              --restart always \
-              -p 80:80 \
-              ghcr.io/${{ env.IMAGE_NAME }}:latest
-
-            docker pull ghcr.io/mahmoudamouni/vesta-server:latest
+            docker-compose down
+            docker-compose up -d --build
             
-            docker stop vesta-server || true
-            docker rm vesta-server || true
-            
-            mkdir -p ~/server-storage
-            mkdir -p ~/server-db
-            
-            docker run -d \
-              --name vesta-server \
-              --restart always \
-              -p 8000:80 \
-              -v ~/server-storage:/var/www/html/storage \
-              -v ~/server-db:/var/www/html/database \
-              -e APP_ENV=production \
-              -e APP_DEBUG=false \
-              -e APP_KEY=${{ secrets.APP_KEY }} \
-              -e DB_CONNECTION=sqlite \
-              ghcr.io/mahmoudamouni/vesta-server:latest
+            # Clean up the temporary .env file
+            rm .env
             
             docker exec vesta-server php artisan migrate --force
             
