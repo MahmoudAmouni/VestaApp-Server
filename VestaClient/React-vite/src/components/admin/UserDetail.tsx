@@ -52,7 +52,13 @@ export function UserDetail() {
     if (!id) return;
 
     setLoading(true);
-    fetch(`http://localhost:8080/users/${id}`)
+    const adminId = localStorage.getItem('vesta_admin_id');
+
+    fetch(`http://localhost:8080/users/${id}`, {
+      headers: {
+        'X-User-ID': adminId || ''
+      }
+    })
       .then((res) => {
         if (!res.ok) {
           throw new Error('User not found');

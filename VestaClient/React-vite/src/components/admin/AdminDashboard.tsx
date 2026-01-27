@@ -17,7 +17,13 @@ export function AdminDashboard() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('http://localhost:8080/users')
+    const adminId = localStorage.getItem('vesta_admin_id');
+    
+    fetch('http://localhost:8080/users', {
+      headers: {
+        'X-User-ID': adminId || ''
+      }
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch users');
