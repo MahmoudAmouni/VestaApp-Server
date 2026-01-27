@@ -150,6 +150,8 @@ php artisan test
 | :---: | :---: | :---: |
 | <img src="./readme/postman/register.png" width="280" /> | <img src="./readme/postman/pantry.png" width="280" /> | <img src="./readme/postman/rooms.png" width="280" /> |
 
-<br><br>
+| Docker Compose | Automated Deployment Workflow |
+| :---: | :---: |
+| <img src="./readme/docker-compose/docker.png" width="400" /> | <img src="./readme/docker-compose/deployment.png" width="400" /> |
 
 
