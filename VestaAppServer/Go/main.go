@@ -3,6 +3,7 @@ package main
 import (
 	"VestaAppServer/config"
 	"VestaAppServer/routes"
+	"VestaAppServer/seeder"
 	"fmt"
 	"time"
 
@@ -12,6 +13,7 @@ import (
 
 func main() {
 	config.ConnectDB()
+	seeder.SeedAdmin()
 
 	r := gin.Default()
 
