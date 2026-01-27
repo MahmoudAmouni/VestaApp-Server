@@ -6,8 +6,8 @@ import { Features } from './components/sections/Features';
 import { Download } from './components/sections/Download';
 import { Screenshots } from './components/sections/Screenshots';
 import { AiAssistant } from './components/sections/AiAssistant';
-// import { AdminDashboard } from './components/admin/AdminDashboard';
-// import { UserDetail } from './components/admin/UserDetail';
+import { AdminDashboard } from './components/admin/AdminDashboard';
+import { UserDetail } from './components/admin/UserDetail';
 import styles from './App.module.css';
 
 import { ThemeProvider } from './context/ThemeContext';
@@ -31,8 +31,8 @@ function App() {
     <ThemeProvider>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        {/* <Route path="/admin" element={<AdminDashboard />} /> */}
-        {/* <Route path="/admin/:id" element={<UserDetail />} /> */}
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/:id" element={<UserDetail />} />
       </Routes>
     </ThemeProvider>
   );
