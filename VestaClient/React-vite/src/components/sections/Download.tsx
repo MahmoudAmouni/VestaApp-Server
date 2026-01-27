@@ -1,7 +1,10 @@
 import { Section } from '../ui/Section';
 import styles from './Download.module.css';
+import { useTheme } from '../../context/ThemeContext';
 
 export function Download() {
+  const { isDarkMode } = useTheme();
+
   return (
     <Section id="download" className={styles.downloadSection}>
       <div className={styles.downloadContent}>
@@ -25,7 +28,7 @@ export function Download() {
         
         <div className={styles.downloadImage}>
            <img 
-              src="/assets/welcome.png" 
+              src={isDarkMode ? "/assets/welcome.png" : "/assets/welcomelight.png"}
               alt="VestaApp Mobile Interface" 
               onError={(e) => {
                   (e.target as HTMLImageElement).src = 'https://placehold.co/300x600/15151B/E7523C?text=Mobile+App';
