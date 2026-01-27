@@ -6,6 +6,7 @@ use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class BaseApiController extends Controller
@@ -20,7 +21,8 @@ class BaseApiController extends Controller
         } catch (ApiException $e) {
             return $this->fail($e->getMessage(), $e->status, $e->errors);
         } catch (Throwable $e) {
-            return $this->fail($e->getMessage() . 'Something went wrong.', 500);
+            Log::error('API Error: ' . $e->getMessage(), ['exception' => $e]);
+            return $this->fail($e->getMessage() . ' Something went wrong.', 500);
         }
     }
 }
