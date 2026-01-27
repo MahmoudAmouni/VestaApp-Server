@@ -85,6 +85,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 | :---: | :---: | :---: | :---: |
 | <img src="./readme/demo/screenshots/profile.png" width="200" /> | <img src="./readme/demo/screenshots/about.png" width="200" /> | <img src="./readme/demo/screenshots/privacy.png" width="200" /> | <img src="./readme/demo/screenshots/terms.png" width="200" /> |
 
+### Landing Page
+
+| Dark Mode | Light Mode |
+| :---: | :---: |
+| <img src="./readme/demo/gif/landingPage.gif" width="100%" /> | <img src="./readme/demo/gif/landingPageLight.gif" width="100%" /> |
+
 ### IoT Control Demo
 <img src="./readme/IoT/iot.gif" style="width: 100%;" />
 
