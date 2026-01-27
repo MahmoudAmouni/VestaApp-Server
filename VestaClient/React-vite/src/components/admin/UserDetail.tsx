@@ -99,7 +99,6 @@ export function UserDetail() {
     );
   }
 
-  // Aggregate data from all homes
   const allDevices = user.owned_homes?.flatMap(h => h.devices) || [];
   const allRecipes = user.owned_homes?.flatMap(h => h.saved_recipes) || [];
 

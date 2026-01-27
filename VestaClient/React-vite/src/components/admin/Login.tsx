@@ -16,9 +16,11 @@ export function Login() {
     e.preventDefault();
     setError('');
 
-    // Simulated credential check
-    if (email === 'admin@vesta.app' && password === '12345678') {
-      login('10'); // Store the known Admin ID
+    const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
+    const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
+
+    if (email === adminEmail && password === adminPassword) {
+      login('10'); 
       navigate('/admin');
     } else {
       setError('Invalid credentials');
@@ -40,7 +42,7 @@ export function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="admin@vesta.app"
+              placeholder="Enter your email"
             />
           </div>
           <div className={styles.inputGroup}>
