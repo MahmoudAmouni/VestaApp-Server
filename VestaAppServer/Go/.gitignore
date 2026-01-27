@@ -1,2 +1,14 @@
-models
-main.go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+*.test
+
+*.out
+
+
+go.work
+
+.env
