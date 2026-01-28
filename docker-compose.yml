@@ -1,10 +1,5 @@
 services:
-  vesta-client:
-    image: ghcr.io/mahmoudamouni/vesta-client:latest
-    container_name: vesta-client
-    ports:
-      - "80:80"
-    restart: always
+
 
   vesta-server:
     image: ghcr.io/mahmoudamouni/vesta-server:latest
