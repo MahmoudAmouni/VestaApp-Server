@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Package, ChefHat, Zap, ArrowLeft } from 'lucide-react';
 import { Button } from '../ui/Button';
+import { AdminNavbar } from './AdminNavbar';
 import styles from './UserDetail.module.css';
 
 interface PantryItem {
@@ -10,6 +11,7 @@ interface PantryItem {
   quantity: number;
   unit?: { abbreviation: string };
   expiry_date?: string;
+  deleted_at?: string;
 }
 
 interface SavedRecipe {
@@ -99,30 +101,33 @@ export function UserDetail() {
     );
   }
 
+  const activePantryItems = user.pantry_items?.filter(item => !item.deleted_at) || [];
   const allDevices = user.owned_homes?.flatMap(h => h.devices) || [];
   const allRecipes = user.owned_homes?.flatMap(h => h.saved_recipes) || [];
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <Button variant="secondary" onClick={() => navigate('/admin')}>
-          <ArrowLeft size={18} /> Back to Admin
-        </Button>
-        <div className={styles.headerInfo}>
-          <h1>{user.name}</h1>
-          <p>{user.email}</p>
-          <p className={styles.memberSince}>
-            Member since: {new Date(user.created_at).toLocaleDateString()}
-          </p>
+      <AdminNavbar />
+      <div className={styles.contentWrapper}>
+        <div className={styles.header}>
+          <Button variant="secondary" onClick={() => navigate('/admin')}>
+            <ArrowLeft size={18} /> Back to Admin
+          </Button>
+          <div className={styles.headerInfo}>
+            <h1>{user.name}</h1>
+            <p>{user.email}</p>
+            <p className={styles.memberSince}>
+              Member since: {new Date(user.created_at).toLocaleDateString()}
+            </p>
+          </div>
         </div>
-      </div>
 
       <div className={styles.content}>
         <div className={styles.section}>
-          <h2><Package size={24} /> Pantry Items ({user.pantry_items?.length || 0})</h2>
-          {user.pantry_items?.length > 0 ? (
+          <h2><Package size={24} /> Pantry Items ({activePantryItems.length})</h2>
+          {activePantryItems.length > 0 ? (
             <div className={styles.itemsGrid}>
-              {user.pantry_items.map((item) => (
+              {activePantryItems.map((item) => (
                 <div key={item.id} className={styles.itemCard}>
                   <h3>{item.item_name?.name || 'Unknown Item'}</h3>
                   <p>{item.quantity} {item.unit?.abbreviation || 'units'}</p>
@@ -167,6 +172,7 @@ export function UserDetail() {
             <p className={styles.emptyState}>No devices</p>
           )}
         </div>
+      </div>
       </div>
     </div>
   );
