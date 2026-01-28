@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye } from 'lucide-react';
+import { AdminNavbar } from './AdminNavbar';
 import styles from './AdminDashboard.module.css';
 
 interface User {
@@ -47,10 +48,12 @@ export function AdminDashboard() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h1>Admin Dashboard</h1>
-        <p>Manage your VestaApp data</p>
-      </div>
+      <AdminNavbar />
+      <div className={styles.contentWrapper}>
+        <div className={styles.header}>
+          <h1>Dashboard</h1>
+          <p>Manage your VestaApp data</p>
+        </div>
 
       <div className={styles.content}>
         <div className={styles.section}>
@@ -97,6 +100,7 @@ export function AdminDashboard() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
