@@ -80,8 +80,8 @@ jobs:
             echo "APP_KEY=$APP_KEY" > .env
             echo "JWT_SECRET=$JWT_SECRET" >> .env
             
-            docker-compose down
-            docker-compose up -d --build
+            docker compose down
+            docker compose up -d --build
             
             # Clean up the temporary .env file
             rm .env
