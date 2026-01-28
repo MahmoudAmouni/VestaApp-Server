@@ -10,9 +10,6 @@ import (
 func SetupRoutes(r *gin.Engine) {
 	userController := controllers.UserController{}
 
-	// Public Routes (none for now)
-
-	// Admin Routes
 	admin := r.Group("/")
 	admin.Use(middleware.AdminOnly())
 	{
