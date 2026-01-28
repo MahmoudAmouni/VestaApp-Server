@@ -18,7 +18,7 @@ export function Navbar() {
     <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
         <a href="#" className={styles.logo}>
-          <img src="/assets/logo.png" alt="Vesta Logo" height="108" />
+          <img src="/assets/logo.png" alt="Vesta Logo" height="50" />
           Vesta<span>App</span>
         </a>
 
