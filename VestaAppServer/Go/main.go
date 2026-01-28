@@ -5,13 +5,18 @@ import (
 	"VestaAppServer/routes"
 	"VestaAppServer/seeder"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	if err := godotenv.Load(); err != nil {
+		log.Println("No .env file found")
+	}
 	config.ConnectDB()
 	seeder.SeedAdmin()
 
