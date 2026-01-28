@@ -91,10 +91,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 | :---: | :---: |
 | <img src="./readme/demo/gif/landingPage.gif" width="100%" /> | <img src="./readme/demo/gif/landingPageLight.gif" width="100%" /> |
 
+### Admin Dashboard
+<img src="./readme/demo/gif/adminPage.gif" width="100%" />
+
 ### IoT Control Demo
 <img src="./readme/IoT/iot.gif" style="width: 100%;" />
 
 <br><br>
+
+
 
 <!-- Development & Testing -->
 <img src="./readme/titles/title6.svg"/>
@@ -103,6 +108,48 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Server**: `VestaAppServer` (Laravel & Django)
 - **Client**: `VestaClient` (React Native/Expo)
+
+### How to Run Project
+
+#### Frontend Setup
+
+**React Native (Mobile App)**
+```bash
+cd VestaClient/React-Native
+npm install
+npx expo start
+```
+
+**React (Admin Dashboard & Landing Page)**
+```bash
+cd VestaClient/React-vite
+npm install
+npm run dev
+```
+
+#### Backend Setup
+
+**Laravel (Main API)**
+```bash
+cd VestaAppServer/Laravel
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan serve
+```
+
+**Go (Admin Service)**
+```bash
+cd VestaAppServer/Go
+go run main.go
+```
+
+**Django (AI Service)**
+```bash
+cd VestaAppServer/Django
+pip install -r requirements.txt
+python manage.py runserver
+```
 
 ### Testing & CI/CD
 
