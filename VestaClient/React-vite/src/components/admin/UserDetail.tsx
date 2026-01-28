@@ -9,7 +9,7 @@ interface PantryItem {
   id: number;
   item_name: { name: string };
   quantity: number;
-  unit?: { abbreviation: string };
+  unit?: { name: string };
   expiry_date?: string;
   deleted_at?: string;
 }
@@ -130,7 +130,7 @@ export function UserDetail() {
               {activePantryItems.map((item) => (
                 <div key={item.id} className={styles.itemCard}>
                   <h3>{item.item_name?.name || 'Unknown Item'}</h3>
-                  <p>{item.quantity} {item.unit?.abbreviation || 'units'}</p>
+                  <p>{item.quantity} {item.unit?.name || 'units'}</p>
                   {item.expiry_date && <p className={styles.expiry}>Expires: {item.expiry_date}</p>}
                 </div>
               ))}
