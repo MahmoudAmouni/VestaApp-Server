@@ -86,6 +86,7 @@ jobs:
         with:
           host: ${{ secrets.HOST_NAME }}
           username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           envs: REGISTRY,IMAGE_NAME,APP_KEY,JWT_SECRET
           script: |
